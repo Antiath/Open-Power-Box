@@ -1,7 +1,7 @@
 # 🔭 Open Power Box XXL: Heavy Duty Power Distribution System for Astrophotography Equipment
 **Open Power Box XXL** is a complete, open-source hardware and software project designed to build a robust power box specifically for an **observatory-class amateur astronomy setup**. While many similar projects exist, they often target compact, portable systems; this project is built for greater capabilities.
 
-The entire project is **completely open source** and released under the **Licence CC BY-SA 4.0**.
+The entire project is **completely open source** and released under the **MIT Licence**.
 
 ## ✨ Key Features
 
@@ -42,11 +42,6 @@ The complete project includes everything you need to build and run your own powe
 ---
 
 ## 🚀 Getting Started
-
-### 🔌 Flashing the firmware
-
-Right now the project is configured via Visual Studio Code and PlatformIO. Onece ready, clone this repositery inside Visual Studio code, connect the box via USB, select the right COM Port and flash the firmware. Normally you shouldn't have anything more to do but if for some reason  the flash fails when attempting to upload,  press the BOOT button on the pcb, keep pressing and reflash again. Wait for it to finish. 
-A archive with the firmware configured for the Arduino IDE will be added soon.
 
 To get your Open Power Box XXL communicating with your host PC, you will need to install the appropriate drivers or use a WiFi connection method.
 
@@ -155,23 +150,6 @@ Clients determine the switch type by querying the `CanWrite`, `Min`, `Max` and `
 | 2 | pwm | Yes | 0-100 | 10 |
 | 3 | sensor | No | - | - |
 
-### Full Switch array
-
-Base Version:
-
-| Switch | DC1 | DC2 | DC3 | DC4 | DC5 | DC6 | DC7 | PWM1 | PWM2 | PWM3 | DC Rail | Relay | Input V | Total A | Total A DC | Total A PWM | DC1_V | DC1_A | DC2_V | DC2_A | DC3_V | DC3_A | DC4_V | DC4_A | DC5_V | DC5_A | DC6_V | DC6_A | DC7_V | DC7_A | DC Rail_V | DC Rail_A | PWM1_V | PWM1_A | PWM2_V | PWM2_A | PWM3_V | PWM3_A |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| index | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 |
-
-USB HUB Version:
-
-
-Base Version:
-
-| Switch | DC1 | DC2 | DC3 | DC4 | DC5 | DC6 | DC7 | PWM1 | PWM2 | PWM3 | DC Rail | Relay | USB1 | USB2 | USB3 | USB4 | USB5 | USB6 | USB7 | Input V | Total A | Total A DC | Total A PWM | DC1_V | DC1_A | DC2_V | DC2_A | DC3_V | DC3_A | DC4_V | DC4_A | DC5_V | DC5_A | DC6_V | DC6_A | DC7_V | DC7_A | DC Rail_V | DC Rail_A | PWM1_V | PWM1_A | PWM2_V | PWM2_A | PWM3_V | PWM3_A |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| index | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 |
-
 ---
 
 ## 💬 Serial Communication Protocol
@@ -239,7 +217,7 @@ This project includes extra custom commands for device-specific features:
 
 ---
 
-## 💡 Extra
+## 💡 Future Provisions
 Space is included on the PCB for future expansion, although the code for these features is not yet implemented:
 * **Ethernet Module:** Provisions for an Ethernet module via SPI bus (not implemented in code).
 * **Environmental Sensors:** Provisions for temperature and humidity I2C sensors to optimize dew heater power and save energy (not implemented in code).
@@ -252,4 +230,4 @@ When building this project, we HIGHLY recommend to :
    * make sure you have the required skills and knowledge to build/modify/manipulate electronic devices such as this one. 
    * oversize your cables whenever possible.
    * Make sure your connectors are able to support the current you need. This is easier said than done but at least keep the idea in mind when shopping. 
-3) Even with all precautions taken, there will be a significant voltage drop when drawing multiple amps. If your peripheral is sensitive to voltage drops (like QHY cameras) and raising the voltage of the supply to compensate is not a safe option,  than we recommand to power the the device separatly. We measured a typical internal resistance of 10 mOhms per output (through all the device) wich will cause a typi
+3) Even with all precautions taken, there will be a significant voltage drop when drawing multiple amps. If your peripheral is sensitive to voltage drops (like QHY cameras) and raising the voltage of the supply to compensate is not a safe option,  than we recommand to power the the device separatly. We measured a typical internal resistance of 10 mOhms per output (through all the device) wich will cause a typical 0.1V to 0.15V drop when pushing the powerbox to its limits. **If you still see significantly more voltage drop than this, the culprit is more than likely your cabling or a connector.**

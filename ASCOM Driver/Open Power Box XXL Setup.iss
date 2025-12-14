@@ -22,7 +22,7 @@ Compression=lzma
 SolidCompression=yes
 ; Put there by Platform if Driver Installer Support selected
 WizardImageFile="C:\Program Files (x86)\ASCOM\Developer\Installer Generator\Resources\WizardImage.bmp"
-LicenseFile="C:\Program Files (x86)\ASCOM\Developer\Installer Generator\Resources\CreativeCommons.txt"
+LicenseFile="D:\Documents\Electronics\Open Power Box XXL\ASCOM Driver\LICENCE.txt"
 ; {cf}\ASCOM\Uninstall\Switch folder created by Platform, always
 UninstallFilesDir="{cf}\ASCOM\Uninstall\Switch\Open Power Box XXL"
 
@@ -39,6 +39,9 @@ Name: source; Description: Install the Source files; Flags: unchecked
 
 [Files]
 Source: "D:\Documents\Electronics\Open Power Box XXL\ASCOM Driver\bin\Release\ASCOM.OpenPowerBoxXXL.exe"; DestDir: "{app}"
+Source: "D:\Documents\Electronics\Open Power Box XXL\ASCOM Driver\bin\Release\MetroFramework.Design.dll"; DestDir: "{app}"
+Source: "D:\Documents\Electronics\Open Power Box XXL\ASCOM Driver\bin\Release\MetroFramework.dll"; DestDir: "{app}"
+Source: "D:\Documents\Electronics\Open Power Box XXL\ASCOM Driver\bin\Release\MetroFramework.Fonts.dll"; DestDir: "{app}"
 ; TODO: Add driver assemblies into the ServedClasses folder
 ; Require a read-me HTML to appear after installation, maybe driver's Help doc
 Source: "D:\Documents\Electronics\Open Power Box XXL\ASCOM Driver\README.txt"; DestDir: "{app}"; Flags: isreadme

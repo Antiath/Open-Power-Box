@@ -9,11 +9,9 @@
 
 // TODO: Customise the SetConnected and InitialiseHardware methods as needed for your hardware
 
-using ASCOM;
 //using ASCOM.Astrometry;
 //using ASCOM.Astrometry.AstroUtils;
 //using ASCOM.Astrometry.NOVAS;
-using ASCOM.DeviceInterface;
 using ASCOM.LocalServer;
 using ASCOM.Utilities;
 using System;
@@ -24,7 +22,6 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.AxHost;
 
 namespace ASCOM.OpenPowerBoxXXL.Switch
 {
@@ -642,14 +639,27 @@ namespace ASCOM.OpenPowerBoxXXL.Switch
         }
         internal static void GetIP_USB()
         {
-            string answer;
-            SharedResources.SharedSerial.Transmit($"# I{Environment.NewLine}");
+
+            string answer,a,b;
+            int sep;
+            a = "# I";
+            a = a + Environment.NewLine;
+            SharedResources.SharedSerial.Transmit(a);
+            //SharedResources.SharedSerial.Transmit($"# I{Environment.NewLine}");
             string buf = SharedResources.SharedSerial.ReceiveTerminated(";");
             buf = buf.Substring(buf.IndexOf('#') + 1);
-            buf = buf.Substring(buf.IndexOf(':') + 1);
-            answer = buf.Remove(buf.Length-1);
-            WiFiIP  = answer; 
+            sep = buf.IndexOf(':');
+            b = buf.Substring(1, sep - 1);
+            //buf = buf.Substring(buf.IndexOf(':') + 1);
+            //answer = buf.Remove(buf.Length-1);
+            if (buf[0] == 'i')
+            {
+                b = buf.Substring(sep + 1);
+                b = b.Remove(b.Length - 1);
+                WiFiIP = b;
+            }
             return;
+           
         }
 
         internal static void GetSSID_USB()
@@ -1201,7 +1211,11 @@ namespace ASCOM.OpenPowerBoxXXL.Switch
                 sep = answer.IndexOf(':');
                 a = answer.Substring(1, sep - 1);
 
-                if ((answer[0] == 'G') && (short.Parse(a) == id))
+                if (answer[0] == 'E')
+                {
+                    throw new ASCOM.DriverException("Cannot set swiutches. Device returned " + a, 9);
+                }
+                else if ((answer[0] == 'G') && (short.Parse(a) == id))
                 {
                     b = answer.Substring(sep + 1);
                     state[id] = b.Remove(b.Length - 1);
@@ -1335,13 +1349,18 @@ namespace ASCOM.OpenPowerBoxXXL.Switch
                 sep = answer.IndexOf(':');
                 a = answer.Substring(1, sep - 1);
 
-                if ((answer[0] == 'G') && (short.Parse(a) == id))
+                if (answer[0] == 'E')
+                {
+                    throw new ASCOM.DriverException("Cannot set swiutches. Device returned "+ a , 9);
+                }
+                else if ((answer[0] == 'G') &&(short.Parse(a) == id))
                 {
                     b = answer.Substring(sep + 1);
                     state[id] = b.Remove(b.Length - 1);
                     state[id].Replace('.', ','); // Ensure decimal point is correct for parsing
                     value = double.Parse(state[id], CultureInfo.InvariantCulture);
                 }
+                
 
             }
 
@@ -1370,7 +1389,7 @@ namespace ASCOM.OpenPowerBoxXXL.Switch
             sep = answer.IndexOf(':');
             a = answer.Substring(1, sep - 1);
 
-            if (answer[0] == 'e')
+            if (answer[0] == 'E')
             {
                 b = answer.Substring(sep + 1);
                 b = b.Remove(b.Length - 1);

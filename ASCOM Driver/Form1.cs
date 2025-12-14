@@ -180,13 +180,57 @@ namespace ASCOM.OpenPowerBoxXXL.Switch
                 float v, a;
 
 
-                try
-                {
+                //try
+                //{
                     SwitchHardware.GetIP_USB();
                     this.IPbox1.Text = SwitchHardware.WiFiIP;
                     this.IPbox2.Text = SwitchHardware.WiFiIP;
                     this.Vin.Text = SwitchHardware.state[Index_Sensor0];
                     v = float.Parse(this.Vin.Text, CultureInfo.InvariantCulture);
+                    if (v < 10.0)
+                    {
+                        this.DC1.Enabled = false;
+                        this.DC2.Enabled = false;
+                        this.DC3.Enabled = false;
+                        this.DC4.Enabled = false;
+                        this.DC5.Enabled = false;
+                        this.DC6.Enabled = false;
+                        this.DC7.Enabled = false;
+                        this.PWM1Set.Enabled = false;
+                        this.PWM2Set.Enabled = false;
+                        this.PWM3Set.Enabled = false;
+                        this.Rail.Enabled = false;
+                        this.Relay.Enabled = false;
+                        this.USB1.Enabled = false;
+                        this.USB2.Enabled = false;
+                        this.USB3.Enabled = false;
+                        this.USB4.Enabled = false;
+                        this.USB5.Enabled = false;
+                        this.USB6.Enabled = false;
+                        this.USB7.Enabled = false;
+                    }
+                    else
+                    {
+                        this.DC1.Enabled = true;
+                        this.DC2.Enabled = true;
+                        this.DC3.Enabled = true;
+                        this.DC4.Enabled = true;
+                        this.DC5.Enabled = true;
+                        this.DC6.Enabled = true;
+                        this.DC7.Enabled = true;
+                        this.PWM1Set.Enabled = true;
+                        this.PWM2Set.Enabled = true;
+                        this.PWM3Set.Enabled = true;
+                        this.Rail.Enabled = true;
+                        this.Relay.Enabled = true;
+                        this.USB1.Enabled = true;
+                        this.USB2.Enabled = true;
+                        this.USB3.Enabled = true;
+                        this.USB4.Enabled = true;
+                        this.USB5.Enabled = true;
+                        this.USB6.Enabled = true;
+                        this.USB7.Enabled = true;
+                    }
                     this.TotalA.Text = SwitchHardware.state[Index_Sensor0 + 1];
                     a = float.Parse(this.TotalA.Text, CultureInfo.InvariantCulture);
                     this.TotalDCA.Text = SwitchHardware.state[Index_Sensor0 + 2];
@@ -242,11 +286,11 @@ namespace ASCOM.OpenPowerBoxXXL.Switch
                     this.PWM3V.Text = SwitchHardware.state[Index_SensorPWM0 + 4];
                     this.PWM3A.Text = SwitchHardware.state[Index_SensorPWM0 + 5];
 
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error retrieving DC voltage: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                //}
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show($"Error retrieving DC voltage: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //}
             }
         }
 
@@ -437,6 +481,7 @@ namespace ASCOM.OpenPowerBoxXXL.Switch
 
         private void DC1_CheckedChanged(object sender, EventArgs e)
         {
+
             SwitchHardware.SetSwitchValueUSB(0, Convert.ToDouble(DC1.Checked));
         }
 
@@ -544,6 +589,11 @@ namespace ASCOM.OpenPowerBoxXXL.Switch
                 SwitchHardware.SetPWD_USB(this.PWDBox.Text);
                 SwitchHardware.Restart_USB();
             }
+        }
+
+        private void MinimizeButton_Click(object sender, EventArgs e)
+        {
+           this.WindowState = FormWindowState.Minimized;
         }
     }
 }
