@@ -1,7 +1,7 @@
-# 🔭 Open Power Box XXL: Heavy Duty Power Distribution System for Astrophotography Equipment
-**Open Power Box XXL** is a complete, open-source hardware and software project designed to build a robust power box specifically for an **observatory-class amateur astronomy setup**. While many similar projects exist, they often target compact, portable systems; this project is built for greater capabilities.
+# 🔭 Open Power Box: Heavy Duty Power Distribution System for Astrophotography Equipment
+**Open Power Box** is a complete, open-source hardware and software project designed to build a robust power distribution box specifically for an **observatory-class amateur astronomy setup**. While many similar projects exist, they often target compact, portable systems; this project is built for greater capabilities. The hardware side of the project is designed following the specifications detailled below but the firmware, though preconfigured for this specific hardware, has been written to allow scalability to an arbitrary number of outputs so that one could use it as-is for his custom version of the project. 
 
-The entire project is **completely open source** and released under the **Licence CC BY-SA 4.0**.
+**LICENSING** : The entire project is **completely open source**. The hardware files and documentation fall under the **Licence CC BY-SA 4.0**, while the drivers and the firmware are licensed under **GNU Lesser General Public License version 3 (LGPLv3)** 
 
 ## ✨ Key Features
 
@@ -48,7 +48,7 @@ The complete project includes everything you need to build and run your own powe
 Right now the project is configured via Visual Studio Code and PlatformIO. Onece ready, clone this repositery inside Visual Studio code, connect the box via USB, select the right COM Port and flash the firmware. Normally you shouldn't have anything more to do but if for some reason  the flash fails when attempting to upload,  press the BOOT button on the pcb, keep pressing and reflash again. Wait for it to finish. 
 A archive with the firmware configured for the Arduino IDE will be added soon.
 
-To get your Open Power Box XXL communicating with your host PC, you will need to install the appropriate drivers or use a WiFi connection method.
+To get your Open Power Box communicating with your host PC, you will need to install the appropriate drivers.
 
 ### 🔌 Windows Setup (USB/Serial)
 
@@ -61,7 +61,32 @@ If you are using **Windows** and connecting via **USB/Serial**, you must install
    
 ### 💻 Linux Setup (USB/Serial)
 
-If you are using **Linux** and connecting via **USB/Serial**, use the **Indi driver**. SIn development.
+If you are using **Linux** and connecting via **USB/Serial**, you can use the provided INDI driver. It should be available through the last release of INDI but in case it isn't, you can compile from source.
+
+1. Make sure you have a stable installation of **INDI** and **cmake**.
+2. Download/clone this repository and open a terminal into INDI Driver/Build/
+3. Inside the Build folder, execute the following commands
+```
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Debug ../
+```
+You should now see the config.h and indi_opbdriver.xml files.
+Stay in the Build folder and build the executable
+```
+make
+```
+and install the driver now with
+```
+sudo make install
+```
+4. In Ekos, the driver will be located in the Power category under the Generic Manufacturer and **named Open Power Box**
+5. When loading the driver, you will need to paste the usb id of the device. You can find it in a terminal with
+```
+ls /dev/serial/by-id
+```
+or
+```
+ls -l /dev/serial/by-id
+```
 
 ### 🌐 WiFi Setup
 
@@ -159,16 +184,13 @@ Clients determine the switch type by querying the `CanWrite`, `Min`, `Max` and `
 
 Base Version:
 
-| Switch | DC1 | DC2 | DC3 | DC4 | DC5 | DC6 | DC7 | PWM1 | PWM2 | PWM3 | DC Rail | Relay | Input V | Total A | Total A DC | Total A PWM | DC1_V | DC1_A | DC2_V | DC2_A | DC3_V | DC3_A | DC4_V | DC4_A | DC5_V | DC5_A | DC6_V | DC6_A | DC7_V | DC7_A | DC Rail_V | DC Rail_A | PWM1_V | PWM1_A | PWM2_V | PWM2_A | PWM3_V | PWM3_A |
+| Switch | DC1 | DC2 | DC3 | DC4 | DC5 | DC6 | DC7 | PWM1 | PWM2 | PWM3 | DC Rail | Relay | Input V | Total A | Total A DC | Total A PWM | DC1_V | DC1_A | DC2_V | DC2_A | DC3_V | DC3_A | DC4_V | DC4_A | DC5_V | DC5_A | DC6_V | DC6_A | DC7_V | DC7_A | PWM1_V | PWM1_A | PWM2_V | PWM2_A | PWM3_V | PWM3_A | DC Rail_V | DC Rail_A |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | index | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 |
 
 USB HUB Version:
 
-
-Base Version:
-
-| Switch | DC1 | DC2 | DC3 | DC4 | DC5 | DC6 | DC7 | PWM1 | PWM2 | PWM3 | DC Rail | Relay | USB1 | USB2 | USB3 | USB4 | USB5 | USB6 | USB7 | Input V | Total A | Total A DC | Total A PWM | DC1_V | DC1_A | DC2_V | DC2_A | DC3_V | DC3_A | DC4_V | DC4_A | DC5_V | DC5_A | DC6_V | DC6_A | DC7_V | DC7_A | DC Rail_V | DC Rail_A | PWM1_V | PWM1_A | PWM2_V | PWM2_A | PWM3_V | PWM3_A |
+| Switch | DC1 | DC2 | DC3 | DC4 | DC5 | DC6 | DC7 | PWM1 | PWM2 | PWM3 | DC Rail | Relay | USB1 | USB2 | USB3 | USB4 | USB5 | USB6 | USB7 | Input V | Total A | Total A DC | Total A PWM | DC1_V | DC1_A | DC2_V | DC2_A | DC3_V | DC3_A | DC4_V | DC4_A | DC5_V | DC5_A | DC6_V | DC6_A | DC7_V | DC7_A | PWM1_V | PWM1_A | PWM2_V | PWM2_A | PWM3_V | PWM3_A | DC Rail_V | DC Rail_A |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | index | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 |
 
