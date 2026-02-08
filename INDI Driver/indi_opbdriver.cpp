@@ -1407,19 +1407,19 @@ void OPB::TimerHit()
         return;
     }
 
-    int total = numDC + numPWM + numOn + numRelay + numUSB;
-    int sensorNum= total +4;
-    int numSwitch = (numDC + numPWM + numOn)*2+ total +4;
+    int total = numDC + numPWM + numOn + numRelay + numUSB; // Number of physical switches present in the device.
+    int sensorNum= total +4; // Index of the first individual input sensor ( the 4 general sensors are first, hence +4).
+    int numSwitch = (numDC + numPWM + numOn)*2+ total +4; // Maximum index of "switches" in the ASCOM sense (where everything is a switch). We just need to add the number of sensors to sensorNum. Note that there are no sensors for the usb hub , nor for the relay.
     
-    int numInputV = numDC + numPWM + numOn + numRelay;
-    int numTotalA = numDC + numPWM + numOn + numRelay+1;
-
+    int numInputV = total; // Index of the general input voltage sensor in the state array.
+    int numTotalA = numInputV + 1; // Index of the general total current sensor in the state array. 
     
-    for(int k=0;k<numSwitch;k++)  GetSwitchUSB(k);
+    for(int k=0;k<numSwitch;k++)  GetSwitchUSB(k); // Getting the state of all the "switches"
 
-    float v=std::stof(state[numInputV]);
+    float v=std::stof(state[numInputV]); 
     float a=std::stof(state[numTotalA]);
     
+    // Updating the properties of the first 2 general sensors + calculating instantaneous power.
     PI::PowerSensorsNP[PI::SENSOR_VOLTAGE].setValue(v); 
     PI::PowerSensorsNP[PI::SENSOR_CURRENT].setValue(a); 
     PI::PowerSensorsNP[PI::SENSOR_POWER].setValue(v*a);     
@@ -1431,6 +1431,7 @@ void OPB::TimerHit()
     PI::PowerChannelsSP.apply();
     for(int j=0;j<numPWM;j++)PI::DewChannelDutyCycleNP[j].setValue((double)(std::stoi(state[numDC+j])));
     PI::DewChannelDutyCycleNP.apply();
+    
     
     for(int i=0; i < numDC;i++)
     {
