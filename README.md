@@ -64,12 +64,18 @@ If you are using **Windows** and connecting via **USB/Serial**, you must install
 If you are using **Linux** and connecting via **USB/Serial**, you can use the provided INDI driver. It should be available through the last release of INDI but in case it isn't, you can compile from source.
 
 1. Make sure you have a stable installation of **INDI** and **cmake**.
-2. Download/clone this repository, open a terminal into INDI Driver, make a new build folder and cd into it.
+2. If this is not already done,  make also sure you have the right dependencies to build indi projects:
+```
+sudo apt install build-essential devscripts debhelper fakeroot cdbs software-properties-common cmake
+sudo add-apt-repository ppa:mutlaqja/ppa
+sudo apt install libindi-dev libnova-dev libz-dev libgsl-dev
+```
+3. Download/clone this repository, open a terminal into INDI Driver, make a new build folder and cd into it.
 ```
 mkdir build
 cd build
 ```
-4. Inside the build folder, execute the following commands
+5. Inside the build folder, execute the following commands
 ```
 cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Debug ../
 ```
@@ -82,8 +88,8 @@ and install the driver now with
 ```
 sudo make install
 ```
-4. In Ekos, the driver will be located in the Power category under the Generic Manufacturer and **named Open Power Box**
-5. When loading the driver, you will need to paste the usb id of the device. You can find it in a terminal with
+6. In Ekos, the driver will be located in the Power category under the Generic Manufacturer and **named Open Power Box**
+7. When loading the driver, you will need to paste the usb id of the device. You can find it in a terminal with
 ```
 ls /dev/serial/by-id
 ```
