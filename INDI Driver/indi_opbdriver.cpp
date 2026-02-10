@@ -602,7 +602,7 @@ bool OPB::Connect()
     if(numUSB>0){
     ReverseUSBSP[0].fill("USB_POLARITY_ON", "Normal", ISS_ON);
     ReverseUSBSP[1].fill("USB_POLARITY_OFF", "Inverted", ISS_OFF);
-    ReverseUSBSP.fill(getDeviceName(), "P0LARITIES_USB", " Polarity", "Configuration", IP_RW, ISR_1OFMANY, 60, IPS_IDLE);
+    ReverseUSBSP.fill(getDeviceName(), "P0LARITIES_USB", "USB Polarity", "Configuration", IP_RW, ISR_1OFMANY, 60, IPS_IDLE);
     defineProperty(ReverseUSBSP);
     ReverseUSBSP[0].setState(Reverse[4]? ISS_ON : ISS_OFF);
     ReverseUSBSP[1].setState(Reverse[4]? ISS_OFF : ISS_ON);
