@@ -40,7 +40,7 @@
  * - Web browser interface handled by the device.
  * 
  *  IN DEVELOPMENT
- * - add support for automatic control of dew heaters based on temperature readings from a connected sensor (e.g. ZWO AMB temperature sensor connected to one of the DC outputs, with a custom cable that provides the necessary connections for the sensor to work and allows the driver to read the temperature data through the same USB connection used for controlling the outputs).
+ * - add support for automatic control of dew heaters.
  ******************************************************************************/
 
 #include "indi_opbdriver.h"
