@@ -141,7 +141,7 @@ const short MeasureInterval = 5000; // Interval in milliseconds at wich the sens
 const short sensorDC[DCOutput_Num] =
     {
         0x41,
-        0x44,
+        0x46,
         0x45,
         0x49,
         0x43,
@@ -203,5 +203,6 @@ const short sensorOn = 0x48;
 //============================ END OF CONFIGURATION==========================
 // ============ DO NOT CHANGE ANYTHING BELOW THIS LINE !!! ==================
 //===========================================================================
+
 
 #endif
