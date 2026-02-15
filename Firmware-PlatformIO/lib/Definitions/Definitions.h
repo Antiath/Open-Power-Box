@@ -40,8 +40,8 @@
 #define EEPROM_LTDC_ADD 132 //: TotalDClimit - 4 character string
 #define EEPROM_LTPWM_ADD 152 //: TotalPWMlimit - 4 character string
 #define EEPROM_LT_ADD 172 //: Totallimit - 4 character string
-#define EEPROM_VIS_ADD 192 //: Visibility- 50 bytes to be sure but only 1 byte per switch is used. 
-#define EEPROM_NAME_ADD 242 //: Name1 - 20 character strings
+#define EEPROM_VIS_ADD 192 //: Visibility- 100 bytes to be sure but only 1 byte per switch is used. 
+#define EEPROM_NAME_ADD 292 //: Name1 - 20 character strings
 //78 : Name2 (20 char max)
 //98 : Name3 (20 char max)
 

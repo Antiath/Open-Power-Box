@@ -13,6 +13,7 @@
 #include <EEPROM.h>
 #include "EEPROMManager.h"
 
+
 Switch _switch;
 
 // Server declarations
@@ -211,23 +212,24 @@ void loop()
   // Serial bus Receiver handler
   sCmd.readSerial(); // We don't do much, just process serial commands
 
-  /*if (Ren)
+  if (Ren)
   {
-    // Automatic temperature handler
-    Serial.println(String(_switch.maxswitch()) + " Setting automatic temperature control to " + String(_switch.getswitch(_switch.maxswitch())) + "%");
-    if (_switch.getswitch(_switch.maxswitch()) == 1)
-    {
-      auto_out = int(Kp * ((_switch.DewPoint() + 2) - _switch.TempProbe()));
-      if (auto_out < 0)
-        auto_out = 0;
-      else if (auto_out > 100)
-        auto_out = 100;
-      for (int i = 0; i < PWMOutput_Num; i++)
+      float delta = _switch.Temperature-_switch.DewPoint();
+
+      for(int i=0;i<PWMOutput_Num;i++)
       {
-        _switch.internal_setswitchvalue(PWMOutput_Pin[i], auto_out);
+        if(_switch.getswitchvalue(DCOutput_Num +PWMOutput_Num +i)==1) 
+         {
+          if(delta<2) _switch.setpwm(i, 100);
+          else if ((delta>=2)&&(delta<3)) _switch.setpwm(i, 80);
+          else if ((delta>=3)&&(delta<4)) _switch.setpwm(i, 60);
+          else if ((delta>=4)&&(delta<5)) _switch.setpwm(i, 40);
+          else if ((delta>=5)&&(delta<6)) _switch.setpwm(i, 20);
+          else _switch.setpwm(i, 0);
+         }
       }
-    }
-  }*/
+  }
+
   // else
   // {
   //   for (int i=0; i<PWMOutput_Num; i++){
@@ -331,7 +333,8 @@ void processCommand()
     answer += String(PWMOutput_Num) + ",";
     answer += String(RelayOutput_Num) + ",";
     answer += String(OnOutput_Num) + ",";
-    answer += String(USBOutput_Num) + ";";
+    answer += String(USBOutput_Num) + ",";
+    answer += String((short)Ren) + ";";
     Serial.println(answer);
     break;
   case 'r':

@@ -9,8 +9,8 @@
 // Constructor
 std::vector<INA219> sensors;
 Adafruit_MCP23X17 mcp;
-Adafruit_BME280 bme;
 Adafruit_DS3502 ds3502 = Adafruit_DS3502();
+Adafruit_SHT31 sht31 = Adafruit_SHT31();
 
 Switch::Switch()
 {
@@ -29,12 +29,22 @@ Switch::Switch(int a)
   {
     addrnames[DCOutput_Num +  i] = EEPROM_NAME_ADD + (DCOutput_Num + i) * 20; // PWM
   }
-  addrnames[DCOutput_Num+PWMOutput_Num] = EEPROM_NAME_ADD + (DCOutput_Num + PWMOutput_Num) * 20; // On
-  addrnames[DCOutput_Num +PWMOutput_Num + OnOutput_Num] = EEPROM_NAME_ADD + (DCOutput_Num + PWMOutput_Num+ OnOutput_Num) * 20; // Relay
+  
+  for (int i = 0; i < PWMOutput_Num; i++)
+  {
+    addrnames[DCOutput_Num +PWMOutput_Num+ i] = EEPROM_NAME_ADD + (DCOutput_Num+PWMOutput_Num + i) * 20; // Ren
+  }
+  
+  addrnames[DCOutput_Num+2*PWMOutput_Num] = EEPROM_NAME_ADD + (DCOutput_Num + 2*PWMOutput_Num) * 20; // On
+  
+  addrnames[DCOutput_Num +2*PWMOutput_Num + OnOutput_Num] = EEPROM_NAME_ADD + (DCOutput_Num + 2*PWMOutput_Num+ OnOutput_Num) * 20; // Relay
+  
   for (int i = 0; i < USBOutput_Num; i++)
   {
-    addrnames[DCOutput_Num + PWMOutput_Num+ OnOutput_Num+1 +  i] = EEPROM_NAME_ADD + (DCOutput_Num + PWMOutput_Num+ OnOutput_Num+1+ i) * 20; // USB
+    addrnames[DCOutput_Num +2* PWMOutput_Num + OnOutput_Num+1 +  i] = EEPROM_NAME_ADD + (DCOutput_Num + 2*PWMOutput_Num+ OnOutput_Num+1+ i) * 20; // USB
   }
+
+  
   // Initialize EEPROM iF first upload. Won't be executed after the first time.
   Serial.println(readStoredbyte(EEPROM_FLAG_ADD));
   if (readStoredbyte(EEPROM_FLAG_ADD) != 1)
@@ -72,19 +82,26 @@ Switch::Switch(int a)
       n = n + String(i + 1);
       StoreString(addrnames[DCOutput_Num + i], n);
     }
-    StoreString(addrnames[DCOutput_Num + PWMOutput_Num], "DC_Rail_Switch");
-    StoreString(addrnames[DCOutput_Num + PWMOutput_Num + OnOutput_Num], "Relay_Switch");
+    for (int i = 0; i < PWMOutput_Num; i++)
+    {
+      n = "Auto_Dew_";
+      n = n + String(i + 1);
+      StoreString(addrnames[DCOutput_Num+ PWMOutput_Num + i], n);
+    }
+    
+    StoreString(addrnames[DCOutput_Num +2* PWMOutput_Num], "DC_Rail_Switch");
+    StoreString(addrnames[DCOutput_Num +2* PWMOutput_Num + OnOutput_Num], "Relay_Switch");
 
     if(USBOutput_Num>0){
       for (int i = 0; i < USBOutput_Num; i++)
       {
         n = "USB_";
         n = n + String(i + 1);
-        StoreString(addrnames[DCOutput_Num + PWMOutput_Num + OnOutput_Num+ i+1], n);
+        StoreString(addrnames[DCOutput_Num +2* PWMOutput_Num + OnOutput_Num+ i+1], n);
       }
     }
     EEPROM.commit();
-  }
+ }
 
   // Reading All EEPROM parameters
   Serial.println("Reading EEPROM");
@@ -102,8 +119,13 @@ Switch::Switch(int a)
   TotalPWMlimit = readStoredString(EEPROM_LTPWM_ADD).toFloat();
   Totallimit = readStoredString(EEPROM_LT_ADD).toFloat();
 
-  for(int i = 0; i < TotalOutputNum; i++)Visible[i]=readStoredbyte(EEPROM_VIS_ADD+i);
-
+  for(int i = 0; i < TotalOutputNum-3*(short)Ren; i++)Visible[i]=readStoredbyte(EEPROM_VIS_ADD+i);
+  
+if(Ren){
+    Visible[TotalOutputNum-3]=true;
+    Visible[TotalOutputNum-2]=true;
+    Visible[TotalOutputNum-1]=true;
+}
   for (int i = 0; i < DCOutput_Num; i++)
   {
     nameswitches[i] = readStoredString(addrnames[i]);
@@ -112,28 +134,17 @@ Switch::Switch(int a)
   {
     nameswitches[DCOutput_Num + i] = readStoredString(addrnames[DCOutput_Num + i]);
   }
-  nameswitches[DCOutput_Num + PWMOutput_Num] = readStoredString(addrnames[DCOutput_Num + PWMOutput_Num]);
-  nameswitches[DCOutput_Num + PWMOutput_Num+ OnOutput_Num] = readStoredString(addrnames[DCOutput_Num + PWMOutput_Num+ OnOutput_Num]);
+    for (int i = 0; i < PWMOutput_Num; i++)
+  {
+    nameswitches[DCOutput_Num + PWMOutput_Num + i] = readStoredString(addrnames[DCOutput_Num + PWMOutput_Num + i]);
+  }
+  
+  nameswitches[DCOutput_Num + 2*PWMOutput_Num] = readStoredString(addrnames[DCOutput_Num + 2*PWMOutput_Num]);
+  nameswitches[DCOutput_Num + 2*PWMOutput_Num + OnOutput_Num] = readStoredString(addrnames[DCOutput_Num + 2*PWMOutput_Num + OnOutput_Num]);
   for (int i = 0; i <USBOutput_Num; i++)
   {
-    nameswitches[DCOutput_Num + PWMOutput_Num+ OnOutput_Num+i+1] = readStoredString(addrnames[DCOutput_Num + PWMOutput_Num+ OnOutput_Num+i+1]);
+    nameswitches[DCOutput_Num + 2*PWMOutput_Num + OnOutput_Num+i+1] = readStoredString(addrnames[DCOutput_Num + 2*PWMOutput_Num + OnOutput_Num+i+1]);
   }
-  // Temperature control check
-  /*if (Ren)
-  {
-    unsigned status = bme.begin();
-    if (!status)
-    {
-      Serial.println("Could not find a valid BME280 sensor, check wiring, address, sensor ID!");
-      Serial.print("SensorID was: 0x");
-      Serial.println(bme.sensorID(), 16);
-      Serial.print("        ID of 0xFF probably means a bad address, a BMP 180 or BMP 085\n");
-      Serial.print("   ID of 0x56-0x58 represents a BMP 280,\n");
-      Serial.print("        ID of 0x60 represents a BME 280.\n");
-      Serial.print("        ID of 0x61 represents a BME 680.\n");
-      // while (1) delay(10);
-    }
-  }*/
 
   // Setting up I2C
   Wire.begin();
@@ -145,6 +156,18 @@ Switch::Switch(int a)
     while (1)
       ;
   }
+
+    // Temperature control check
+  if (Ren) {
+      if (!sht31.begin(0x44))
+  {
+    // if (!mcp.begin_SPI(CS_PIN)) {
+    Serial.println("Error setting up SHT31 sensor.");
+    while (1)
+      ;
+  }
+  }
+  
 
   int j = 0;
   for (int i = 0; i < DCOutput_Num; i++)
@@ -163,13 +186,13 @@ Switch::Switch(int a)
 
   if (Sensor_Num > 0)
   {
-    for (int i = 0; i < Sensor_Num ; i++)
+    for (int i = 0; i < Sensor_Num; i++)
     {
       INA219 sens(Sensors_addr[i]);
       sensors.push_back(sens);
     }
 
-    for (int i = 0; i < Sensor_Num ; i++)
+    for (int i = 0; i < Sensor_Num; i++)
     {
       if (!sensors[i].begin())
       {
@@ -208,20 +231,19 @@ Switch::Switch(int a)
   for (int i = 0; i < PWMOutput_Num; i++)
   {
     switchPWM[i] = 0;
+    switchRen[i]=0;
   }
 
     for (int i = 0; i < USBOutput_Num; i++)
   {
     switchUSB[i] = 1;
-    setswitch(i-DCOutput_Num-PWMOutput_Num-OnOutput_Num-RelayOutput_Num, 1);
+    setswitch(i-DCOutput_Num-2*PWMOutput_Num-OnOutput_Num-RelayOutput_Num, 1);
   }
 
   //Array to tell if sensor is voltage or current. Not including input voltage and total currents. Only INA sensors.
   sensortype[0] = 0;
   for (int i = 1; i < 2 * Sensor_Num; i++)
     sensortype[i] = !(sensortype[i-1]);
-
-  switchRen = 0;
 
 }
 
@@ -260,6 +282,10 @@ bool Switch::canwrite(int switchNum)
   {
       return false;
   }
+    else if (type == 6)
+  {
+      return false;
+  }
   else
     return false;
 }
@@ -276,11 +302,13 @@ bool Switch::getswitch(int switchNum)
     break;
 
     case 1:
-    if (switchPWM[switchNum - DCOutput_Num ] == 0)
-      a = false;
-    else
-      a = true;
-    break;
+      if(switchNum-DCOutput_Num < PWMOutput_Num)
+      {
+            if (switchPWM[switchNum - DCOutput_Num ] == 0)a = false;
+            else a = true;
+        break;
+      }
+      else a = bool(switchRen[switchNum - DCOutput_Num-PWMOutput_Num]); 
 
     case 2:
     a = bool(switchOn);
@@ -291,12 +319,17 @@ bool Switch::getswitch(int switchNum)
     break;
 
     case 4:
-    a = bool(switchUSB[switchNum-DCOutput_Num-PWMOutput_Num-OnOutput_Num-RelayOutput_Num]);
+    a = bool(switchUSB[switchNum-DCOutput_Num-2*PWMOutput_Num-OnOutput_Num-RelayOutput_Num]);
     break;
 
     case 5:
     a = false;
     break;
+
+    case 6:
+    a = false;
+    break;
+
   }
   return a;
 }
@@ -307,7 +340,11 @@ String Switch::getswitchdescription(int switchNum)
   if (type == 0)
     return DC_description;
   else if (type == 1)
-    return PWM_description;
+  {
+     if (switchNum-DCOutput_Num < PWMOutput_Num)    return PWM_description;
+     else return Ren_description; 
+  }
+
   else if (type == 2)
     return On_description;
   else if (type == 3)
@@ -316,6 +353,8 @@ String Switch::getswitchdescription(int switchNum)
     return USB_description;
     else if (type == 5)
     return " ";
+  else if (type == 6)
+    return HeaterEn_description;
   else
     return "Unknown";
 }
@@ -324,9 +363,15 @@ String Switch::getswitchname(int switchNum)
 {
   String n;
   int type = switchtype(switchNum);
-  if (type<=4)
+  if(type==6)
+  {
+    if(switchNum==TotalOutputNum-3) return "Temperature (C)";
+    else if(switchNum==TotalOutputNum-2) return "Humidity (%)";
+    else if(switchNum==TotalOutputNum-1) return "Dew Point (C)";
+  }
+  else  if (type<=4)
     return nameswitches[switchNum];
-    else if (switchNum == totalswitches)
+  else if (switchNum == totalswitches)
     return "Input Voltage";
   else if (switchNum == totalswitches+1)
     return "Total Current";
@@ -370,7 +415,8 @@ float Switch::getswitchvalue(int switchNum)
     a = float(switchDC[switchNum]);
     break;
       case 1:
-    a = switchPWM[switchNum - DCOutput_Num];
+      if(switchNum-DCOutput_Num < PWMOutput_Num){a = switchPWM[switchNum - DCOutput_Num];}
+      else a = switchRen[switchNum - DCOutput_Num-PWMOutput_Num]; 
     break;
       case 2:
     a = float(switchOn);
@@ -379,10 +425,16 @@ float Switch::getswitchvalue(int switchNum)
     a = float(switchRelay);
     break;
   case 4:
-    a = switchUSB[switchNum-DCOutput_Num-PWMOutput_Num-OnOutput_Num-RelayOutput_Num];
+    a = switchUSB[switchNum-DCOutput_Num-2*PWMOutput_Num-OnOutput_Num-RelayOutput_Num];
     break;
     case 5:
     a = Sensor[switchNum - totalswitches];
+    break;
+    case 6:
+
+    if(switchNum==TotalOutputNum-3) a = Temperature;
+    else if(switchNum==TotalOutputNum-2)a = Humidity;
+    else if(switchNum==TotalOutputNum-1)a = DewPoint();
     break;
   }
   return a;
@@ -395,7 +447,7 @@ int Switch::minswitchvalue(int switchNum)
   if (type == 0)
     answer = 0; // on/Off
   else if (type == 1)
-    answer = 0; // 0-100
+    answer = 0; 
   else if (type == 2)
     answer = 0; // on/Off
   else if (type == 3)
@@ -404,6 +456,8 @@ int Switch::minswitchvalue(int switchNum)
     answer = 0; // on/Off    
   else if (type == 5)
     answer = -50; // sensors
+    else if (type == 6)
+    answer = -50; // Ren
   return answer;
 }
 
@@ -415,7 +469,10 @@ int Switch::maxswitchvalue(int switchNum)
   if (type == 0)
     answer = 1; // on/Off
   else if (type == 1)
-    answer = 100; // 0-100
+    {
+      if(switchNum-DCOutput_Num < PWMOutput_Num){answer = 100;}
+      else answer = 1; // Ren 0-1 but will be treated as a boolean in the driver. This is to avoid confusion in the ALPACA driver that would expect a range for a regul output.
+    } // 
   else if (type == 2)
     answer = 1; // on/Off
   else if (type == 3)
@@ -424,6 +481,8 @@ int Switch::maxswitchvalue(int switchNum)
     answer = 1; // on/Off
   else if (type == 5)
     answer = 50; // sensors
+  else if (type == 6)
+    answer = 50; // Ren
   return answer;
 }
 
@@ -500,13 +559,33 @@ if(InputVoltage<10.0  && state==1)
       state1 = !state;
     if (state2 == 0)
     {
-      switchPWM[switchNum-DCOutput_Num] = 0;
-      ledcWrite(PWMOutput_Pin[switchNum-DCOutput_Num], 0);
+      if(switchNum-DCOutput_Num < PWMOutput_Num)
+      {
+        setpwm(switchNum - DCOutput_Num, 0);
+      //switchPWM[switchNum-DCOutput_Num] = 0;
+      //ledcWrite(PWMOutput_Pin[switchNum-DCOutput_Num], 0);
+      switchRen[switchNum - DCOutput_Num] = 0;
+      }
+      else      
+      {
+        switchRen[switchNum - DCOutput_Num - PWMOutput_Num] = 0;
+      }
+
     }
     else if (state2 == 1)
     {
-      switchPWM[switchNum-DCOutput_Num] = 100;
-      ledcWrite(PWMOutput_Pin[switchNum-DCOutput_Num], 255);
+      if(switchNum-DCOutput_Num < PWMOutput_Num)
+      {
+      setpwm(switchNum - DCOutput_Num, 100);
+      switchRen[switchNum - DCOutput_Num] = 0;
+      //switchPWM[switchNum-DCOutput_Num] = 100;
+      //ledcWrite(PWMOutput_Pin[switchNum-DCOutput_Num], 255);
+      }
+      else      
+      {
+        switchRen[switchNum - DCOutput_Num - PWMOutput_Num] = 1;
+      }
+
     }
     break;
 
@@ -527,15 +606,19 @@ if(InputVoltage<10.0  && state==1)
     case 4: // USB
     if (ReverseUSB)
       state1 = !state;
-    set_Pin(USBOutput_Pin[switchNum-DCOutput_Num-PWMOutput_Num-OnOutput_Num-RelayOutput_Num], state1);
-    switchUSB[switchNum-DCOutput_Num-PWMOutput_Num-OnOutput_Num-RelayOutput_Num] = state2;
+    set_Pin(USBOutput_Pin[switchNum-DCOutput_Num-2*PWMOutput_Num-OnOutput_Num-RelayOutput_Num], state1);
+    switchUSB[switchNum-DCOutput_Num-2*PWMOutput_Num-OnOutput_Num-RelayOutput_Num] = state2;
     break;
-
 
   case 5: // sensor
     SwitchErrorMessage = ASCOM_err[2];
     Serial.println(ASCOM_err[2]);
     break;
+  case 6: // Ren
+  
+    //switchRen = bool(value);
+    //regul = bool(value);
+   break;
   }
 }
 
@@ -580,10 +663,20 @@ void Switch::setswitchvalue(int switchNum, int value)
   {
     if (value <= maxval)
     {
-      regul = 0;
-      switchPWM[switchNum - DCOutput_Num ] = 0;
-      ledcWrite(PWMOutput_Pin[switchNum - DCOutput_Num ], int(float(value) * 255.0 / 100.0));
-      switchPWM[switchNum - DCOutput_Num ] = value;
+      //regul = 0;
+      //switchPWM[switchNum - DCOutput_Num ] = 0;
+      if(switchNum-DCOutput_Num < PWMOutput_Num)
+      {
+        setpwm(switchNum - DCOutput_Num, value);
+      //switchPWM[switchNum - DCOutput_Num ] = value;
+      //ledcWrite(PWMOutput_Pin[switchNum - DCOutput_Num ], int(float(value) * 255.0 / 100.0));
+      switchRen[switchNum - DCOutput_Num] = 0;
+      }
+      else      
+      {
+        switchRen[switchNum - DCOutput_Num - PWMOutput_Num] = value;
+      }
+      
     }
   }
 
@@ -619,8 +712,8 @@ void Switch::setswitchvalue(int switchNum, int value)
     if (ReverseUSB)
       state = !state;
     if (value <= maxval)
-      set_Pin(USBOutput_Pin[switchNum-DCOutput_Num-PWMOutput_Num-OnOutput_Num-RelayOutput_Num], state);
-    switchUSB[switchNum-DCOutput_Num-PWMOutput_Num-OnOutput_Num-RelayOutput_Num] = state2;
+      set_Pin(USBOutput_Pin[switchNum-DCOutput_Num-2*PWMOutput_Num-OnOutput_Num-RelayOutput_Num], state);
+    switchUSB[switchNum-DCOutput_Num-2*PWMOutput_Num-OnOutput_Num-RelayOutput_Num] = state2;
   }
 
   else if (type == 5)
@@ -628,9 +721,15 @@ void Switch::setswitchvalue(int switchNum, int value)
 
   else if (type == 6)
   {
-    switchRen = bool(value);
-    regul = bool(value);
+    //switchRen = bool(value);
+    //regul = bool(value);
   }
+}
+
+void Switch::setpwm(int index, int value)
+{
+      switchPWM[index] = value;
+      ledcWrite(PWMOutput_Pin[index], int(float(value) * 255.0 / 100.0));
 }
 
 int Switch::switchstep(int switchNum)
@@ -638,39 +737,20 @@ int Switch::switchstep(int switchNum)
   return 1;
 }
 
-
-float Switch::TempProbe()
+void Switch::TempEnv()
 {
-  float out = 0;
-  float A = (1023.0 / analogRead(Thermistor_pin)) - 1;
-  A = 10000.0 / A;
-
-  // using B parameter equation for converting thermistance to temperature reading
-  out = A / Tnom;               // (R/Ro)
-  out = log(out);               // ln(R/Ro)
-  out /= Bcoef;                 // 1/B * ln(R/Ro)
-  out += 1.0 / (Tnom + 273.15); // + (1/To)
-  out = 1.0 / out;              // Invert
-  out -= 273.15;                // convert absolute temp to C
-
-  return out;
-  // return 20.0;
+  Temperature = sht31.readTemperature();
 }
 
-float Switch::TempEnv()
+void Switch::HumiEnv()
 {
-  return bme.readTemperature();
-}
-
-float Switch::HumiEnv()
-{
-  return bme.readHumidity();
+    Humidity = sht31.readHumidity();
 }
 
 float Switch::DewPoint()
 {
-  float T = TempEnv();
-  float RH = HumiEnv();
+  float T = Temperature;
+  float RH = Humidity;
   float a = 17.625;
   float b = 243.04;
   float alpha = log(RH / 100.0) + a * T / (b + T);
@@ -721,6 +801,12 @@ void Switch::getAllSensors()
     //if (Sensor[4+2*i + 1] < 0.06) Sensor[4+2*i + 1] = 0.0;
     total =  total + Sensor[4+2*i + 1];
   }
+
+  if(Ren)
+      {
+      TempEnv();
+      HumiEnv();
+      }
   
   TotalCurrent = total;
   Sensor[0] = InputVoltage;
@@ -744,7 +830,8 @@ It will return the proper switch number for the given ALPACA switch index.
 To do that, we have will use a boolean array telling about the visibility of each switch. This can be set by the setupdialog of the client and is stored in EEPROM.
 
 ATTENTION: For now the ascom driver is configured to never show visibility options. The default is compact mode and you cannot change that in the driver yet. 
-Visibility options will be enabled if requested or if I see a need for it. This only affects what is shown in you regular client anyway, you still have every data available in the secondary window.*/
+Visibility options will be enabled if requested or if I see a need for it. This only affects what is shown in you regular Windows client anyway, you still have every data available in the secondary window.
+On Linux we also display everything in the INDI Driver since we have some control over the GUI*/
 
 int Switch::index_Translator(int switchNum)
 {
@@ -787,15 +874,15 @@ int Switch::switchtype(int switchNum)
   {
     return 0; // DCOutput
   }
-  else if (switchNum < DCOutput_Num + PWMOutput_Num)
+  else if (switchNum < DCOutput_Num + 2*PWMOutput_Num)
   {
     return 1; // PWMOutput
   }
-  else if (switchNum < DCOutput_Num + PWMOutput_Num + OnOutput_Num)
+  else if (switchNum < DCOutput_Num + 2*PWMOutput_Num + OnOutput_Num)
   {
     return 2; // OnOutput
   }
-  else if (switchNum < DCOutput_Num + PWMOutput_Num + OnOutput_Num + RelayOutput_Num)
+  else if (switchNum < DCOutput_Num + 2*PWMOutput_Num + OnOutput_Num + RelayOutput_Num)
   {
     return 3; // RelayOutput
   }
@@ -803,9 +890,13 @@ int Switch::switchtype(int switchNum)
   {
     return 4; // USBOutput
   }
-  else if (switchNum >= totalswitches)
+  else if ((switchNum >= totalswitches)&&(switchNum<(TotalOutputNum-3*(short)Ren)))
   {
     return 5; // Sensors
+  }
+    else if (Ren &&(switchNum >=(TotalOutputNum-3*(short)Ren)))
+  {
+    return 6; // Env. sensor
   }
   return -1; 
 }

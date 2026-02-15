@@ -31,16 +31,19 @@ const short DCOutput_Num = 7;  // Number of stable 12V outputs.
 const short PWMOutput_Num = 3; // Number of PWM controlled outputs.
 const short RelayOutput_Num = 1; // Number of relay outputs.
 const short OnOutput_Num = 1; // Number of always ON 12V switches (the whole bank of connectors is controlled by the same switch)
-const short USBOutput_Num = 0; // Number of USB controlled outputs. Maximum is 7.
+const short USBOutput_Num = 7; // Number of USB controlled outputs. Maximum is 7.
+const bool Ren =true; // Falg to enable/disable the automatic power control of dew heaters. This only affects the firmware and display of the sensor, you will still have to activate automatic control in the driver.
+ 
 
 const short Sensor_Num = DCOutput_Num + OnOutput_Num + PWMOutput_Num; 
-const short TotalOutputNum = DCOutput_Num + RelayOutput_Num + OnOutput_Num + PWMOutput_Num + USBOutput_Num + 2 * Sensor_Num +4;
-const int totalswitches= DCOutput_Num + PWMOutput_Num + RelayOutput_Num + OnOutput_Num+USBOutput_Num;
+const short TotalOutputNum = DCOutput_Num + RelayOutput_Num + OnOutput_Num + 2*PWMOutput_Num + USBOutput_Num + 2 * Sensor_Num +4+3*(short)Ren ;
+const int totalswitches= DCOutput_Num + 2*PWMOutput_Num  + RelayOutput_Num + OnOutput_Num+USBOutput_Num;
 
-const int SensorPos= DCOutput_Num + PWMOutput_Num + RelayOutput_Num + OnOutput_Num + USBOutput_Num; // Position of the first sensor in the switch array
+const int SensorPos= DCOutput_Num + 2*PWMOutput_Num + RelayOutput_Num + OnOutput_Num + USBOutput_Num; // Position of the first sensor in the switch array
 const int sensorDC0 = SensorPos+4; // add 4 to ignore the input voltage and total currents
 const int sensorPWM0 = sensorDC0 + DCOutput_Num * 2;
 const int sensorOn0 = sensorPWM0 + PWMOutput_Num * 2;
+const int sensorRen0 = sensorOn0 + OnOutput_Num * 2;
 //===========================================================================
 //============================= Pin configguration ==========================
 //===========================================================================
@@ -115,11 +118,12 @@ Reverse = 1, Output is ON when Signal is OFF
 /*Set the description text*/
 #define DC_description "On/Off DC Output"
 #define PWM_description "Dew Heater 0-100%"
+#define Ren_description "Enable/disable Auto-Dew"
 #define Relay_description "Relay output"
 #define On_description "DC Rail Output"
 #define Current_Sensor_description "Current (A)"
 #define Voltage_Sensor_description "Voltage (V)"
-#define HeaterEn_description "Enable/Disable Automatic temperature control"
+#define HeaterEn_description "Environment sensor"
 #define USB_description "USB Output"
 
 //===========================================================================
@@ -128,10 +132,10 @@ Reverse = 1, Output is ON when Signal is OFF
 
 /*Look up the datasheet of the ina219 current sensor chip. Section "Serial Bus Address".
 By default, we use 14 adrdresses of the table in the datasheet.
-The firmware supports BME280 with adress 0x76 or 0x76.So these two are reserved and should not be used to avoid conflicts..
-Make sure to either configure  you sensors according those addresses, or to change them appropriatly.
 Each sensor will be attributed those adresses in this order exactly, from first (addr1) to last (addr14).
 If for a reason or another, you need spicific adresses, you must put them in the first places of the list.
+The firmware supports the SHT31 Temp + hum sensoron the default address 0x44 so if you need this sensor, make sure to not configure the others on the same address. 
+Future versions may add support for BME280 on address 0x76. 
 If building a new pcb, I would suggest to leave this list as is and wire your sensors according to it.
 N.B.: the firmware will ignore the adresses past <Sensor_Num>. For exemple, if Sensor_Num=7, check the first 7 adresses and number 8 to 14 will be ignored.
 You only need to check the adresses from n°1 to <Sensor_Num>. */
@@ -170,39 +174,12 @@ const short sensorOn = 0x48;
 //  0x4C //1001100    SCL GND
 //  0x4D //1001101    SCL VS+
 
-//===========================================================================
-//================ Automatic temperature control - UNFINISHED================
-//===========================================================================
 
-// The tempertature probe and evironmental sensor helps you regulate your dew heaters and consume as little power as possible.
-//  To do this, you need a temperature probe in a dew heater + a temperature and humidity sensor elswhere. Both are mandatory.
-//  This firmware will only supports a 10K thermistor as the dew heater probe and a SHT31 as the ambiant sensor. Future versions may also support other ambiant sensors like BME280.
 
-// The following flag enables temperature control if set to 1. If you don't need any of this, just leave it at 0.
-//  N.B. This only affects what is showed to the client. If set to 1, you still have to toggle the option on the client
-#define Ren 0
-
-// Option flag to define the type of probe you use.
-// Comment out the one you don't require and vice versa. You have to chose one or the other.
-// DO NOT uncomment or comment both of them.
-#define ProbeType "Thermistor"
-
-// Pin definition
-#define Thermistor_pin 35 // Input pin of the thermistor. The other pin of the thermistor should be  hooked to +3.3V.
-
-// Regulation parameters
-#define Kp 10 // Regulation is done via a Proportionnal scheme where PWM Output value= Kp * ( Tprobe - setpoint). Adjust the P factor to tune temperature regulation.
-
-// Thermistor parameters. Avoid changing these if you don't know the characteristics of your thermistor.. We assume that the fixed resistor is 10K.
-//(Default values taken from the datasheet of Epcos B57703M0103G040)
-#define Bcoef 3988
-#define Rnom 10000
-#define Tnom 25
 
 //===========================================================================
 //============================ END OF CONFIGURATION==========================
 // ============ DO NOT CHANGE ANYTHING BELOW THIS LINE !!! ==================
 //===========================================================================
-
 
 #endif

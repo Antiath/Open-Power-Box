@@ -66,6 +66,7 @@ switches[7] = Sensor_1 state : current
 #include <Adafruit_BME280.h>
 #include <Adafruit_MCP23X17.h>
 #include <Adafruit_DS3502.h>
+#include "Adafruit_SHT31.h"
 
 class Switch
 {
@@ -91,8 +92,8 @@ public:
   float TotalCurrent;
   float InputVoltage;
   float TempProbe();
-  float TempEnv();
-  float HumiEnv();
+  void TempEnv();
+  void HumiEnv();
   float DewPoint();
   void set_Pin(int x, bool y);
   void getAllSensors();
@@ -102,12 +103,13 @@ public:
   bool getreverse(int index);
   void setlimit(int index, float value);
   float getlimit(int index);
+  void setpwm(int index, int value);
 
   float DClimit, Onlimit, PWMlimit, TotalDClimit, TotalPWMlimit, Totallimit;
   int ReverseDC, ReversePWM, ReverseRelay, ReverseOn, ReverseUSB;
-
+  float Temperature,Humidity;  
   
-  String nameswitches[DCOutput_Num + RelayOutput_Num + OnOutput_Num + PWMOutput_Num + USBOutput_Num];
+  String nameswitches[DCOutput_Num + RelayOutput_Num + OnOutput_Num + 2*PWMOutput_Num + USBOutput_Num];
 
   // flags to pass to the Client to signal that a limit has been reached
   bool DClimitflag[DCOutput_Num];
@@ -124,14 +126,14 @@ private:
   bool regul;
   int switchDC[DCOutput_Num];
   int switchPWM[PWMOutput_Num];
+  int switchRen[PWMOutput_Num];
   int switchRelay;
   int switchOn;
-  int switchRen;
   int switchUSB[USBOutput_Num];
   
   
   uint8_t Sensors_addr[Sensor_Num];
-  float Sensor[2 * Sensor_Num+4];  
+  float Sensor[2 * Sensor_Num+4];
   bool sensortype[2*Sensor_Num]; 
 
 };
