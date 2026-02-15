@@ -7,7 +7,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace ASCOM.OpenPowerBoxXXL.Switch
+namespace ASCOM.AstroPowerBoxXXL.Switch
 {
     [ComVisible(false)] // Form not registered for COM!
     public partial class SetupDialogForm : Form

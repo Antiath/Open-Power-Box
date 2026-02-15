@@ -325,11 +325,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mispe\\source\\repos\\AstroPowerBoxXXL0.2 - Copie\\OpenPowerBoxXXL.csproj",
-      "projectName": "ASCOM.OpenPowerBoxXXL",
-      "projectPath": "C:\\Users\\mispe\\source\\repos\\AstroPowerBoxXXL0.2 - Copie\\OpenPowerBoxXXL.csproj",
+      "projectUniqueName": "C:\\Users\\mispe\\source\\repos\\AstroPowerBoxXXL0.2\\AstroPowerBoxXXL.csproj",
+      "projectName": "ASCOM.AstroPowerBoxXXL",
+      "projectPath": "C:\\Users\\mispe\\source\\repos\\AstroPowerBoxXXL0.2\\AstroPowerBoxXXL.csproj",
       "packagesPath": "C:\\Users\\mispe\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mispe\\source\\repos\\AstroPowerBoxXXL0.2 - Copie\\obj\\",
+      "outputPath": "C:\\Users\\mispe\\source\\repos\\AstroPowerBoxXXL0.2\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [

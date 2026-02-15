@@ -1,4 +1,4 @@
-namespace ASCOM.OpenPowerBoxXXL.Switch
+namespace ASCOM.AstroPowerBoxXXL.Switch
 {
     partial class SetupDialogForm
     {
@@ -125,7 +125,7 @@ namespace ASCOM.OpenPowerBoxXXL.Switch
             this.Name = "SetupDialogForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "OpenPowerBoxXXL Setup";
+            this.Text = "AstroPowerBoxXXL Setup";
             this.Load += new System.EventHandler(this.SetupDialogForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picASCOM)).EndInit();
             this.ResumeLayout(false);

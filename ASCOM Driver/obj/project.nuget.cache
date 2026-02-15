@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "h5vP9rQ3cQZ2/jaB96t8f4hqdZ1kluqJI8vkDkZ0CJSLkNGz5WDLHghKIlMnV8D9seja66S/9QzZIBadAkPFLA==",
+  "dgSpecHash": "LwBW5newlOm5oWuT4PkT9BzyVKw/c+sAnk+1OLh/r1VqOplioI2wwuLsIr+FUuEv3QlZpNb59I24PPpv/X8ZEg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mispe\\source\\repos\\AstroPowerBoxXXL0.2 - Copie\\OpenPowerBoxXXL.csproj",
+  "projectFilePath": "C:\\Users\\mispe\\source\\repos\\AstroPowerBoxXXL0.2\\AstroPowerBoxXXL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mispe\\.nuget\\packages\\metroframework\\1.2.0.3\\metroframework.1.2.0.3.nupkg.sha512",
     "C:\\Users\\mispe\\.nuget\\packages\\metroframework.design\\1.2.0.3\\metroframework.design.1.2.0.3.nupkg.sha512",

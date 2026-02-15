@@ -1,6 +1,6 @@
 ﻿// TODO fill in this information for your driver, then remove this line!
 //
-// ASCOM Switch hardware class for OpenPowerBoxXXL
+// ASCOM Switch hardware class for AstroPowerBoxXXL
 //
 // Description:	 <To be completed by driver developer>
 //
@@ -9,9 +9,11 @@
 
 // TODO: Customise the SetConnected and InitialiseHardware methods as needed for your hardware
 
+using ASCOM;
 //using ASCOM.Astrometry;
 //using ASCOM.Astrometry.AstroUtils;
 //using ASCOM.Astrometry.NOVAS;
+using ASCOM.DeviceInterface;
 using ASCOM.LocalServer;
 using ASCOM.Utilities;
 using System;
@@ -22,8 +24,9 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.AxHost;
 
-namespace ASCOM.OpenPowerBoxXXL.Switch
+namespace ASCOM.AstroPowerBoxXXL.Switch
 {
     public class SensorConfig
     {
@@ -32,7 +35,7 @@ namespace ASCOM.OpenPowerBoxXXL.Switch
         public bool CurrentVisible { get; set; }
     }
     /// <summary>
-    /// ASCOM Switch hardware class for OpenPowerBoxXXL.
+    /// ASCOM Switch hardware class for AstroPowerBoxXXL.
     /// </summary>
     [HardwareClass()] // Class attribute flag this as a device hardware class that needs to be disposed by the local server when it exits.
     internal static class SwitchHardware
@@ -61,6 +64,7 @@ namespace ASCOM.OpenPowerBoxXXL.Switch
         public static short numOn;// = 1;// Number of On switches
         public static short numPWM;// = 3; // Number of PWM switches
         public static short numUSB;// = 7; // Number of USB switches
+        public static short numRen;// Flag (0 or 1) idicating presence of Environmental sensor
         public static int total;// = numDC + numOn + numPWM + numRelay + numUSB; // Total number of switches, this is the total number of switches available in the hardware, including DC, USB, ADJ, On and PWM switches.
         public static short numSwitch;// = (short)((numDC + numOn + numPWM)*2+total+4); // Number of switches, this is the total number of switches available in the hardware, including DC, USB, ADJ, On and PWM switches.
         public static short numSwitch_visible= 0; // Number of visible switches, this is the total number of switches that are visible to ASCOM clients, including all DC, USB, ADJ, On and PWM switches and the sensors set to Visible in the parameter file.
@@ -199,7 +203,7 @@ namespace ASCOM.OpenPowerBoxXXL.Switch
                 Task periodicTask = RunPeriodicTask(cts.Token);
                 // Create the hardware trace logger in the static initialiser.
                 // All other initialisation should go in the InitialiseHardware method.
-                tl = new TraceLogger("", "OpenPowerBoxXXL.Hardware");
+                tl = new TraceLogger("", "AstroPowerBoxXXL.Hardware");
 
                 // DriverProgId has to be set here because it used by ReadProfile to get the TraceState flag.
                 DriverProgId = Switch.DriverProgId; // Get this device's ProgID so that it can be used to read the Profile configuration values
@@ -453,8 +457,8 @@ namespace ASCOM.OpenPowerBoxXXL.Switch
                         if (prevquery ==false) {
                         GetNum_USB();
                         //numUSB = 0;
-                        total = numDC + numOn + numPWM + numRelay + numUSB; 
-                        numSwitch = (short)((numDC + numOn + numPWM) * 2 + total + 4);
+                        total = numDC + numOn + 2*numPWM + numRelay + numUSB; 
+                        numSwitch = (short)((numDC + numOn + numPWM) * 2 + total + 4+3*numRen);
                         for (short i = 0; i < numSwitch; i++) { GetSwitchName_USB(i); }
                         for (short i = 0; i < numSwitch; i++) { GetSwitchDescription_USB(i); }
                         for (short i = 0; i < numSwitch; i++) { GetSwitchType_USB(i); }
@@ -635,31 +639,19 @@ namespace ASCOM.OpenPowerBoxXXL.Switch
             numRelay = short.Parse(buf.Split(',')[2]);
             numOn = short.Parse(buf.Split(',')[3]);
             numUSB = short.Parse(buf.Split(',')[4]);
+            numRen = short.Parse(buf.Split(',')[5]);
             return;
         }
         internal static void GetIP_USB()
         {
-
-            string answer,a,b;
-            int sep;
-            a = "# I";
-            a = a + Environment.NewLine;
-            SharedResources.SharedSerial.Transmit(a);
-            //SharedResources.SharedSerial.Transmit($"# I{Environment.NewLine}");
+            string answer;
+            SharedResources.SharedSerial.Transmit($"# I{Environment.NewLine}");
             string buf = SharedResources.SharedSerial.ReceiveTerminated(";");
             buf = buf.Substring(buf.IndexOf('#') + 1);
-            sep = buf.IndexOf(':');
-            b = buf.Substring(1, sep - 1);
-            //buf = buf.Substring(buf.IndexOf(':') + 1);
-            //answer = buf.Remove(buf.Length-1);
-            if (buf[0] == 'i')
-            {
-                b = buf.Substring(sep + 1);
-                b = b.Remove(b.Length - 1);
-                WiFiIP = b;
-            }
+            buf = buf.Substring(buf.IndexOf(':') + 1);
+            answer = buf.Remove(buf.Length-1);
+            WiFiIP  = answer; 
             return;
-           
         }
 
         internal static void GetSSID_USB()
@@ -1211,11 +1203,7 @@ namespace ASCOM.OpenPowerBoxXXL.Switch
                 sep = answer.IndexOf(':');
                 a = answer.Substring(1, sep - 1);
 
-                if (answer[0] == 'E')
-                {
-                    throw new ASCOM.DriverException("Cannot set swiutches. Device returned " + a, 9);
-                }
-                else if ((answer[0] == 'G') && (short.Parse(a) == id))
+                if ((answer[0] == 'G') && (short.Parse(a) == id))
                 {
                     b = answer.Substring(sep + 1);
                     state[id] = b.Remove(b.Length - 1);
@@ -1244,7 +1232,11 @@ namespace ASCOM.OpenPowerBoxXXL.Switch
             short id = Index_Translator(ind);
 
             Validate("MaxSwitchValue", id);
-            if (type[id] == Switch_type.PWM) a = 100.0;
+            if (type[id] == Switch_type.PWM)
+            { 
+                if (id < numDC+numPWM) a = 100.0;
+                else a = 1.0;
+            }
             return a;
         }
 
@@ -1349,18 +1341,13 @@ namespace ASCOM.OpenPowerBoxXXL.Switch
                 sep = answer.IndexOf(':');
                 a = answer.Substring(1, sep - 1);
 
-                if (answer[0] == 'E')
-                {
-                    throw new ASCOM.DriverException("Cannot set swiutches. Device returned "+ a , 9);
-                }
-                else if ((answer[0] == 'G') &&(short.Parse(a) == id))
+                if ((answer[0] == 'G') && (short.Parse(a) == id))
                 {
                     b = answer.Substring(sep + 1);
                     state[id] = b.Remove(b.Length - 1);
                     state[id].Replace('.', ','); // Ensure decimal point is correct for parsing
                     value = double.Parse(state[id], CultureInfo.InvariantCulture);
                 }
-                
 
             }
 
@@ -1389,7 +1376,7 @@ namespace ASCOM.OpenPowerBoxXXL.Switch
             sep = answer.IndexOf(':');
             a = answer.Substring(1, sep - 1);
 
-            if (answer[0] == 'E')
+            if (answer[0] == 'e')
             {
                 b = answer.Substring(sep + 1);
                 b = b.Remove(b.Length - 1);

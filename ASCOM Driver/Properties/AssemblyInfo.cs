@@ -7,11 +7,11 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 //
 // TODO - Add your authorship information here
-[assembly: AssemblyTitle("ASCOM.OpenPowerBoxXXL.Switch")]
-[assembly: AssemblyDescription("ASCOM Local Server Switch driver for OpenPowerBoxXXL")]
+[assembly: AssemblyTitle("ASCOM.AstroPowerBoxXXL.Switch")]
+[assembly: AssemblyDescription("ASCOM Local Server Switch driver for AstroPowerBoxXXL")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("The ASCOM Initiative")]
-[assembly: AssemblyProduct("ASCOM Local Server Switch driver for OpenPowerBoxXXL")]
+[assembly: AssemblyProduct("ASCOM Local Server Switch driver for AstroPowerBoxXXL")]
 [assembly: AssemblyCopyright("Copyright © 2025 The ASCOM Initiative")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
