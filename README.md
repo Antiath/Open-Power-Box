@@ -9,6 +9,7 @@
 * **Input:** 12V (nominal, unregulated) DC with a **20A limit**. The polarity protection circuit can handel up to 20V without damaging it but we really recommand to stay around 12V as there is no voltage regulation on the output.
 * **Switched DC Outputs:** 7 individual ON/OFF DC switches, rated at **12V/5A each**.
 * **Dew Heater Outputs:** 3 outputs with low-frequency PWM control, rated at **12V/2A each**.
+* **Automatic Dew Heater Control** Using a SHT31 sensor on the i2c bus, the device can regulate the power of a heater band.
 * **12V Rail:** A single rail of 4 DC outputs for devices that don't need individual control, limited to **12V/5A for the whole rail**. Useful for things that stay on all the time for exemple.
 * **Switchable Relay:** A relay useful for controlling a device with specific voltage requirements, max **30V-5A**.
 * **Switchable USB Hub (Optional):** A 7-port switchable USB2 hub (on a second PCB). This allows for remote USB connection reset if a peripheral malfunctions, but a simple off-the-shelf hub can also be used if this feature is not needed.
@@ -194,15 +195,15 @@ Clients determine the switch type by querying the `CanWrite`, `Min`, `Max` and `
 
 Base Version:
 
-| Switch | DC1 | DC2 | DC3 | DC4 | DC5 | DC6 | DC7 | PWM1 | PWM2 | PWM3 | DC Rail | Relay | Input V | Total A | Total A DC | Total A PWM | DC1_V | DC1_A | DC2_V | DC2_A | DC3_V | DC3_A | DC4_V | DC4_A | DC5_V | DC5_A | DC6_V | DC6_A | DC7_V | DC7_A | PWM1_V | PWM1_A | PWM2_V | PWM2_A | PWM3_V | PWM3_A | DC Rail_V | DC Rail_A |
+| Switch | DC1 | DC2 | DC3 | DC4 | DC5 | DC6 | DC7 | PWM1 | PWM2 | PWM3 | Ren1 | Ren2 | Ren3 | DC Rail | Relay | Input V | Total A | Total A DC | Total A PWM | DC1_V | DC1_A | DC2_V | DC2_A | DC3_V | DC3_A | DC4_V | DC4_A | DC5_V | DC5_A | DC6_V | DC6_A | DC7_V | DC7_A | PWM1_V | PWM1_A | PWM2_V | PWM2_A | PWM3_V | PWM3_A | DC Rail_V | DC Rail_A | Temp | Hum | Dew_point |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| index | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 |
+| index | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 |
 
 USB HUB Version:
 
-| Switch | DC1 | DC2 | DC3 | DC4 | DC5 | DC6 | DC7 | PWM1 | PWM2 | PWM3 | DC Rail | Relay | USB1 | USB2 | USB3 | USB4 | USB5 | USB6 | USB7 | Input V | Total A | Total A DC | Total A PWM | DC1_V | DC1_A | DC2_V | DC2_A | DC3_V | DC3_A | DC4_V | DC4_A | DC5_V | DC5_A | DC6_V | DC6_A | DC7_V | DC7_A | PWM1_V | PWM1_A | PWM2_V | PWM2_A | PWM3_V | PWM3_A | DC Rail_V | DC Rail_A |
+| Switch | DC1 | DC2 | DC3 | DC4 | DC5 | DC6 | DC7 | PWM1 | PWM2 | PWM3 | Ren1 | Ren2 | Ren3 | DC Rail | Relay | USB1 | USB2 | USB3 | USB4 | USB5 | USB6 | USB7 | Input V | Total A | Total A DC | Total A PWM | DC1_V | DC1_A | DC2_V | DC2_A | DC3_V | DC3_A | DC4_V | DC4_A | DC5_V | DC5_A | DC6_V | DC6_A | DC7_V | DC7_A | PWM1_V | PWM1_A | PWM2_V | PWM2_A | PWM3_V | PWM3_A | DC Rail_V | DC Rail_A | Temp | Hum | Dew_point |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| index | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 |
+| index | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 |
 
 ---
 
@@ -274,7 +275,6 @@ This project includes extra custom commands for device-specific features:
 ## 💡 Extra
 Space is included on the PCB for future expansion, although the code for these features is not yet implemented:
 * **Ethernet Module:** Provisions for an Ethernet module via SPI bus (not implemented in code).
-* **Environmental Sensors:** Provisions for temperature and humidity I2C sensors to optimize dew heater power and save energy (not implemented in code).
 
 
 ## DISCLAIMER
