@@ -80,6 +80,18 @@ namespace ASCOM.AstroPowerBoxXXL.Switch
                 this.name18.Visible = false;
 
             }
+            if(SwitchHardware.numRen == 0)
+            {
+                this.Auto1.Enabled = false;
+                this.Auto1.Visible = false;
+                this.metroLabel48.Visible = false;
+                this.Auto2.Enabled = false;
+                this.Auto2.Visible = false;
+                this.metroLabel99.Visible = false;
+                this.Auto3.Enabled = false;
+                this.Auto3.Visible = false;
+                this.metroLabel103.Visible = false;
+            }
 
             this.metroTabControl1.SelectedIndex = 0;
 
@@ -558,17 +570,17 @@ namespace ASCOM.AstroPowerBoxXXL.Switch
 
         private void Auto1_CheckedChanged(object sender, EventArgs e)
         {
-            SwitchHardware.SetSwitchValueUSB(10, Convert.ToDouble(Auto1.Checked));
+            if(SwitchHardware.numRen==1)SwitchHardware.SetSwitchValueUSB(10, Convert.ToDouble(Auto1.Checked));
         }
 
         private void Auto2_CheckedChanged(object sender, EventArgs e)
         {
-            SwitchHardware.SetSwitchValueUSB(11, Convert.ToDouble(Auto2.Checked));
+            if(SwitchHardware.numRen == 1) SwitchHardware.SetSwitchValueUSB(11, Convert.ToDouble(Auto2.Checked));
         }
 
         private void Auto3_CheckedChanged(object sender, EventArgs e)
         {
-            SwitchHardware.SetSwitchValueUSB(12, Convert.ToDouble(Auto3.Checked));
+            if(SwitchHardware.numRen == 1) SwitchHardware.SetSwitchValueUSB(12, Convert.ToDouble(Auto3.Checked));
         }
     }
 }

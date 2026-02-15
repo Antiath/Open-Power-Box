@@ -72,6 +72,12 @@
             this.metroLabel54 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel49 = new MetroFramework.Controls.MetroLabel();
             this.metroPanel4 = new MetroFramework.Controls.MetroPanel();
+            this.DewBox = new MetroFramework.Controls.MetroTextBox();
+            this.metroLabel110 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel107 = new MetroFramework.Controls.MetroLabel();
+            this.HumBox = new MetroFramework.Controls.MetroTextBox();
+            this.TempBox = new MetroFramework.Controls.MetroTextBox();
+            this.metroLabel105 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel43 = new MetroFramework.Controls.MetroLabel();
             this.Vin = new MetroFramework.Controls.MetroTextBox();
             this.TotalA = new MetroFramework.Controls.MetroTextBox();
@@ -89,6 +95,12 @@
             this.metroLabel34 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel41 = new MetroFramework.Controls.MetroLabel();
             this.metroPanel2 = new MetroFramework.Controls.MetroPanel();
+            this.metroLabel103 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel99 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel48 = new MetroFramework.Controls.MetroLabel();
+            this.Auto3 = new MetroFramework.Controls.MetroToggle();
+            this.Auto2 = new MetroFramework.Controls.MetroToggle();
+            this.Auto1 = new MetroFramework.Controls.MetroToggle();
             this.PWM3Set = new MetroFramework.Controls.MetroTextBox();
             this.PWM2Set = new MetroFramework.Controls.MetroTextBox();
             this.PWM1Set = new MetroFramework.Controls.MetroTextBox();
@@ -266,18 +278,6 @@
             this.CloseButton = new MetroFramework.Controls.MetroButton();
             this.MinimizeButton = new MetroFramework.Controls.MetroButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.Auto1 = new MetroFramework.Controls.MetroToggle();
-            this.Auto2 = new MetroFramework.Controls.MetroToggle();
-            this.Auto3 = new MetroFramework.Controls.MetroToggle();
-            this.metroLabel48 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel99 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel103 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel105 = new MetroFramework.Controls.MetroLabel();
-            this.TempBox = new MetroFramework.Controls.MetroTextBox();
-            this.HumBox = new MetroFramework.Controls.MetroTextBox();
-            this.metroLabel107 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel110 = new MetroFramework.Controls.MetroLabel();
-            this.DewBox = new MetroFramework.Controls.MetroTextBox();
             this.metroTabControl1.SuspendLayout();
             this.metroTabPage1.SuspendLayout();
             this.metroPanel6.SuspendLayout();
@@ -861,6 +861,72 @@
             this.metroPanel4.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel4.VerticalScrollbarSize = 10;
             // 
+            // DewBox
+            // 
+            this.DewBox.FontSize = MetroFramework.MetroTextBoxSize.Medium;
+            this.DewBox.Location = new System.Drawing.Point(316, 89);
+            this.DewBox.Name = "DewBox";
+            this.DewBox.Size = new System.Drawing.Size(84, 23);
+            this.DewBox.Style = MetroFramework.MetroColorStyle.Blue;
+            this.DewBox.TabIndex = 76;
+            this.DewBox.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // metroLabel110
+            // 
+            this.metroLabel110.AutoSize = true;
+            this.metroLabel110.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.metroLabel110.Location = new System.Drawing.Point(304, 65);
+            this.metroLabel110.Name = "metroLabel110";
+            this.metroLabel110.Size = new System.Drawing.Size(105, 20);
+            this.metroLabel110.Style = MetroFramework.MetroColorStyle.Blue;
+            this.metroLabel110.TabIndex = 75;
+            this.metroLabel110.Text = "Dew Point (°C)";
+            this.metroLabel110.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // metroLabel107
+            // 
+            this.metroLabel107.AutoSize = true;
+            this.metroLabel107.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.metroLabel107.Location = new System.Drawing.Point(176, 65);
+            this.metroLabel107.Name = "metroLabel107";
+            this.metroLabel107.Size = new System.Drawing.Size(96, 20);
+            this.metroLabel107.Style = MetroFramework.MetroColorStyle.Blue;
+            this.metroLabel107.TabIndex = 74;
+            this.metroLabel107.Text = "Humidity (%)";
+            this.metroLabel107.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // HumBox
+            // 
+            this.HumBox.FontSize = MetroFramework.MetroTextBoxSize.Medium;
+            this.HumBox.Location = new System.Drawing.Point(176, 89);
+            this.HumBox.Name = "HumBox";
+            this.HumBox.Size = new System.Drawing.Size(84, 23);
+            this.HumBox.Style = MetroFramework.MetroColorStyle.Blue;
+            this.HumBox.TabIndex = 73;
+            this.HumBox.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // TempBox
+            // 
+            this.TempBox.FontSize = MetroFramework.MetroTextBoxSize.Medium;
+            this.TempBox.Location = new System.Drawing.Point(35, 89);
+            this.TempBox.Name = "TempBox";
+            this.TempBox.Size = new System.Drawing.Size(84, 23);
+            this.TempBox.Style = MetroFramework.MetroColorStyle.Blue;
+            this.TempBox.TabIndex = 72;
+            this.TempBox.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // metroLabel105
+            // 
+            this.metroLabel105.AutoSize = true;
+            this.metroLabel105.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.metroLabel105.Location = new System.Drawing.Point(23, 65);
+            this.metroLabel105.Name = "metroLabel105";
+            this.metroLabel105.Size = new System.Drawing.Size(122, 20);
+            this.metroLabel105.Style = MetroFramework.MetroColorStyle.Blue;
+            this.metroLabel105.TabIndex = 71;
+            this.metroLabel105.Text = "Temperature (°C)";
+            this.metroLabel105.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
             // metroLabel43
             // 
             this.metroLabel43.AutoSize = true;
@@ -1110,6 +1176,81 @@
             this.metroPanel2.VerticalScrollbarBarColor = true;
             this.metroPanel2.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel2.VerticalScrollbarSize = 10;
+            // 
+            // metroLabel103
+            // 
+            this.metroLabel103.AutoSize = true;
+            this.metroLabel103.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.metroLabel103.Location = new System.Drawing.Point(347, 294);
+            this.metroLabel103.Name = "metroLabel103";
+            this.metroLabel103.Size = new System.Drawing.Size(77, 20);
+            this.metroLabel103.Style = MetroFramework.MetroColorStyle.Blue;
+            this.metroLabel103.TabIndex = 86;
+            this.metroLabel103.Text = "Auto-Dew";
+            this.metroLabel103.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // metroLabel99
+            // 
+            this.metroLabel99.AutoSize = true;
+            this.metroLabel99.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.metroLabel99.Location = new System.Drawing.Point(347, 170);
+            this.metroLabel99.Name = "metroLabel99";
+            this.metroLabel99.Size = new System.Drawing.Size(77, 20);
+            this.metroLabel99.Style = MetroFramework.MetroColorStyle.Blue;
+            this.metroLabel99.TabIndex = 85;
+            this.metroLabel99.Text = "Auto-Dew";
+            this.metroLabel99.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // metroLabel48
+            // 
+            this.metroLabel48.AutoSize = true;
+            this.metroLabel48.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.metroLabel48.Location = new System.Drawing.Point(347, 53);
+            this.metroLabel48.Name = "metroLabel48";
+            this.metroLabel48.Size = new System.Drawing.Size(77, 20);
+            this.metroLabel48.Style = MetroFramework.MetroColorStyle.Blue;
+            this.metroLabel48.TabIndex = 84;
+            this.metroLabel48.Text = "Auto-Dew";
+            this.metroLabel48.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // Auto3
+            // 
+            this.Auto3.AutoSize = true;
+            this.Auto3.DisplayStatus = false;
+            this.Auto3.Location = new System.Drawing.Point(356, 328);
+            this.Auto3.Name = "Auto3";
+            this.Auto3.Size = new System.Drawing.Size(50, 20);
+            this.Auto3.Style = MetroFramework.MetroColorStyle.Green;
+            this.Auto3.TabIndex = 83;
+            this.Auto3.Text = "Off";
+            this.Auto3.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.Auto3.CheckedChanged += new System.EventHandler(this.Auto3_CheckedChanged);
+            // 
+            // Auto2
+            // 
+            this.Auto2.AutoSize = true;
+            this.Auto2.DisplayStatus = false;
+            this.Auto2.Location = new System.Drawing.Point(356, 206);
+            this.Auto2.Name = "Auto2";
+            this.Auto2.Size = new System.Drawing.Size(50, 20);
+            this.Auto2.Style = MetroFramework.MetroColorStyle.Green;
+            this.Auto2.TabIndex = 82;
+            this.Auto2.Text = "Off";
+            this.Auto2.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.Auto2.CheckedChanged += new System.EventHandler(this.Auto2_CheckedChanged);
+            // 
+            // Auto1
+            // 
+            this.Auto1.AutoSize = true;
+            this.Auto1.DisplayStatus = false;
+            this.Auto1.Location = new System.Drawing.Point(356, 85);
+            this.Auto1.Name = "Auto1";
+            this.Auto1.Size = new System.Drawing.Size(50, 20);
+            this.Auto1.Style = MetroFramework.MetroColorStyle.Green;
+            this.Auto1.TabIndex = 60;
+            this.Auto1.Text = "Off";
+            this.Auto1.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.Auto1.CheckedChanged += new System.EventHandler(this.Auto1_CheckedChanged);
             // 
             // PWM3Set
             // 
@@ -3345,147 +3486,6 @@
             this.MinimizeButton.TabIndex = 18;
             this.MinimizeButton.Text = "_";
             this.MinimizeButton.Theme = MetroFramework.MetroThemeStyle.Dark;
-            // 
-            // Auto1
-            // 
-            this.Auto1.AutoSize = true;
-            this.Auto1.DisplayStatus = false;
-            this.Auto1.Location = new System.Drawing.Point(356, 85);
-            this.Auto1.Name = "Auto1";
-            this.Auto1.Size = new System.Drawing.Size(50, 20);
-            this.Auto1.Style = MetroFramework.MetroColorStyle.Green;
-            this.Auto1.TabIndex = 60;
-            this.Auto1.Text = "Off";
-            this.Auto1.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.Auto1.CheckedChanged += new System.EventHandler(this.Auto1_CheckedChanged);
-            // 
-            // Auto2
-            // 
-            this.Auto2.AutoSize = true;
-            this.Auto2.DisplayStatus = false;
-            this.Auto2.Location = new System.Drawing.Point(356, 206);
-            this.Auto2.Name = "Auto2";
-            this.Auto2.Size = new System.Drawing.Size(50, 20);
-            this.Auto2.Style = MetroFramework.MetroColorStyle.Green;
-            this.Auto2.TabIndex = 82;
-            this.Auto2.Text = "Off";
-            this.Auto2.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.Auto2.CheckedChanged += new System.EventHandler(this.Auto2_CheckedChanged);
-            // 
-            // Auto3
-            // 
-            this.Auto3.AutoSize = true;
-            this.Auto3.DisplayStatus = false;
-            this.Auto3.Location = new System.Drawing.Point(356, 328);
-            this.Auto3.Name = "Auto3";
-            this.Auto3.Size = new System.Drawing.Size(50, 20);
-            this.Auto3.Style = MetroFramework.MetroColorStyle.Green;
-            this.Auto3.TabIndex = 83;
-            this.Auto3.Text = "Off";
-            this.Auto3.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.Auto3.CheckedChanged += new System.EventHandler(this.Auto3_CheckedChanged);
-            // 
-            // metroLabel48
-            // 
-            this.metroLabel48.AutoSize = true;
-            this.metroLabel48.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel48.Location = new System.Drawing.Point(347, 53);
-            this.metroLabel48.Name = "metroLabel48";
-            this.metroLabel48.Size = new System.Drawing.Size(77, 20);
-            this.metroLabel48.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel48.TabIndex = 84;
-            this.metroLabel48.Text = "Auto-Dew";
-            this.metroLabel48.Theme = MetroFramework.MetroThemeStyle.Dark;
-            // 
-            // metroLabel99
-            // 
-            this.metroLabel99.AutoSize = true;
-            this.metroLabel99.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel99.Location = new System.Drawing.Point(347, 170);
-            this.metroLabel99.Name = "metroLabel99";
-            this.metroLabel99.Size = new System.Drawing.Size(77, 20);
-            this.metroLabel99.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel99.TabIndex = 85;
-            this.metroLabel99.Text = "Auto-Dew";
-            this.metroLabel99.Theme = MetroFramework.MetroThemeStyle.Dark;
-            // 
-            // metroLabel103
-            // 
-            this.metroLabel103.AutoSize = true;
-            this.metroLabel103.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel103.Location = new System.Drawing.Point(347, 294);
-            this.metroLabel103.Name = "metroLabel103";
-            this.metroLabel103.Size = new System.Drawing.Size(77, 20);
-            this.metroLabel103.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel103.TabIndex = 86;
-            this.metroLabel103.Text = "Auto-Dew";
-            this.metroLabel103.Theme = MetroFramework.MetroThemeStyle.Dark;
-            // 
-            // metroLabel105
-            // 
-            this.metroLabel105.AutoSize = true;
-            this.metroLabel105.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel105.Location = new System.Drawing.Point(23, 65);
-            this.metroLabel105.Name = "metroLabel105";
-            this.metroLabel105.Size = new System.Drawing.Size(122, 20);
-            this.metroLabel105.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel105.TabIndex = 71;
-            this.metroLabel105.Text = "Temperature (°C)";
-            this.metroLabel105.Theme = MetroFramework.MetroThemeStyle.Dark;
-            // 
-            // TempBox
-            // 
-            this.TempBox.FontSize = MetroFramework.MetroTextBoxSize.Medium;
-            this.TempBox.Location = new System.Drawing.Point(35, 89);
-            this.TempBox.Name = "TempBox";
-            this.TempBox.Size = new System.Drawing.Size(84, 23);
-            this.TempBox.Style = MetroFramework.MetroColorStyle.Blue;
-            this.TempBox.TabIndex = 72;
-            this.TempBox.Theme = MetroFramework.MetroThemeStyle.Dark;
-            // 
-            // HumBox
-            // 
-            this.HumBox.FontSize = MetroFramework.MetroTextBoxSize.Medium;
-            this.HumBox.Location = new System.Drawing.Point(176, 89);
-            this.HumBox.Name = "HumBox";
-            this.HumBox.Size = new System.Drawing.Size(84, 23);
-            this.HumBox.Style = MetroFramework.MetroColorStyle.Blue;
-            this.HumBox.TabIndex = 73;
-            this.HumBox.Theme = MetroFramework.MetroThemeStyle.Dark;
-            // 
-            // metroLabel107
-            // 
-            this.metroLabel107.AutoSize = true;
-            this.metroLabel107.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel107.Location = new System.Drawing.Point(176, 65);
-            this.metroLabel107.Name = "metroLabel107";
-            this.metroLabel107.Size = new System.Drawing.Size(96, 20);
-            this.metroLabel107.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel107.TabIndex = 74;
-            this.metroLabel107.Text = "Humidity (%)";
-            this.metroLabel107.Theme = MetroFramework.MetroThemeStyle.Dark;
-            // 
-            // metroLabel110
-            // 
-            this.metroLabel110.AutoSize = true;
-            this.metroLabel110.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel110.Location = new System.Drawing.Point(304, 65);
-            this.metroLabel110.Name = "metroLabel110";
-            this.metroLabel110.Size = new System.Drawing.Size(105, 20);
-            this.metroLabel110.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel110.TabIndex = 75;
-            this.metroLabel110.Text = "Dew Point (°C)";
-            this.metroLabel110.Theme = MetroFramework.MetroThemeStyle.Dark;
-            // 
-            // DewBox
-            // 
-            this.DewBox.FontSize = MetroFramework.MetroTextBoxSize.Medium;
-            this.DewBox.Location = new System.Drawing.Point(316, 89);
-            this.DewBox.Name = "DewBox";
-            this.DewBox.Size = new System.Drawing.Size(84, 23);
-            this.DewBox.Style = MetroFramework.MetroColorStyle.Blue;
-            this.DewBox.TabIndex = 76;
-            this.DewBox.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
             // Form1
             // 
