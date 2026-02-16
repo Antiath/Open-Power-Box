@@ -45,6 +45,7 @@ class OPB : public INDI::DefaultDevice, public INDI::PowerInterface
         
         // INDI::PowerInterface overrides
         virtual bool SetPowerPort(size_t port, bool enabled) override;
+        virtual bool SetAutoDewEnabled(size_t port, bool enabled) override;
         virtual bool SetDewPort(size_t port, bool enabled, double dutyCycle)  override;
         virtual bool SetUSBPort(size_t port, bool enabled) override;
         
@@ -91,7 +92,7 @@ class OPB : public INDI::DefaultDevice, public INDI::PowerInterface
         float Limit[6];//{DC,PWM,On,TotalDC,TotalPWM,Total}
         static constexpr int CMD_DELAY = 100000;
         static constexpr int READ_TIMEOUT = 3000;
-        int numDC,numPWM,numRelay,numOn,numUSB;
+        int numDC,numPWM,numAuto,numRelay,numOn,numUSB,numRen;
         std::string IP,SSID,PWD;
         
         
@@ -137,6 +138,8 @@ class OPB : public INDI::DefaultDevice, public INDI::PowerInterface
         enum PWMAEnum{PWM_A_1, PWM_A_2, PWM_A_3, PWM_A_4, PWM_A_5, PWM_A_6, PWM_A_7, PWM_A_8, PWM_A_9, PWM_A_10};
         INDI::PropertyNumber OnSensorNP {2};
         enum{ON_V,ON_A};
+        INDI::PropertyNumber EnvNP {3};
+        enum EnvEnum{TEMP, HUM, DEW_POINT};
 
         
 };

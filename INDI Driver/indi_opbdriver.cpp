@@ -30,6 +30,7 @@
  *  
  * FEATURES
  * - Control of all outputs (DC, Dew, USB) with individual ON/OFF commands, as well as duty cycle control for dew heaters.
+ * - Tutomatic control mode for dew heaters.
  * - Real-time monitoring of voltage, current and power consumption for each DC ouputs and Dew outpouts, as well as total consumption.
  * - Hardware fuses are provided for the dew heaters but not for the DC Outputs ( to avoid unwanted voltage drops that can mess with some devices like QHY cameras).
  * - Software fuses (current limits) on all outputs, configrurable in the driver.
@@ -39,8 +40,6 @@
  * - Polarity (switch polarity , not voltage polarity) inversion for all outputs.
  * - Web browser interface handled by the device.
  * 
- *  IN DEVELOPMENT
- * - add support for automatic control of dew heaters.
  ******************************************************************************/
 
 #include "indi_opbdriver.h"
@@ -124,7 +123,7 @@ bool OPB::initProperties()
     
     setDriverInterface(POWER_INTERFACE);
     
-    SetCapability(POWER_HAS_DC_OUT | POWER_HAS_DEW_OUT | POWER_HAS_USB_TOGGLE | POWER_HAS_VOLTAGE_SENSOR | POWER_HAS_OVERALL_CURRENT | POWER_HAS_PER_PORT_CURRENT);
+    SetCapability(POWER_HAS_DC_OUT | POWER_HAS_DEW_OUT | POWER_HAS_AUTO_DEW | POWER_HAS_USB_TOGGLE | POWER_HAS_VOLTAGE_SENSOR | POWER_HAS_OVERALL_CURRENT | POWER_HAS_PER_PORT_CURRENT);
     
         // Define port property (needed before connection)
     defineProperty(PortTP);
@@ -442,14 +441,31 @@ s1= s1+ std::to_string((int)dutyCycle);
 LOG_INFO(s1.c_str());
     if (enabled) SetSwitchValueUSB(numDC+port, (int)dutyCycle);
     else SetSwitchValueUSB(numDC+port, 0); //Following the indexing system set up in the firmware. Refer to the github.
+    SetSwitchValueUSB(numDC+numPWM+port, 0);//Disabling Auto-Dew on the port when sending a manual order.
 }
     return true; // Assume success since we will get the real state of the outputs from the device in the next update cycle, and update the switch states accordingly.
+}
+
+bool OPB::SetAutoDewEnabled(size_t port, bool enabled)
+{
+if(Allpwm){
+std::string s1="Setting Automatic Dew Heater control on Port ";
+std::string s2=" to ";
+s1= s1+ std::to_string((int)port);
+s1= s1+s2;
+s1= s1+ std::to_string(enabled);
+LOG_INFO(s1.c_str());
+    if (enabled) SetSwitchValueUSB(numDC+numPWM+port, 1);
+    else SetSwitchValueUSB(numDC+numPWM+port, 0); //Following the indexing system set up in the firmware. Refer to the github.
+}
+    return true; // Assume success since we will get the real state of the outputs from the device in the next update cycle, and update the switch states accordingly.
+
 }
 
 bool OPB::SetUSBPort(size_t port, bool enabled)
 {
     std::cout << "Setting USB Port " << port << " to " << (enabled ? "ON" : "OFF") << std::endl;
-    SetSwitchUSB(numDC+numPWM+numRelay+numOn+port, (int)enabled); //Following the indexing system set up in the firmware. Refer to the github.
+    SetSwitchUSB(numDC+2*numPWM+numRelay+numOn+port, (int)enabled); //Following the indexing system set up in the firmware. Refer to the github.
 
     return true; // Assume success since we will get the real state of the outputs from the device in the next update cycle, and update the switch states accordingly.
 }
@@ -481,16 +497,22 @@ bool OPB::Connect()
             msg=msg.append(std::to_string(numOn));
             msg=msg.append(" DC bank + ");
             msg=msg.append(std::to_string(numUSB));
-            msg=msg.append(" USB ports");
+            msg=msg.append(" USB ports + ");
+            msg=msg.append(std::to_string(numRen));
+            msg=msg.append(" Ren flag");
             LOG_INFO(msg.c_str());  
     GetIP();
     GetSSID();
     
-    for(int i=0;i<numDC+numPWM;i++)GetNameUSB(i);
+    for(int i=0;i<numDC+2*numPWM;i++)GetNameUSB(i);
     
     if(initialized==false)
     {
-    PI::initProperties(POWER_TAB, numDC, numPWM, 0 , 0, numUSB);
+        
+        if(numRen==1) numAuto=numPWM;
+        else numAuto=0;
+
+    PI::initProperties(POWER_TAB, numDC, numPWM, 0 , numAuto, numUSB);
     for(int i=0;i<numDC;i++)
     {
       PI::PowerChannelLabelsTP[i].setText(name_switch[i].c_str());
@@ -500,9 +522,15 @@ bool OPB::Connect()
       for(int i=0;i<numPWM;i++)
     {
       PI::DewChannelLabelsTP[i].setText(name_switch[numDC+i].c_str());
+      //PI::AutoDewChannelLabelsTP[i].setText(name_switch[numDC+i].c_str());
     }
       PI::DewChannelLabelsTP.apply();
-     
+    
+    EnvNP[TEMP].fill("TEMPERATURE", "Temperature (°C) ", "%4.2f", 0, 999, 100, 0);
+    EnvNP[HUM].fill("HUMIDITY", "Humidity (%) ", "%4.2f", 0, 999, 100, 0);
+    EnvNP[DEW_POINT].fill("DEW_POINT", "Dew Point (°C) ", "%4.2f", 0, 999, 100, 0);
+    EnvNP.fill(getDeviceName(), "ENV", "Environment",DEW_TAB, IP_RO, 60, IPS_IDLE);
+    defineProperty(EnvNP);  
      
     for(int i=0; i < numDC;i++)
     {
@@ -639,11 +667,12 @@ bool OPB::Disconnect()
     if(numDC>0) deleteProperty(ReverseDCSP);
     if(numPWM>0) deleteProperty(ReversePWMSP);
     
+    
     if(numDC>0)deleteProperty(DCVoltageNP);
     if(numDC>0)deleteProperty(DCCurrentNP);
     if(numOn>0)deleteProperty(OnSensorNP);
     if(numPWM>0)deleteProperty(PWMCurrentNP);
-    
+    if(numRen>0) deleteProperty(EnvNP);
     
     connectedstate=false;
     LOG_INFO("Disconnected from OPPBXXL");
@@ -1032,7 +1061,7 @@ bool  OPB::Transmit(char command, int SwitchNum, std::string value)
 /// Sends a command to change the name of a switch.
 //////////////////////////////////////////////////////////////////////          
         
-                      void OPB::SetNameUSB(short id, std::string name)
+            void OPB::SetNameUSB(short id, std::string name)
         {
             int switchN;
             std::string answer = "";
@@ -1094,9 +1123,14 @@ bool  OPB::Transmit(char command, int SwitchNum, std::string value)
             buf=buf.erase(j);
             buf=buf.substr(i+1);
 
+            
             int k=buf.find_last_of(',');
-            numUSB=std::stoi(buf.substr(k+1));
+            numRen=std::stoi(buf.substr(k+1));
  
+            buf=buf.erase(k);
+            k=buf.find_last_of(',');
+            numUSB=std::stoi(buf.substr(k+1));
+
             buf=buf.erase(k);
             k=buf.find_last_of(',');
             numOn=std::stoi(buf.substr(k+1));
@@ -1401,15 +1435,16 @@ bool  OPB::Transmit(char command, int SwitchNum, std::string value)
             
 void OPB::TimerHit()
 {
+    float t,h,d;
     if (!isConnected() )
     {
         SetTimer(getCurrentPollingPeriod());
         return;
     }
 
-    int total = numDC + numPWM + numOn + numRelay + numUSB; // Number of physical switches present in the device.
+    int total = numDC + 2*numPWM + numOn + numRelay + numUSB; // Number of physical switches present in the device.
     int sensorNum= total +4; // Index of the first individual input sensor ( the 4 general sensors are first, hence +4).
-    int numSwitch = (numDC + numPWM + numOn)*2+ total +4; // Maximum index of "switches" in the ASCOM sense (where everything is a switch). We just need to add the number of sensors to sensorNum. Note that there are no sensors for the usb hub , nor for the relay.
+    int numSwitch = (numDC + numPWM + numOn)*2+ total +4+3*numRen; // Maximum index of "switches" in the ASCOM sense (where everything is a switch). We just need to add the number of sensors to sensorNum. Note that there are no sensors for the usb hub , nor for the relay.
     
     int numInputV = total; // Index of the general input voltage sensor in the state array.
     int numTotalA = numInputV + 1; // Index of the general total current sensor in the state array. 
@@ -1418,6 +1453,25 @@ void OPB::TimerHit()
 
     float v=std::stof(state[numInputV]); 
     float a=std::stof(state[numTotalA]);
+    if(numRen==1)
+    {
+        t=std::stof(state[numSwitch-3]); //Getting Temperature
+        h=std::stof(state[numSwitch-2]); //Getting Humidity
+        d=std::stof(state[numSwitch-1]); //Getting Dew Point
+        EnvNP[TEMP].setValue(t); 
+        EnvNP[HUM].setValue(h); 
+        EnvNP[DEW_POINT].setValue(d); 
+        EnvNP.apply();
+
+        //Getting the sate of the Auto-dew flag from the device and updating the UI.
+    for(int j=0;j<numPWM;j++)
+    {
+        PI::AutoDewSP[j].setState(((bool)(std::stoi(state[numDC+numPWM+j])))? ISS_ON : ISS_OFF);
+    }
+    PI::AutoDewSP.apply();
+    }
+    
+
     
     // Updating the properties of the first 2 general sensors + calculating instantaneous power.
     PI::PowerSensorsNP[PI::SENSOR_VOLTAGE].setValue(v); 
@@ -1429,9 +1483,12 @@ void OPB::TimerHit()
     
     for(int i=0;i<numDC;i++)PI::PowerChannelsSP[i].setState(((bool)(std::stoi(state[i])))? ISS_ON : ISS_OFF);
     PI::PowerChannelsSP.apply();
-    for(int j=0;j<numPWM;j++)PI::DewChannelDutyCycleNP[j].setValue((double)(std::stoi(state[numDC+j])));
+    for(int j=0;j<numPWM;j++)
+    {
+        PI::DewChannelDutyCycleNP[j].setValue((double)(std::stoi(state[numDC+j])));
+    }
+
     PI::DewChannelDutyCycleNP.apply();
-    
     
     for(int i=0; i < numDC;i++)
     {
