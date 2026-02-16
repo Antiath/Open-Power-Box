@@ -134,7 +134,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 0.75rem; /* Slightly larger gap */
-            padding: 0.75rem; /* Slightly more padding */
+            padding: 0.20rem; /* Slightly more padding */
             background-color: #4a5568; /* Medium grey background */
             border-radius: 0.125rem; /* Minimal rounding for a sharp look */
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Softer shadow */
@@ -143,7 +143,7 @@
             margin-bottom: 0;
             flex-shrink: 0;
             width: auto;
-            min-width: 65px; /* Slightly wider min-width */
+            min-width: 100px; /* Slightly wider min-width */
             font-size: 1.1rem; /* Slightly smaller font for consistency */
             background-color: #6b7280; /* Darker grey for display within inline group */
             color: #e2e8f0; /* Light text */
@@ -153,7 +153,7 @@
             color: #cbd5e1; /* Lighter grey for labels */
             font-size: 0.95rem; /* Slightly smaller font for inline label */
             flex-grow: 1;
-            text-align: left;
+            text-align: center;
         }
         /* Styling for the new bottom controls section within Data Set C */
         .bottom-controls-section {
@@ -378,7 +378,7 @@
     <script>
 	
 	       // ESP32 interaction code=================================
-		var numusb=; //CODE MUST BE SPLIT INTO TWO HERE TO INSERT NUMUSB IN THE ESP32 WHEN LOADING THE PAGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		//var numusb=7; //CODE MUST BE SPLIT INTO TWO HERE TO INSERT NUMUSB IN THE ESP32 WHEN LOADING THE PAGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         var Socket;
 var starting=true;
 var tabclicked=0; //1=wifi,2=names,3=limits,4=polarities;
@@ -485,6 +485,16 @@ var tabclicked=0; //1=wifi,2=names,3=limits,4=polarities;
 		};
 	Socket.send(JSON.stringify(msg));	
 		}
+
+    function send_autostate(num,val) {
+        var msg;
+        msg = {
+		request: 'SEND_AUTOSTATE',
+		nb:num,
+		state:val
+		};
+	Socket.send(JSON.stringify(msg));
+		}
 		
     function send_usbstate(num,val) {
         var msg;
@@ -543,9 +553,15 @@ var tabclicked=0; //1=wifi,2=names,3=limits,4=polarities;
 	if (Boolean(parseInt(obj.DC5))!=document.getElementById(`dcSwitchToggle5`).checked){document.getElementById(`dcSwitchToggle5`).checked=Boolean(parseInt(obj.DC5));}
 	if (Boolean(parseInt(obj.DC6))!=document.getElementById(`dcSwitchToggle6`).checked){document.getElementById(`dcSwitchToggle6`).checked=Boolean(parseInt(obj.DC6));}
 	if (Boolean(parseInt(obj.DC7))!=document.getElementById(`dcSwitchToggle7`).checked){document.getElementById(`dcSwitchToggle7`).checked=Boolean(parseInt(obj.DC7));}
+
+
+    if (Boolean(parseInt(obj.AUTO1))!=document.getElementById(`AutoSwitchToggle1`).checked){document.getElementById(`AutoSwitchToggle1`).checked=Boolean(parseInt(obj.AUTO1));}
+    if (Boolean(parseInt(obj.AUTO2))!=document.getElementById(`AutoSwitchToggle2`).checked){document.getElementById(`AutoSwitchToggle2`).checked=Boolean(parseInt(obj.AUTO2));}
+    if (Boolean(parseInt(obj.AUTO3))!=document.getElementById(`AutoSwitchToggle3`).checked){document.getElementById(`AutoSwitchToggle3`).checked=Boolean(parseInt(obj.AUTO3));}
+
 	 
 	 // New USB switches state update (assuming keys USB1 to USB7)
-	 if(numusb==7){ // Check if the element exists
+	 //if(numusb==7){ // Check if the element exists
 		 if (Boolean(parseInt(obj.USB1))!=document.getElementById(`usbSwitchToggle1`).checked){document.getElementById(`usbSwitchToggle1`).checked=Boolean(parseInt(obj.USB1));}
 		 if (Boolean(parseInt(obj.USB2))!=document.getElementById(`usbSwitchToggle2`).checked){document.getElementById(`usbSwitchToggle2`).checked=Boolean(parseInt(obj.USB2));}
 		 if (Boolean(parseInt(obj.USB3))!=document.getElementById(`usbSwitchToggle3`).checked){document.getElementById(`usbSwitchToggle3`).checked=Boolean(parseInt(obj.USB3));}
@@ -553,7 +569,7 @@ var tabclicked=0; //1=wifi,2=names,3=limits,4=polarities;
 		 if (Boolean(parseInt(obj.USB5))!=document.getElementById(`usbSwitchToggle5`).checked){document.getElementById(`usbSwitchToggle5`).checked=Boolean(parseInt(obj.USB5));}
 		 if (Boolean(parseInt(obj.USB6))!=document.getElementById(`usbSwitchToggle6`).checked){document.getElementById(`usbSwitchToggle6`).checked=Boolean(parseInt(obj.USB6));}
 		 if (Boolean(parseInt(obj.USB7))!=document.getElementById(`usbSwitchToggle7`).checked){document.getElementById(`usbSwitchToggle7`).checked=Boolean(parseInt(obj.USB7));}	 
-	 }
+	 //}
 	 
 
 	 if (Boolean(parseInt(obj.RELAY))!=document.getElementById('mainPowerToggle').checked){document.getElementById('mainPowerToggle').checked=Boolean(parseInt(obj.RELAY));}
@@ -581,7 +597,10 @@ var tabclicked=0; //1=wifi,2=names,3=limits,4=polarities;
 	document.getElementById(`displayC1`).textContent = obj.INV;
 	document.getElementById(`displayC2`).textContent = obj.INA;
 	document.getElementById(`displayC3`).textContent = obj.INP;
-	
+	document.getElementById(`displayC4`).textContent = obj.TEMP;
+	document.getElementById(`displayC5`).textContent = obj.HUM;
+	document.getElementById(`displayC6`).textContent = obj.DEW;
+
     document.getElementById(`alwaysOndisplayA`).textContent = obj.ONA;
 	
 	document.getElementById(`PWMDisplayV1`).textContent = obj.PWM1V;
@@ -618,7 +637,7 @@ else if(obj.answer == 'SEND_NAME'){
 	document.getElementById('nameField12').value = obj.n11;
     
     // NEW USB Names (Fields 13-19)
-    if(numusb==7){ 
+    //if(numusb==7){
         document.getElementById('nameField13').value = obj.n12;
         document.getElementById('nameField14').value = obj.n13;
         document.getElementById('nameField15').value = obj.n14;
@@ -626,7 +645,7 @@ else if(obj.answer == 'SEND_NAME'){
         document.getElementById('nameField17').value = obj.n16;
         document.getElementById('nameField18').value = obj.n17;
         document.getElementById('nameField19').value = obj.n18;
-    }
+    //}
 
 	}
 else if(obj.answer == 'SEND_LIMIT'){
@@ -819,8 +838,46 @@ else if(obj.answer == 'SEND_POL'){
                 inputPGroup.appendChild(displayC3);
                 dataSetCColumnCell.appendChild(inputPGroup);
 
-if(numusb==7)
-{                // --- Start of new USB Switches Section ---
+                const inputTGroup = document.createElement('div');
+                inputTGroup.className = 'inline-display-group';
+                const InputTTitle = document.createElement('span');
+                InputTTitle.className = 'text-label';
+                InputTTitle.textContent = 'Temperauture (°c)';
+                inputTGroup.appendChild(InputTTitle);
+                const displayC4 = document.createElement('div');
+                displayC4.id = `displayC4`;
+                displayC4.className = 'numerical-display text-sm';
+                displayC4.textContent = `0`;
+                inputTGroup.appendChild(displayC4);
+                dataSetCColumnCell.appendChild(inputTGroup);
+
+                const inputHGroup = document.createElement('div');
+                inputHGroup.className = 'inline-display-group';
+                const InputHTitle = document.createElement('span');
+                InputHTitle.className = 'text-label';
+                InputHTitle.textContent = 'Humidity (%)';
+                inputHGroup.appendChild(InputHTitle);
+                const displayC5 = document.createElement('div');
+                displayC5.id = `displayC5`;
+                displayC5.className = 'numerical-display text-sm';
+                displayC5.textContent = `0`;
+                inputHGroup.appendChild(displayC5);
+                dataSetCColumnCell.appendChild(inputHGroup);
+
+                const inputDGroup = document.createElement('div');
+                inputDGroup.className = 'inline-display-group';
+                const InputDTitle = document.createElement('span');
+                InputDTitle.className = 'text-label';
+                InputDTitle.textContent = 'Dew Point (°c)';
+                inputDGroup.appendChild(InputDTitle);
+                const displayC6 = document.createElement('div');
+                displayC6.id = `displayC6`;
+                displayC6.className = 'numerical-display text-sm';
+                displayC6.textContent = `0`;
+                inputDGroup.appendChild(displayC6);
+                dataSetCColumnCell.appendChild(inputDGroup);
+//if(numusb==7)
+//{                // --- Start of new USB Switches Section ---
                 const usbSectionSeparator = document.createElement('hr');
                 usbSectionSeparator.className = 'border-t border-gray-700 my-4';
                 dataSetCColumnCell.appendChild(usbSectionSeparator);
@@ -861,7 +918,7 @@ if(numusb==7)
                 
                 dataSetCColumnCell.appendChild(usbSection);
                 // --- End of new USB Switches Section ---
-}
+//}
                 gridContainer.appendChild(dataSetCColumnCell);
 
                 const dataSetDColumnCell = document.createElement('div');
@@ -955,6 +1012,30 @@ if(numusb==7)
                     nestedGridRow.appendChild(sliderDisplay);
                     
                     dataSetDSection2.appendChild(nestedGridRow);
+
+                    const toggleContainer = document.createElement('div');
+                    toggleContainer.className = 'toggle-switch mt-1';
+
+                    const toggleText = document.createElement('span');
+					toggleText.id = `AutoSwitchText${i}`;
+                    toggleText.className = 'toggle-text';
+                    toggleText.textContent = `Auto-Dew ${i}`; // Named as Auto-Dew-x
+                    toggleContainer.appendChild(toggleText);
+
+                    const toggleInput = document.createElement('input');
+                    toggleInput.type = 'checkbox';
+                    toggleInput.id = `AutoSwitchToggle${i}`; // Unique ID for each toggle
+                    toggleInput.className = 'toggle-switch-input';
+                    toggleContainer.appendChild(toggleInput);
+
+                    const toggleLabel = document.createElement('label');
+                    toggleLabel.htmlFor = `AutoSwitchToggle${i}`;
+                    toggleLabel.className = 'toggle-switch-label';
+                    const toggleHandle = document.createElement('span');
+                    toggleHandle.className = 'toggle-switch-handle';
+                    toggleLabel.appendChild(toggleHandle);
+                    toggleContainer.appendChild(toggleLabel);
+                    dataSetDSection2.appendChild(toggleContainer);
 
                     const outputVGroup = document.createElement('div');
                     outputVGroup.className = 'inline-display-group';
@@ -1367,6 +1448,7 @@ if(numusb==7)
                 if (pageName === 'dashboard') {
                     appRoot.appendChild(createDashboardPageContent());
                     dashboardTab.classList.add('active');
+
                     // Re-attach event listeners for dashboard elements
                     for (let i = 1; i <= 7; i++) {
                         const toggleInput = document.getElementById(`dcSwitchToggle${i}`);
@@ -1377,6 +1459,19 @@ if(numusb==7)
                                 } else {
 									send_dcstate( (i-1), 0);
                                 }	
+                            });
+                        }
+                    }
+
+                    for (let i = 1; i <= 3; i++) {
+                        const toggleInput = document.getElementById(`AutoSwitchToggle${i}`);
+                        if (toggleInput) {
+                            toggleInput.addEventListener('click', (event) => {
+                                if (event.target.checked) {
+									send_autostate( (i-1), 1);
+                                } else {
+									send_autostate( (i-1), 0);
+                                }
                             });
                         }
                     }

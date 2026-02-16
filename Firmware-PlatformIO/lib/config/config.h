@@ -31,7 +31,7 @@ const short DCOutput_Num = 7;  // Number of stable 12V outputs.
 const short PWMOutput_Num = 3; // Number of PWM controlled outputs.
 const short RelayOutput_Num = 1; // Number of relay outputs.
 const short OnOutput_Num = 1; // Number of always ON 12V switches (the whole bank of connectors is controlled by the same switch)
-const short USBOutput_Num = 7; // Number of USB controlled outputs. Maximum is 7.
+const short USBOutput_Num = 0; // Number of USB controlled outputs. Maximum is 7.
 const bool Ren =true; // Falg to enable/disable the automatic power control of dew heaters. This only affects the firmware and display of the sensor, you will still have to activate automatic control in the driver.
  
 

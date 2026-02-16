@@ -4,7 +4,7 @@
 #include <SerialCommand.h>
 #include <ErrorManager.h>
 #include <Adafruit_MCP23X17.h>
-#include <definitions.h>
+#include "Definitions.h"
 #include <WiFi.h>
 #include <WiFiUdp.h>
 #include <WebServer.h>
@@ -624,6 +624,7 @@ void UpdateWebpageReadings()
         for(int i = 0; i < PWMOutput_Num; i++)
     {
       object["PWM"+String(i+1)] = String(_switch.getswitch(DCOutput_Num+i));
+      if(Ren)object["AUTO"+String(i+1)] = String(_switch.getswitchvalue(DCOutput_Num+PWMOutput_Num+i));
     }
     object["ON"] = String(_switch.getswitch(DCOutput_Num+PWMOutput_Num));
     object["RELAY"] = String(_switch.getswitch(DCOutput_Num+PWMOutput_Num+1));
@@ -632,6 +633,14 @@ void UpdateWebpageReadings()
     object["INV"] = String(_switch.getswitchvalue(SensorPos)) + "V";
     object["INA"] = String(_switch.getswitchvalue(SensorPos+1)) + "A";
     object["INP"] = String(_switch.getswitchvalue(SensorPos) * _switch.getswitchvalue(SensorPos+1)) + "W";
+    
+    if(Ren)
+    {
+    object["TEMP"] = String(_switch.getswitchvalue(TotalOutputNum-3)) + "°C";
+    object["HUM"] = String(_switch.getswitchvalue(TotalOutputNum-2)) + "%";
+    object["DEW"] = String(_switch.getswitchvalue(TotalOutputNum-1)) + "°C"; 
+    }
+    
     for(int i = 0; i < DCOutput_Num; i++)
     {
       object["DC"+String(i+1)+"V"] = String(_switch.getswitchvalue(sensorDC0 + i * 2)) + "V";
@@ -894,8 +903,10 @@ void webSocketEvent(byte num, WStype_t type, uint8_t *payload, size_t length)
         return;
       }
 
-      else if (g_request == "SEND_USBSTATE")
+      else if (g_request == "SEND_AUTOSTATE")
       {
+        if(Ren)
+        {
         int ind, val;
         data = doc["nb"].as<String>();
         if (data != "")
@@ -903,9 +914,25 @@ void webSocketEvent(byte num, WStype_t type, uint8_t *payload, size_t length)
         data = doc["state"].as<String>();
         if (data != "")
           val = data.toInt();
-        _switch.setswitch((DCOutput_Num+PWMOutput_Num+OnOutput_Num+1+ind), (bool)val);
+        _switch.setswitchvalue((DCOutput_Num+PWMOutput_Num+ind), val);
+        Serial.println("Received autostate from webpage for Switch " + String(ind) + " value" + String(val));
+        return;
+        }
+      }
+      else if (g_request == "SEND_USBSTATE")
+      {
+        if(USBOutput_Num>0){
+        int ind, val;
+        data = doc["nb"].as<String>();
+        if (data != "")
+          ind = data.toInt();
+        data = doc["state"].as<String>();
+        if (data != "")
+          val = data.toInt();
+        _switch.setswitch((DCOutput_Num+2*PWMOutput_Num+OnOutput_Num+1+ind), (bool)val);
         Serial.println("Received usbstate from webpage for Switch " + String(ind) + " value" + String(val));
         return;
+        }
       }
 
       else if (g_request == "SEND_RELAYSTATE")
@@ -914,7 +941,7 @@ void webSocketEvent(byte num, WStype_t type, uint8_t *payload, size_t length)
         data = doc["state"].as<String>();
         if (data != "")
           val = data.toInt();
-        _switch.setswitch(DCOutput_Num+PWMOutput_Num+OnOutput_Num, (bool)val);
+        _switch.setswitch(DCOutput_Num+2*PWMOutput_Num+OnOutput_Num, (bool)val);
         return;
       }
       else if (g_request == "SEND_ONSTATE")
@@ -923,7 +950,7 @@ void webSocketEvent(byte num, WStype_t type, uint8_t *payload, size_t length)
         data = doc["state"].as<String>();
         if (data != "")
           val = data.toInt();
-        _switch.setswitch(DCOutput_Num + PWMOutput_Num, (bool)val);
+        _switch.setswitch(DCOutput_Num + 2*PWMOutput_Num, (bool)val);
         return;
       }
       else if (g_request == "SEND_PWMSTATE")
@@ -1093,9 +1120,9 @@ void get_setup()
   _ascomserver->client().println("HTTP/1.1 200 OK");
   _ascomserver->client().println("Content-type:text/html");
   _ascomserver->client().println();
+  //_ascomserver->client().print(webpage);
+  //_ascomserver->client().print(String(USBOutput_Num));
   _ascomserver->client().print(webpage1);
-  _ascomserver->client().print(String(USBOutput_Num));
-  _ascomserver->client().print(webpage2);
 }
 
 // ----------------------------------------------------------------------
