@@ -1,7 +1,9 @@
 # 🔭 Open Power Box: Heavy Duty Power Distribution System for Astrophotography Equipment
-**Open Power Box** is a complete, open-source hardware and software project designed to build a robust power distribution box specifically for an **observatory-class amateur astronomy setup**. While many similar projects exist, they often target compact, portable systems; this project is built for greater capabilities. The hardware side of the project is designed following the specifications detailled below but the firmware, though preconfigured for this specific hardware, has been written to allow scalability to an arbitrary number of outputs so that one could use it as-is for his custom version of the project. 
+**Open Power Box** is a complete, open-source hardware and software project designed to build a robust power distribution box specifically for an **observatory-class amateur astronomy setup**. While many similar projects exist, they often target compact, portable systems; this project is built for greater capabilities. The hardware side of the project is designed following the specifications detailled below but the firmware, though preconfigured for this specific hardware, has been written to allow scalability to an arbitrary number of outputs so that one could use it as-is for his custom version of the project, without minamal very adjustments to the firmware. 
 
 **LICENSING** : The entire project is **completely open source**. The hardware files and documentation fall under the **Licence CC BY-SA 4.0**, while the drivers and the firmware are licensed under **GNU Lesser General Public License version 3 (LGPLv3)** 
+
+<img src="images/PowerBox2_2_KICAD.jpg" width="800">
 
 ## ✨ Key Features
 
@@ -40,6 +42,16 @@ The complete project includes everything you need to build and run your own powe
 * **Software:**
     * **Firmware:** Includes base code, serial communication, an HTTP server for a browser interface, and an ASCOM/Alpaca server.
     * **Drivers:** ASCOM Driver and Indi Driver.
+ 
+## 🛠️ Completed build illustrations
+
+### Strandard version
+
+<img src="images/IMG20251108003557.jpg" width="483"><img src="images/IMG20251108002914.jpg" width="500">
+
+### USB HUB version
+
+<img src="images/IMG20251207185915.jpg" width="500"><img src="images/IMG20251207185200.jpg" width="500">
 ---
 
 ## 🚀 Getting Started
