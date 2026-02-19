@@ -45,7 +45,7 @@ The complete project includes everything you need to build and run your own powe
  
 ## 🛠️ Completed build illustrations
 
-### Strandard version
+### Standard version
 
 <img src="images/IMG20251108003557.jpg" width="483"><img src="images/IMG20251108002914.jpg" width="500">
 
