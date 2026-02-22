@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>OpenPowerBox XXL</title>
+    <script src='https://cdn.tailwindcss.com'></script>
+    <style>
+        /* Custom font for a clean look */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Global background for the page */
+        body {
+            background-color: #2d3748; /* Dark grey background */
+            display: flex; /* Use flexbox for main layout */
+            min-height: 100vh; /* Full viewport height */
+            flex-direction: column; /* Stack header, main, footer vertically */
+        }
+        
+        /* Main page container */
+        .page-container {
+            flex-grow: 1; /* Allows container to take remaining space */
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 1200px; /* Limit max width for better readability on large screens */
+            margin: 0 auto; /* Center the page content */
+            padding: 1rem;
+        }
+        /* Header styling */
+        header {
+            background-color: #1a202c; /* Darker grey for header */
+            color: #e2e8f0;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid #4a5568;
+        }
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        header a {
+            color: #48bb78; /* Green link color */
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        header a:hover {
+            color: #68d391;
+            text-decoration: underline;
+        }
+        
+        /* Basic styling for numerical displays to ensure consistent size */
+        .numerical-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px; /* Consistent height for alignment */
+            background-color: #4a5568; /* Medium grey background */
+            color: #e2e8f0; /* Light grey text for better contrast */
+            font-weight: bold;
+            font-size: 1.25rem; /* Large text for readability */
+            border-radius: 0.125rem; /* Minimal rounding for a sharp look */
+            padding: 0.5rem 1rem;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2); /* Subtle inner shadow */
+        }
+        /* Button styling for consistent height */
+        .grid-button {
+            height: 40px; /* Match numerical display height for alignment */
+            display: flex; /* Use flex to center text vertically */
+            align-items: center;
+            justify-content: center;
+            font-weight: 600; /* Slightly bolder text */
+            transition: all 0.2s ease-in-out; /* Smooth transitions for hover */
+            border-radius: 0.125rem; /* Minimal rounding for a sharp look */
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Less pronounced shadow */
+        }
+        .grid-button:hover {
+            transform: translateY(-1px); /* Lift effect on hover */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
+        }
+
+        /* Styling for empty grid cells to maintain alignment without visual content */
+        .empty-grid-cell {
+            height: 40px; /* Match the height of other elements in the row */
+            width: 100%; /* Take full width of the grid cell */
+            /* No background, no border, no text, making it visually transparent */
+        }
+        /* Custom slider styling for better appearance */
+        input[type='range'] {
+            -webkit-appearance: none; /* Override default browser styles */
+            appearance: none;
+            background: #6b7280; /* Darker gray track */
+            border-radius: 2px; /* Less rounded */
+            outline: none;
+            opacity: 0.8; /* Slightly less opaque */
+            transition: opacity .2s;
+        }
+        input[type='range']:hover {
+            opacity: 1;
+        }
+        input[type='range']::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px; /* Slightly smaller thumb */
+            height: 16px;
+            border-radius: 50%;
+            background: #48bb78; /* Medium green thumb */
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        input[type='range']::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #48bb78; /* Medium green thumb */
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        /* Specific height for the sections within Data Set D to ensure content fits */
+        .data-set-d-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem; /* Slightly larger gap */
+            padding: 0.75rem; /* Slightly more padding */
+            border-radius: 0.125rem; /* Minimal rounding for a sharp look */
+            background-color: #1a202c; /* Even darker grey background for sections */
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); /* Softer, broader shadow */
+        }
+		
+        /* Style for inline title and display */
+        .inline-display-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem; /* Slightly larger gap */
+            padding: 0.20rem; /* Slightly more padding */
+            background-color: #4a5568; /* Medium grey background */
+            border-radius: 0.125rem; /* Minimal rounding for a sharp look */
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Softer shadow */
+        }
+        .inline-display-group .numerical-display {
+            margin-bottom: 0;
+            flex-shrink: 0;
+            width: auto;
+            min-width: 100px; /* Slightly wider min-width */
+            font-size: 1.1rem; /* Slightly smaller font for consistency */
+            background-color: #6b7280; /* Darker grey for display within inline group */
+            color: #e2e8f0; /* Light text */
+        }
+        .inline-display-group .text-label {
+            font-weight: 600; /* Slightly bolder */
+            color: #cbd5e1; /* Lighter grey for labels */
+            font-size: 0.95rem; /* Slightly smaller font for inline label */
+            flex-grow: 1;
+            text-align: center;
+        }
+        /* Styling for the new bottom controls section within Data Set C */
+        .bottom-controls-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem; /* More space */
+            padding: 1rem; /* More padding */
+            background-color: #1a202c; /* Even darker grey background */
+            border-radius: 0.125rem; /* Minimal rounding for a sharp look */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* More prominent shadow */
+            margin-top: 1.5rem; /* More space from the section above */
+        }
+        .bottom-controls-section .numerical-display {
+            width: 100%;
+            background-color: #4a5568; /* Match other displays */
+            color: #e2e8f0;
+        }
+        .bottom-controls-section .grid-button {
+            background-color: #38a169; /* Dark green */
+            box-shadow: 0 2px 4px rgba(56, 161, 105, 0.3); /* Green shadow */
+        }
+        .bottom-controls-section .grid-button:hover {
+            background-color: #2f855a; /* Even darker green on hover */
+        }
+
+        /* Main dashboard container styling */
+        .main-dashboard-container {
+            background-color: #1a202c; /* Darker grey background for the main card */
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3); /* Less prominent, softer shadow */
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #1a202c; /* Darker footer */
+            color: #a0aec0; /* Lighter text */
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+            margin-top: auto;
+        }
+
+        /* Titles within sections */
+        h3.text-md.font-semibold.text-gray-700.text-center {
+            color: #cbd5e1; /* Lighter grey for section titles */
+            font-weight: 700; /* Bolder */
+            margin-bottom: 0.75rem; /* More space below section titles */
+        }
+        h4.text-sm.font-semibold.text-gray-600.text-center {
+            color: #a0aec0; /* Lighter grey for sub-grid titles */
+            font-weight: 600;
+        }
+
+        /* Specific button color overrides */
+        .grid-button.bg-blue-600 { /* Original Action Buttons */
+            background-color: #38a169; /* Dark green */
+        }
+        .grid-button.bg-blue-600:hover {
+            background-color: #2f855a; /* Darker green on hover */
+        }
+        .grid-button.bg-green-600 { /* New Btn */
+            background-color: #48bb78; /* Medium green */
+        }
+        .grid-button.bg-green-600:hover {
+            background-color: #38a169; /* Darker green on hover */
+        }
+        .grid-button.bg-purple-600 { /* PWM Buttons */
+            background-color: #68d391; /* Light green */
+            color: #1a202c; /* Dark text for light button */
+        }
+        .grid-button.bg-purple-600:hover {
+            background-color: #5cb87e; /* Darker light green on hover */
+        }
+        .grid-button.bg-indigo-600 { /* Bottom Action Button */
+            background-color: #38a169; /* Dark green */
+        }
+        .grid-button.bg-indigo-600:hover {
+            background-color: #2f855a; /* Darker green on hover */
+        }
+        /* Styling for the individual column cells */
+        .column-bg-1, /* New class for first column */
+        .column-bg-2, /* New class for second column */
+        .column-bg-3 { /* New class for third column */
+            background-color: #2a303c; /* Slightly lighter dark grey for column backgrounds */
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3); /* Less pronounced shadow */
+            border-radius: 0.125rem;
+        }
+
+        /* Styling for new input fields */
+        .text-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.125rem;
+            border: 1px solid #4a5568; /* Darker border */
+            background-color: #2d3748; /* Dark background */
+            color: #e2e8f0; /* Light text */
+            font-size: 1rem;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .text-input:focus {
+            border-color: #48bb78; /* Green focus border */
+        }
+        .input-group-row {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        .input-group-row > .flex-col {
+            flex: 1;
+        }
+
+        /* Custom toggle switch styling */
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            border-radius: 0.125rem;
+            background-color: #1a202c;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .toggle-switch-input {
+            display: none; /* Hide the actual checkbox */
+        }
+
+        .toggle-switch-label {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 28px;
+            background-color: #718096; /* Grey for off state */
+            border-radius: 14px;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+
+        .toggle-switch-handle {
+            position: absolute;
+            content: '';
+            height: 24px;
+            width: 24px;
+            left: 2px;
+            bottom: 2px;
+            background-color: #e2e8f0; /* White handle */
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+
+        /* Checked state for the toggle */
+        .toggle-switch-input:checked + .toggle-switch-label {
+            background-color: #48bb78; /* Green for on state */
+        }
+
+        .toggle-switch-input:checked + .toggle-switch-label .toggle-switch-handle {
+            transform: translateX(22px);
+        }
+
+        .toggle-text {
+            color: #cbd5e1;
+            font-weight: 600;
+            font-size: 0.95rem;
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        /* Custom styles for the new browser-style tabs */
+        .browser-tabs-container {
+            display: flex;
+            width: 100%;
+            margin-bottom: -1px; /* Overlap with the container below to make it seamless */
+        }
+
+        .browser-tab {
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            color: #a0aec0;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            background-color: #4a5568; /* Inactive tab background */
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+            border: 1px solid transparent;
+            border-bottom: none;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+        }
+        .browser-tab:hover {
+            color: #e2e8f0;
+            background-color: #6b7280;
+        }
+        .browser-tab.active {
+            background-color: #1a202c; /* Active tab background, matches the container below */
+            color: #e2e8f0;
+            border: 1px solid #1a202c; /* Same color as background to hide the border */
+            border-bottom: 1px solid #1a202c; /* Hide the bottom border for a seamless look */
+        }
+    </style>
+</head>
+<body>
+    <header class='flex items-center px-4 py-3 shadow-md'>
+        <h1 class='text-xl font-bold flex-grow text-center'>OpenPowerBox XXL</h1>
+    </header>
+    <div class='page-container'>
+        <div class='browser-tabs-container mt-4'>
+            <button id='dashboard-tab' class='browser-tab active'>Dashboard</button>
+            <button id='config-tab' class='browser-tab'>Configuration</button>
+            <button id='about-tab' class='browser-tab'>About</button>
+        </div>
+
+        <main id='app-root' class='bg-gray-900 p-6 shadow-lg flex-grow'>
+            </main>
+    </div>
+
+    <footer class='bg-gray-900 text-white p-4 text-center shadow-inner mt-auto'>
+        <div class='container mx-auto'>
+            <p>&copy; 2024 Dynamic Webpage. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+	
+	       // ESP32 interaction code=================================
+		//var numusb=7; //CODE MUST BE SPLIT INTO TWO HERE TO INSERT NUMUSB IN THE ESP32 WHEN LOADING THE PAGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        var Socket;
+var starting=true;
+var tabclicked=0; //1=wifi,2=names,3=limits,4=polarities;
+
+  function isEmpty(str) {
+  if(str==null) return true;
+  return !str.trim().length;
+}
+
+  function isNumber(value) {
+  if(isEmpty(value))return false;
+  else if(Number.isNaN(Number(value))) return false;
+  else return true;
+}
+
+          function init() {
+    Socket = new WebSocket('ws://' + window.location.hostname + ':81/');
+    Socket.onmessage = function(event) {
+      processCommand(event);
+    };
+  }
+
+        function button_get() {
+        var msg;
+        if(document.getElementById(`wifi-tab`).classList == 'browser-tab active'){ 
+        msg = {request: 'GET_WIFI'};
+        }
+        //else if(descriptionsTabButton.className == 'browser-tab active'){ msg = {request: 'GET_DESC'};}
+        else if(document.getElementById(`names-tab`).classList.value == 'browser-tab active'){ 
+        msg = {request: 'GET_NAME'};
+        }
+        else if(document.getElementById(`limits-tab`).classList.value == 'browser-tab active'){ 
+        msg = {request: 'GET_LIM'};
+        }
+        else if(document.getElementById(`polarities-tab`).classList.value == 'browser-tab active'){ 
+        msg = {request: 'GET_POL'};
+        }
+	Socket.send(JSON.stringify(msg));
+  }
+
+   function button_send_back() {
+	var msg;
+	if(document.getElementById(`wifi-tab`).classList == 'browser-tab active'){
+    msg = {
+	request: 'SEND_BACK_WIFI',
+	_ssid: document.getElementById(`wifiSsid`).value ,
+	_pwd: document.getElementById(`wifiPassword`).value
+	};
+	}
+	else if(document.getElementById(`names-tab`).classList.value == 'browser-tab active'){
+    msg = {
+	request: 'SEND_BACK_NAMES',
+	_n1: document.getElementById('nameField1').value ,
+	_n2: document.getElementById('nameField2').value ,
+	_n3: document.getElementById('nameField3').value ,
+	_n4: document.getElementById('nameField4').value ,
+	_n5: document.getElementById('nameField5').value ,
+	_n6: document.getElementById('nameField6').value ,
+	_n7: document.getElementById('nameField7').value ,
+	_n8: document.getElementById('nameField8').value ,
+	_n9: document.getElementById('nameField9').value ,
+	_n10: document.getElementById('nameField10').value ,
+	_n11: document.getElementById('nameField11').value ,
+	_n12: document.getElementById('nameField12').value,
+    // NEW USB Names (Fields 13-19)
+    _n13: document.getElementById('nameField13').value ,
+    _n14: document.getElementById('nameField14').value ,
+    _n15: document.getElementById('nameField15').value ,
+    _n16: document.getElementById('nameField16').value ,
+    _n17: document.getElementById('nameField17').value ,
+    _n18: document.getElementById('nameField18').value ,
+    _n19: document.getElementById('nameField19').value
+	};
+	}
+	else if(document.getElementById(`limits-tab`).classList.value == 'browser-tab active'){
+    msg = {
+	request: 'SEND_BACK_LIMITS',
+	_l1: document.getElementById('switchALimit1').value ,
+	_l2: document.getElementById('switchALimit2').value ,
+	_l3: document.getElementById('switchALimit3').value ,
+	_l4: document.getElementById('sensorALimit1').value ,
+	_l5: document.getElementById('sensorALimit2').value ,
+	_l6: document.getElementById('sensorALimit3').value 
+	};
+	}
+	else if(document.getElementById(`polarities-tab`).classList.value == 'browser-tab active'){
+    msg = {
+	request: 'SEND_BACK_POL',
+	_p1: (document.getElementById('polarityToggle1').checked==true)? 1:0,
+	_p2: (document.getElementById('polarityToggle2').checked==true)? 1:0,
+	_p3: (document.getElementById('polarityToggle3').checked==true)? 1:0,
+	_p4: (document.getElementById('polarityToggle4').checked==true)? 1:0
+	};
+	}
+	Socket.send(JSON.stringify(msg));
+  }
+  
+    function send_dcstate(num,val) {
+        var msg;
+        msg = {
+		request: 'SEND_DCSTATE',
+		nb:num,
+		state:val 
+		};
+	Socket.send(JSON.stringify(msg));	
+		}
+
+    function send_autostate(num,val) {
+        var msg;
+        msg = {
+		request: 'SEND_AUTOSTATE',
+		nb:num,
+		state:val
+		};
+	Socket.send(JSON.stringify(msg));
+		}
+		
+    function send_usbstate(num,val) {
+        var msg;
+        msg = {
+		request: 'SEND_USBSTATE',
+		nb:num,
+		state:val 
+		};
+	Socket.send(JSON.stringify(msg));	
+		}
+
+		
+    function send_relaystate(val) {
+        var msg;
+        msg = {
+		request: 'SEND_RELAYSTATE',
+		state:val 
+		};
+	Socket.send(JSON.stringify(msg));
+  }
+  
+      function send_onstate(val) {
+        var msg;
+        msg = {
+		request: 'SEND_ONSTATE',
+		state:val 
+		};
+	Socket.send(JSON.stringify(msg));
+  }
+  
+      function send_pwmstate(num,val) {
+        var msg;
+        msg = {
+		request: 'SEND_PWMSTATE',
+		nb:num,
+		state:val 
+		};
+	Socket.send(JSON.stringify(msg));
+  }
+
+  
+  function processCommand(event) {
+    var dt = new Date();
+	var obj = JSON.parse(event.data);
+
+	if(obj.answer == 'SEND_READINGS'){
+
+     console.log(obj);
+	
+
+	 
+	if (Boolean(parseInt(obj.DC1))!=document.getElementById(`dcSwitchToggle1`).checked){document.getElementById(`dcSwitchToggle1`).checked=Boolean(parseInt(obj.DC1));}
+    if (Boolean(parseInt(obj.DC2))!=document.getElementById(`dcSwitchToggle2`).checked){document.getElementById(`dcSwitchToggle2`).checked=Boolean(parseInt(obj.DC2));}
+	if (Boolean(parseInt(obj.DC3))!=document.getElementById(`dcSwitchToggle3`).checked){document.getElementById(`dcSwitchToggle3`).checked=Boolean(parseInt(obj.DC3));}
+	if (Boolean(parseInt(obj.DC4))!=document.getElementById(`dcSwitchToggle4`).checked){document.getElementById(`dcSwitchToggle4`).checked=Boolean(parseInt(obj.DC4));}
+	if (Boolean(parseInt(obj.DC5))!=document.getElementById(`dcSwitchToggle5`).checked){document.getElementById(`dcSwitchToggle5`).checked=Boolean(parseInt(obj.DC5));}
+	if (Boolean(parseInt(obj.DC6))!=document.getElementById(`dcSwitchToggle6`).checked){document.getElementById(`dcSwitchToggle6`).checked=Boolean(parseInt(obj.DC6));}
+	if (Boolean(parseInt(obj.DC7))!=document.getElementById(`dcSwitchToggle7`).checked){document.getElementById(`dcSwitchToggle7`).checked=Boolean(parseInt(obj.DC7));}
+
+
+    if (Boolean(parseInt(obj.AUTO1))!=document.getElementById(`AutoSwitchToggle1`).checked){document.getElementById(`AutoSwitchToggle1`).checked=Boolean(parseInt(obj.AUTO1));}
+    if (Boolean(parseInt(obj.AUTO2))!=document.getElementById(`AutoSwitchToggle2`).checked){document.getElementById(`AutoSwitchToggle2`).checked=Boolean(parseInt(obj.AUTO2));}
+    if (Boolean(parseInt(obj.AUTO3))!=document.getElementById(`AutoSwitchToggle3`).checked){document.getElementById(`AutoSwitchToggle3`).checked=Boolean(parseInt(obj.AUTO3));}
+
+	 
+	 // New USB switches state update (assuming keys USB1 to USB7)
+	 //if(numusb==7){ // Check if the element exists
+		 if (Boolean(parseInt(obj.USB1))!=document.getElementById(`usbSwitchToggle1`).checked){document.getElementById(`usbSwitchToggle1`).checked=Boolean(parseInt(obj.USB1));}
+		 if (Boolean(parseInt(obj.USB2))!=document.getElementById(`usbSwitchToggle2`).checked){document.getElementById(`usbSwitchToggle2`).checked=Boolean(parseInt(obj.USB2));}
+		 if (Boolean(parseInt(obj.USB3))!=document.getElementById(`usbSwitchToggle3`).checked){document.getElementById(`usbSwitchToggle3`).checked=Boolean(parseInt(obj.USB3));}
+		 if (Boolean(parseInt(obj.USB4))!=document.getElementById(`usbSwitchToggle4`).checked){document.getElementById(`usbSwitchToggle4`).checked=Boolean(parseInt(obj.USB4));}
+		 if (Boolean(parseInt(obj.USB5))!=document.getElementById(`usbSwitchToggle5`).checked){document.getElementById(`usbSwitchToggle5`).checked=Boolean(parseInt(obj.USB5));}
+		 if (Boolean(parseInt(obj.USB6))!=document.getElementById(`usbSwitchToggle6`).checked){document.getElementById(`usbSwitchToggle6`).checked=Boolean(parseInt(obj.USB6));}
+		 if (Boolean(parseInt(obj.USB7))!=document.getElementById(`usbSwitchToggle7`).checked){document.getElementById(`usbSwitchToggle7`).checked=Boolean(parseInt(obj.USB7));}	 
+	 //}
+	 
+
+	 if (Boolean(parseInt(obj.RELAY))!=document.getElementById('mainPowerToggle').checked){document.getElementById('mainPowerToggle').checked=Boolean(parseInt(obj.RELAY));}
+     if (Boolean(parseInt(obj.ON))!=document.getElementById('alwaysOnPowerToggle').checked){document.getElementById('alwaysOnPowerToggle').checked=Boolean(parseInt(obj.ON));}
+	 	 
+
+
+
+	document.getElementById(`displayV1`).textContent = obj.DC1V;
+	document.getElementById(`displayV2`).textContent = obj.DC2V;
+	document.getElementById(`displayV3`).textContent = obj.DC3V;
+	document.getElementById(`displayV4`).textContent = obj.DC4V;
+	document.getElementById(`displayV5`).textContent = obj.DC5V;
+	document.getElementById(`displayV6`).textContent = obj.DC6V;
+	document.getElementById(`displayV7`).textContent = obj.DC7V;
+	
+    document.getElementById(`displayA1`).textContent = obj.DC1A;
+	document.getElementById(`displayA2`).textContent = obj.DC2A;
+	document.getElementById(`displayA3`).textContent = obj.DC3A;
+	document.getElementById(`displayA4`).textContent = obj.DC4A;
+	document.getElementById(`displayA5`).textContent = obj.DC5A;
+	document.getElementById(`displayA6`).textContent = obj.DC6A;
+	document.getElementById(`displayA7`).textContent = obj.DC7A;
+	
+	document.getElementById(`displayC1`).textContent = obj.INV;
+	document.getElementById(`displayC2`).textContent = obj.INA;
+	document.getElementById(`displayC3`).textContent = obj.INP;
+	document.getElementById(`displayC4`).textContent = obj.TEMP;
+	document.getElementById(`displayC5`).textContent = obj.HUM;
+	document.getElementById(`displayC6`).textContent = obj.DEW;
+
+    document.getElementById(`alwaysOndisplayA`).textContent = obj.ONA;
+	
+	document.getElementById(`PWMDisplayV1`).textContent = obj.PWM1V;
+	document.getElementById(`PWMDisplayV2`).textContent = obj.PWM2V;
+	document.getElementById(`PWMDisplayV3`).textContent = obj.PWM3V;
+    document.getElementById(`PWMDisplayA1`).textContent = obj.PWM1A;
+	document.getElementById(`PWMDisplayA2`).textContent = obj.PWM2A;
+	document.getElementById(`PWMDisplayA3`).textContent = obj.PWM3A;	
+
+	if(starting==true)
+	{
+	//button_get();
+	starting=false;
+	}
+
+
+	}
+else if(obj.answer == 'SEND_WIFI'){
+	document.getElementById('wifiSsid').value = obj.ssid;
+	document.getElementById('wifiPassword').value = obj.pwd;
+	}
+else if(obj.answer == 'SEND_NAME'){
+	document.getElementById('nameField1').value = obj.n0;
+	document.getElementById('nameField2').value = obj.n1;
+    document.getElementById('nameField3').value = obj.n2;
+    document.getElementById('nameField4').value = obj.n3;	
+	document.getElementById('nameField5').value = obj.n4;
+	document.getElementById('nameField6').value = obj.n5;
+	document.getElementById('nameField7').value = obj.n6;
+	document.getElementById('nameField8').value = obj.n7;
+	document.getElementById('nameField9').value = obj.n8;
+	document.getElementById('nameField10').value = obj.n9;
+	document.getElementById('nameField11').value = obj.n10;
+	document.getElementById('nameField12').value = obj.n11;
+    
+    // NEW USB Names (Fields 13-19)
+    //if(numusb==7){
+        document.getElementById('nameField13').value = obj.n12;
+        document.getElementById('nameField14').value = obj.n13;
+        document.getElementById('nameField15').value = obj.n14;
+        document.getElementById('nameField16').value = obj.n15;
+        document.getElementById('nameField17').value = obj.n16;
+        document.getElementById('nameField18').value = obj.n17;
+        document.getElementById('nameField19').value = obj.n18;
+    //}
+
+	}
+else if(obj.answer == 'SEND_LIMIT'){
+	document.getElementById('switchALimit1').value = obj.dcl;
+    document.getElementById('switchALimit2').value = obj.pwml;
+    document.getElementById('switchALimit3').value = obj.onl;	
+    document.getElementById('switchALimit4').value = obj.tdcl;
+    document.getElementById('sensorALimit1').value = obj.tpwml;	
+    document.getElementById('sensorALimit2').value = obj.tl;
+	}
+else if(obj.answer == 'SEND_POL'){
+	 if (Boolean(parseInt(obj.dcR))!=document.getElementById(`polarityToggle1`).checked){document.getElementById(`polarityToggle1`).click();}	
+	 if (Boolean(parseInt(obj.relR))!=document.getElementById(`polarityToggle2`).checked){document.getElementById(`polarityToggle2`).click();}
+	 if (Boolean(parseInt(obj.onR))!=document.getElementById(`polarityToggle3`).checked){document.getElementById(`polarityToggle3`).click();}
+	 if (Boolean(parseInt(obj.pwmR))!=document.getElementById(`polarityToggle4`).checked){document.getElementById(`polarityToggle4`).click();}
+	}
+  }
+  //Webapp code============================================
+
+	
+	
+        // Wait for the DOM to be fully loaded before running the script
+        document.addEventListener('DOMContentLoaded', () => {
+            const appRoot = document.getElementById('app-root');
+            const dashboardTab = document.getElementById('dashboard-tab');
+            const configTab = document.getElementById('config-tab');
+            const aboutTab = document.getElementById('about-tab');
+
+            // --- Page Content Generation Functions ---
+            function createDashboardPageContent() {
+                const contentContainer = document.createElement('div');
+                contentContainer.className = 'w-full';
+
+                const title = document.createElement('h1');
+                title.className = 'text-3xl font-extrabold text-center text-gray-100 mb-8 underline';
+                title.textContent = 'Power Box Dashboard';
+                contentContainer.appendChild(title);
+
+                const columnTitlesContainer = document.createElement('div');
+                columnTitlesContainer.className = 'flex flex-wrap justify-center md:justify-between gap-6 mb-4 px-2';
+
+                contentContainer.appendChild(columnTitlesContainer);
+
+                const gridContainer = document.createElement('div');
+                gridContainer.className = 'grid grid-cols-1 md:grid-cols-3 gap-y-3 gap-x-6 items-start';
+                contentContainer.appendChild(gridContainer);
+
+                const mainGridFirstColumnCell = document.createElement('div');
+                mainGridFirstColumnCell.className = 'row-span-7 p-2 shadow-inner column-bg-1';
+                
+                const DCTitle = document.createElement('h3');
+                DCTitle.className = 'text-md font-semibold text-gray-700 text-center mb-1';
+                DCTitle.textContent = 'DC SWITCHES';
+                mainGridFirstColumnCell.appendChild(DCTitle);
+
+                // Start of DC Switches Section
+                for (let i = 1; i <= 7; i++) {
+				
+                    const switchContainer = document.createElement('div');
+                    switchContainer.className = 'flex flex-col gap-2 p-2 mb-2 bg-[#1a202c] shadow-inner';
+
+                    const toggleRow = document.createElement('div');
+                    toggleRow.className = 'flex justify-between items-center';
+
+                    const toggleText = document.createElement('span');
+					toggleText.id = `dcSwitchText${i}`; 
+                    toggleText.className = 'toggle-text';
+                    toggleText.textContent = `DC Switch ${i}`;
+                    toggleRow.appendChild(toggleText);
+
+                    const toggleInput = document.createElement('input');
+                    toggleInput.type = 'checkbox';
+                    toggleInput.id = `dcSwitchToggle${i}`; // Unique ID for each toggle
+                    toggleInput.className = 'toggle-switch-input';
+                    toggleRow.appendChild(toggleInput);
+
+                    const toggleLabel = document.createElement('label');
+                    toggleLabel.htmlFor = `dcSwitchToggle${i}`;
+                    toggleLabel.className = 'toggle-switch-label';
+                    const toggleHandle = document.createElement('span');
+                    toggleHandle.className = 'toggle-switch-handle';
+                    toggleLabel.appendChild(toggleHandle);
+                    toggleRow.appendChild(toggleLabel);
+                    switchContainer.appendChild(toggleRow);
+
+                    const displayRow = document.createElement('div');
+                    displayRow.className = 'flex items-center gap-2 mt-2';
+
+                    const displayV = document.createElement('div');
+                    displayV.id = `displayV${i}`;
+                    displayV.className = 'numerical-display text-sm flex-1';
+                    displayV.textContent = '0.00 V';
+                    displayRow.appendChild(displayV);
+
+                    const displayA = document.createElement('div');
+                    displayA.id = `displayA${i}`;
+                    displayA.className = 'numerical-display text-sm flex-1';
+                    displayA.textContent = '0.00 A';
+                    displayRow.appendChild(displayA);
+
+                    switchContainer.appendChild(displayRow);
+                    mainGridFirstColumnCell.appendChild(switchContainer);
+                }
+                
+                // Start of the new Adjustable output section
+                const relSeparator = document.createElement('hr');
+                relSeparator.className = 'border-t border-gray-700 my-4';
+                mainGridFirstColumnCell.appendChild(relSeparator);
+
+                const dataSetDSection3 = document.createElement('div');
+                dataSetDSection3.className = 'data-set-d-section';
+                
+                const relTitle = document.createElement('h3');
+                relTitle.className = 'text-md font-semibold text-gray-700 text-center mb-1';
+                relTitle.textContent = 'Relay output';
+                dataSetDSection3.appendChild(relTitle);
+                         
+                const toggleContainer = document.createElement('div');
+                toggleContainer.className = 'toggle-switch mt-4';
+
+                const toggleText = document.createElement('span');
+                toggleText.className = 'toggle-text';
+				toggleText.id = `RelaySwitchText`;
+                toggleText.textContent = 'Relay Switch';
+                toggleContainer.appendChild(toggleText);
+
+                const toggleInput = document.createElement('input');
+                toggleInput.type = 'checkbox';
+                toggleInput.id = 'mainPowerToggle';
+                toggleInput.className = 'toggle-switch-input';
+                toggleContainer.appendChild(toggleInput);
+
+                const toggleLabel = document.createElement('label');
+                toggleLabel.htmlFor = 'mainPowerToggle';
+                toggleLabel.className = 'toggle-switch-label';
+                const toggleHandle = document.createElement('span');
+                toggleHandle.className = 'toggle-switch-handle';
+                toggleLabel.appendChild(toggleHandle);
+                toggleContainer.appendChild(toggleLabel);
+
+                dataSetDSection3.appendChild(toggleContainer);
+
+                mainGridFirstColumnCell.appendChild(dataSetDSection3);
+                
+                gridContainer.appendChild(mainGridFirstColumnCell);
+
+                const dataSetCColumnCell = document.createElement('div');
+                dataSetCColumnCell.className = 'row-span-7 flex flex-col gap-3 p-2 shadow-inner column-bg-2';
+                const InputTitle = document.createElement('h3');
+                InputTitle.className = 'text-md font-semibold text-gray-700 text-center mb-1';
+                InputTitle.textContent = 'INPUT';
+                dataSetCColumnCell.appendChild(InputTitle);
+
+                const inputVGroup = document.createElement('div');
+                inputVGroup.className = 'inline-display-group';
+                const InputVTitle = document.createElement('span');
+                InputVTitle.className = 'text-label';
+                InputVTitle.textContent = 'Input Voltage (V)';
+                inputVGroup.appendChild(InputVTitle);
+                const displayC1 = document.createElement('div');
+                displayC1.id = `displayC1`;
+                displayC1.className = 'numerical-display text-sm';
+                displayC1.textContent = `0`;
+                inputVGroup.appendChild(displayC1);
+                dataSetCColumnCell.appendChild(inputVGroup);
+
+                const inputAGroup = document.createElement('div');
+                inputAGroup.className = 'inline-display-group';
+                const InputATitle = document.createElement('span');
+                InputATitle.className = 'text-label';
+                InputATitle.textContent = 'Total Current (A)';
+                inputAGroup.appendChild(InputATitle);
+                const displayC2 = document.createElement('div');
+                displayC2.id = `displayC2`;
+                displayC2.className = 'numerical-display text-sm';
+                displayC2.textContent = `0`;
+                inputAGroup.appendChild(displayC2);
+                dataSetCColumnCell.appendChild(inputAGroup);
+
+                const inputPGroup = document.createElement('div');
+                inputPGroup.className = 'inline-display-group';
+                const InputPTitle = document.createElement('span');
+                InputPTitle.className = 'text-label';
+                InputPTitle.textContent = 'Total Power (W)';
+                inputPGroup.appendChild(InputPTitle);
+                const displayC3 = document.createElement('div');
+                displayC3.id = `displayC3`;
+                displayC3.className = 'numerical-display text-sm';
+                displayC3.textContent = `0`;
+                inputPGroup.appendChild(displayC3);
+                dataSetCColumnCell.appendChild(inputPGroup);
+
+                const inputTGroup = document.createElement('div');
+                inputTGroup.className = 'inline-display-group';
+                const InputTTitle = document.createElement('span');
+                InputTTitle.className = 'text-label';
+                InputTTitle.textContent = 'Temperauture (°c)';
+                inputTGroup.appendChild(InputTTitle);
+                const displayC4 = document.createElement('div');
+                displayC4.id = `displayC4`;
+                displayC4.className = 'numerical-display text-sm';
+                displayC4.textContent = `0`;
+                inputTGroup.appendChild(displayC4);
+                dataSetCColumnCell.appendChild(inputTGroup);
+
+                const inputHGroup = document.createElement('div');
+                inputHGroup.className = 'inline-display-group';
+                const InputHTitle = document.createElement('span');
+                InputHTitle.className = 'text-label';
+                InputHTitle.textContent = 'Humidity (%)';
+                inputHGroup.appendChild(InputHTitle);
+                const displayC5 = document.createElement('div');
+                displayC5.id = `displayC5`;
+                displayC5.className = 'numerical-display text-sm';
+                displayC5.textContent = `0`;
+                inputHGroup.appendChild(displayC5);
+                dataSetCColumnCell.appendChild(inputHGroup);
+
+                const inputDGroup = document.createElement('div');
+                inputDGroup.className = 'inline-display-group';
+                const InputDTitle = document.createElement('span');
+                InputDTitle.className = 'text-label';
+                InputDTitle.textContent = 'Dew Point (°c)';
+                inputDGroup.appendChild(InputDTitle);
+                const displayC6 = document.createElement('div');
+                displayC6.id = `displayC6`;
+                displayC6.className = 'numerical-display text-sm';
+                displayC6.textContent = `0`;
+                inputDGroup.appendChild(displayC6);
+                dataSetCColumnCell.appendChild(inputDGroup);
+//if(numusb==7)
+//{                // --- Start of new USB Switches Section ---
+                const usbSectionSeparator = document.createElement('hr');
+                usbSectionSeparator.className = 'border-t border-gray-700 my-4';
+                dataSetCColumnCell.appendChild(usbSectionSeparator);
+
+                const usbSection = document.createElement('div');
+                usbSection.className = 'flex flex-col gap-3 p-2 bg-[#1a202c] shadow-inner';
+                
+                const USBTitle = document.createElement('h3');
+                USBTitle.className = 'text-md font-semibold text-gray-700 text-center mb-1';
+                USBTitle.textContent = 'USB SWITCHES';
+                usbSection.appendChild(USBTitle);
+
+                for (let i = 1; i <= 7; i++) {
+                    const toggleContainer = document.createElement('div');
+                    toggleContainer.className = 'toggle-switch mt-1';
+
+                    const toggleText = document.createElement('span');
+					toggleText.id = `usbSwitchText${i}`; 
+                    toggleText.className = 'toggle-text';
+                    toggleText.textContent = `USB-${i}`; // Named as USB-x
+                    toggleContainer.appendChild(toggleText);
+
+                    const toggleInput = document.createElement('input');
+                    toggleInput.type = 'checkbox';
+                    toggleInput.id = `usbSwitchToggle${i}`; // Unique ID for each toggle
+                    toggleInput.className = 'toggle-switch-input';
+                    toggleContainer.appendChild(toggleInput);
+
+                    const toggleLabel = document.createElement('label');
+                    toggleLabel.htmlFor = `usbSwitchToggle${i}`;
+                    toggleLabel.className = 'toggle-switch-label';
+                    const toggleHandle = document.createElement('span');
+                    toggleHandle.className = 'toggle-switch-handle';
+                    toggleLabel.appendChild(toggleHandle);
+                    toggleContainer.appendChild(toggleLabel);
+                    usbSection.appendChild(toggleContainer);
+                }
+                
+                dataSetCColumnCell.appendChild(usbSection);
+                // --- End of new USB Switches Section ---
+//}
+                gridContainer.appendChild(dataSetCColumnCell);
+
+                const dataSetDColumnCell = document.createElement('div');
+                dataSetDColumnCell.className = 'row-span-7 p-2 shadow-inner column-bg-3';
+
+                const dataSetDSection1 = document.createElement('div');
+                dataSetDSection1.className = 'data-set-d-section';
+                
+                const AlwaysTitle = document.createElement('h3');
+                AlwaysTitle.className = 'text-md font-semibold text-gray-700 text-center mb-1';
+                AlwaysTitle.textContent = 'DC RAIL';
+                dataSetDSection1.appendChild(AlwaysTitle);
+
+                const alwaysOnToggleContainer = document.createElement('div');
+                alwaysOnToggleContainer.className = 'toggle-switch mt-2';
+
+                const alwaysOnToggleText = document.createElement('span');
+                alwaysOnToggleText.className = 'toggle-text';
+				alwaysOnToggleText.id = `alwaysOnSwitchText`;
+                alwaysOnToggleText.textContent = 'DC RAIL Switch';
+                alwaysOnToggleContainer.appendChild(alwaysOnToggleText);
+
+                const alwaysOnToggleInput = document.createElement('input');
+                alwaysOnToggleInput.type = 'checkbox';
+                alwaysOnToggleInput.id = 'alwaysOnPowerToggle';
+                alwaysOnToggleInput.className = 'toggle-switch-input';
+                alwaysOnToggleContainer.appendChild(alwaysOnToggleInput);
+
+                const alwaysOnToggleLabel = document.createElement('label');
+                alwaysOnToggleLabel.htmlFor = 'alwaysOnPowerToggle';
+                alwaysOnToggleLabel.className = 'toggle-switch-label';
+                const alwaysOnToggleHandle = document.createElement('span');
+                alwaysOnToggleHandle.className = 'toggle-switch-handle';
+                alwaysOnToggleLabel.appendChild(alwaysOnToggleHandle);
+                alwaysOnToggleContainer.appendChild(alwaysOnToggleLabel);
+
+                dataSetDSection1.appendChild(alwaysOnToggleContainer);
+
+                const display5000 = document.createElement('div');
+                display5000.className = 'numerical-display';
+				display5000.id = `alwaysOndisplayA`;
+                display5000.textContent = '0';
+                dataSetDSection1.appendChild(display5000);
+
+                dataSetDColumnCell.appendChild(dataSetDSection1);
+
+                const separator = document.createElement('hr');
+                separator.className = 'border-t border-gray-700 my-4';
+                dataSetDColumnCell.appendChild(separator);
+
+                const dataSetDSection2 = document.createElement('div');
+                dataSetDSection2.className = 'data-set-d-section';
+
+                const pwmTitle = document.createElement('h3');
+                pwmTitle.className = 'text-md font-semibold text-gray-700 text-center mb-1';
+                pwmTitle.textContent = 'Dew Heaters';
+                dataSetDSection2.appendChild(pwmTitle);
+
+                for (let i = 1; i <= 3; i++) {
+                    const nestedGridRow = document.createElement('div');
+                    nestedGridRow.className = 'flex items-center justify-between gap-2 p-1 shadow-inner h-full';
+                    
+                    const newGridButton = document.createElement('button');
+                    newGridButton.className = 'grid-button bg-purple-600 hover:bg-purple-700 text-white text-sm px-2 py-1 shadow-sm transition duration-300 ease-in-out transform hover:scale-105 flex-shrink-0';
+                    newGridButton.textContent = `SET`;
+                    newGridButton.id = `newGridButton${i}`;
+
+                    const slider = document.createElement('input');
+                    slider.type = 'range';
+                    slider.min = '0';
+                    slider.max = '100';
+                    slider.value = '0';
+                    slider.className = 'w-full h-2 bg-gray-200 appearance-none cursor-pointer dark:bg-gray-700';
+                    slider.id = `slider${i}`;
+
+                    const sliderDisplay = document.createElement('div');
+                    sliderDisplay.className = 'numerical-display text-sm w-20 flex-shrink-0';
+                    sliderDisplay.textContent = slider.value;
+                    sliderDisplay.id = `sliderDisplay${i}`;
+
+                    slider.addEventListener('input', () => {
+                        sliderDisplay.textContent = slider.value;
+                    });
+
+                    newGridButton.addEventListener('click', () => {
+						send_pwmstate(i,slider.value)
+                    });
+
+                    nestedGridRow.appendChild(newGridButton);
+                    nestedGridRow.appendChild(slider);
+                    nestedGridRow.appendChild(sliderDisplay);
+                    
+                    dataSetDSection2.appendChild(nestedGridRow);
+
+                    const toggleContainer = document.createElement('div');
+                    toggleContainer.className = 'toggle-switch mt-1';
+
+                    const toggleText = document.createElement('span');
+					toggleText.id = `AutoSwitchText${i}`;
+                    toggleText.className = 'toggle-text';
+                    toggleText.textContent = `Auto-Dew ${i}`; // Named as Auto-Dew-x
+                    toggleContainer.appendChild(toggleText);
+
+                    const toggleInput = document.createElement('input');
+                    toggleInput.type = 'checkbox';
+                    toggleInput.id = `AutoSwitchToggle${i}`; // Unique ID for each toggle
+                    toggleInput.className = 'toggle-switch-input';
+                    toggleContainer.appendChild(toggleInput);
+
+                    const toggleLabel = document.createElement('label');
+                    toggleLabel.htmlFor = `AutoSwitchToggle${i}`;
+                    toggleLabel.className = 'toggle-switch-label';
+                    const toggleHandle = document.createElement('span');
+                    toggleHandle.className = 'toggle-switch-handle';
+                    toggleLabel.appendChild(toggleHandle);
+                    toggleContainer.appendChild(toggleLabel);
+                    dataSetDSection2.appendChild(toggleContainer);
+
+                    const outputVGroup = document.createElement('div');
+                    outputVGroup.className = 'inline-display-group';
+                    const outputVTitle = document.createElement('span');
+                    outputVTitle.className = 'text-label';
+                    outputVTitle.textContent = `Output ${i} V`;
+                    outputVGroup.appendChild(outputVTitle);
+                    const outputVDisplay = document.createElement('div');
+                    outputVDisplay.className = 'numerical-display text-sm';
+					outputVDisplay.id = `PWMDisplayV${i}`;
+                    outputVDisplay.textContent = '0.00';
+                    outputVGroup.appendChild(outputVDisplay);
+                    dataSetDSection2.appendChild(outputVGroup);
+
+                    const outputAGroup = document.createElement('div');
+                    outputAGroup.className = 'inline-display-group';
+                    const outputATitle = document.createElement('span');
+                    outputATitle.className = 'text-label';
+                    outputATitle.textContent = `Output ${i} A`;
+                    outputAGroup.appendChild(outputATitle);
+                    const outputADisplay = document.createElement('div');
+                    outputADisplay.className = 'numerical-display text-sm';
+					outputADisplay.id = `PWMDisplayA${i}`;
+                    outputADisplay.textContent = '0.00';
+                    outputAGroup.appendChild(outputADisplay);
+                    dataSetDSection2.appendChild(outputAGroup);
+                    
+                }
+                dataSetDColumnCell.appendChild(dataSetDSection2);
+
+                gridContainer.appendChild(dataSetDColumnCell);
+
+                return contentContainer;
+            }
+
+            function createConfigPageContent() {
+                event.stopPropagation();
+                const configPageWrapper = document.createElement('div');
+                configPageWrapper.className = 'w-full flex flex-col gap-0';
+                
+                const tabButtonsContainer = document.createElement('div');
+                tabButtonsContainer.className = 'browser-tabs-container mb-0 w-full';
+
+                const wifiTabButton = document.createElement('button');
+                wifiTabButton.id = 'wifi-tab';
+                wifiTabButton.className = 'browser-tab active'; // Active by default
+                wifiTabButton.textContent = 'Wi-Fi';
+                tabButtonsContainer.appendChild(wifiTabButton);
+
+                const namesTabButton = document.createElement('button');
+                namesTabButton.id = 'names-tab';
+                namesTabButton.className = 'browser-tab';
+                namesTabButton.textContent = 'Names';
+                tabButtonsContainer.appendChild(namesTabButton);
+
+                const limitsTabButton = document.createElement('button');
+                limitsTabButton.id = 'limits-tab';
+                limitsTabButton.className = 'browser-tab';
+                limitsTabButton.textContent = 'Limits';
+                tabButtonsContainer.appendChild(limitsTabButton);
+
+                // New Polarities Tab Button
+                const polaritiesTabButton = document.createElement('button');
+                polaritiesTabButton.id = 'polarities-tab';
+                polaritiesTabButton.className = 'browser-tab';
+                polaritiesTabButton.textContent = 'Polarities';
+                tabButtonsContainer.appendChild(polaritiesTabButton);
+
+                configPageWrapper.appendChild(tabButtonsContainer);
+                
+                const mainConfigContent = document.createElement('div');
+                mainConfigContent.className = 'w-full flex flex-col md:flex-row items-center md:items-start gap-6';
+
+                const configContainer = document.createElement('div');
+                configContainer.className = 'w-full p-6 shadow-lg main-dashboard-container flex flex-col gap-8';
+                
+                // --- Wi-Fi Tab Content ---
+                const wifiConfigSection = document.createElement('div');
+                wifiConfigSection.id = 'wifi-content';
+                wifiConfigSection.className = 'flex flex-col gap-4';
+
+                const ssidLabel = document.createElement('label');
+                ssidLabel.className = 'text-label text-gray-400';
+                ssidLabel.htmlFor = 'wifiSsid';
+                ssidLabel.textContent = 'SSID:';
+                wifiConfigSection.appendChild(ssidLabel);
+                const ssidInput = document.createElement('input');
+                ssidInput.type = 'text';
+                ssidInput.id = 'wifiSsid';
+                ssidInput.placeholder = 'Enter Wi-Fi SSID';
+                ssidInput.className = 'text-input';
+                wifiConfigSection.appendChild(ssidInput);
+
+                const passwordLabel = document.createElement('label');
+                passwordLabel.className = 'text-label text-gray-400 mt-2';
+                passwordLabel.htmlFor = 'wifiPassword';
+                passwordLabel.textContent = 'Password:';
+                wifiConfigSection.appendChild(passwordLabel);
+                const passwordInput = document.createElement('input');
+                passwordInput.type = 'password';
+                passwordInput.id = 'wifiPassword';
+                passwordInput.placeholder = 'Enter Wi-Fi Password';
+                passwordInput.className = 'text-input';
+                wifiConfigSection.appendChild(passwordInput);
+
+                configContainer.appendChild(wifiConfigSection);
+
+                // --- Names Tab Content ---
+                const generalConfigSection = document.createElement('div');
+                generalConfigSection.id = 'names-content';
+                generalConfigSection.className = 'flex flex-col gap-4 hidden';
+
+                // 1. Existing Switch Names Section (1-12)
+                const switchNamesSection = document.createElement('div');
+                switchNamesSection.className = 'flex flex-col gap-4 p-4 rounded-lg bg-gray-800 shadow-inner';
+                const switchNamesTitle = document.createElement('h3');
+                switchNamesTitle.className = 'text-xl font-bold text-center text-gray-400';
+                switchNamesTitle.textContent = 'Switch Names (Name 1 - Name 12)';
+                switchNamesSection.appendChild(switchNamesTitle);
+
+                for (let i = 1; i <= 12; i++) {
+                    const inputGroup = document.createElement('div');
+                    inputGroup.className = 'flex flex-col';
+                    
+                    const label = document.createElement('label');
+                    label.className = 'text-label text-gray-400';
+                    label.htmlFor = `nameField${i}`;
+                    label.textContent = `Name ${i}:`;
+                    inputGroup.appendChild(label);
+                    
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.id = `nameField${i}`;
+                    input.placeholder = `Enter value for name ${i}`;
+                    input.className = 'text-input';
+                    
+                    inputGroup.appendChild(input);
+                    switchNamesSection.appendChild(inputGroup);
+                }
+                generalConfigSection.appendChild(switchNamesSection);
+
+                // 2. NEW USB Names Section (7 fields)
+                const usbNamesSection = document.createElement('div');
+                usbNamesSection.className = 'flex flex-col gap-4 p-4 rounded-lg bg-gray-800 shadow-inner mt-4';
+                const usbNamesTitle = document.createElement('h3');
+                usbNamesTitle.className = 'text-xl font-bold text-center text-gray-400';
+                usbNamesTitle.textContent = 'USB Names (Name 13 - Name 19)';
+                usbNamesSection.appendChild(usbNamesTitle);
+
+                for (let i = 13; i <= 19; i++) { // 7 fields, continuing the index from 12
+                    const inputGroup = document.createElement('div');
+                    inputGroup.className = 'flex flex-col';
+                    
+                    const label = document.createElement('label');
+                    label.className = 'text-label text-gray-400';
+                    label.htmlFor = `nameField${i}`;
+                    label.textContent = `Name ${i} (USB ${i - 12}):`;
+                    inputGroup.appendChild(label);
+                    
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.id = `nameField${i}`;
+                    input.placeholder = `Enter USB Name ${i - 12}`;
+                    input.className = 'text-input';
+                    
+                    inputGroup.appendChild(input);
+                    usbNamesSection.appendChild(inputGroup);
+                }
+                generalConfigSection.appendChild(usbNamesSection);
+                
+                configContainer.appendChild(generalConfigSection);
+
+
+                // --- Limits Tab Content ---
+                const limitsContentSection = document.createElement('div');
+                limitsContentSection.id = 'limits-content';
+                limitsContentSection.className = 'flex flex-col gap-4 hidden';
+
+                const switchLimitsSection = document.createElement('div');
+                switchLimitsSection.className = 'flex flex-col gap-4 p-4 rounded-lg bg-gray-800 shadow-inner';
+                const switchLimitsTitle = document.createElement('h3');
+                switchLimitsTitle.className = 'text-xl font-bold text-center text-gray-400';
+                switchLimitsTitle.textContent = 'Individual Limits';
+                switchLimitsSection.appendChild(switchLimitsTitle);
+				
+			    const descriptionLim1 = document.createElement('lim1');
+                descriptionLim1.className = 'text-gray-400 text-left leading-relaxed';
+                descriptionLim1.textContent = 'INFO: Set the current limits of individual switches here. Read the settings stored with Read EEPROM or save your settings with Save To EEPROM.';
+                switchLimitsSection.appendChild(descriptionLim1);
+
+                for (let i = 1; i <= 3; i++) {
+                    const inputGroup = document.createElement('div');
+                    inputGroup.className = 'flex flex-col';
+                    
+                    const label = document.createElement('label');
+                    label.className = 'text-label text-gray-400';
+                    label.htmlFor = `switchALimit${i}`;
+					label.textContent = `Current Limit ${i}:`; 
+						if (i === 1) {
+							label.textContent = 'DC Limits (per switch):';
+						}else if (i === 2) {
+							label.textContent = 'PWM Limits (per switch):';
+						}else if (i === 3) {
+							label.textContent = 'DC Rail Limit:';
+						} 
+                    inputGroup.appendChild(label);
+                    
+                    const input = document.createElement('input');
+                    input.type = 'number';
+                    input.id = `switchALimit${i}`;
+                    input.placeholder = `Enter A limit ${i}`;
+                    input.className = 'text-input';
+                    input.step = '0.1';
+                    // Add event listener to filter out non-numeric characters
+                    input.addEventListener('input', (event) => {
+                        event.target.value = event.target.value.replace(/[^0-9.]/g, '');
+                    });
+					
+					          
+                    inputGroup.appendChild(input);
+                    switchLimitsSection.appendChild(inputGroup);
+                }
+				
+
+				
+                limitsContentSection.appendChild(switchLimitsSection);
+
+                const sensorLimitsSection = document.createElement('div');
+                sensorLimitsSection.className = 'flex flex-col gap-4 p-4 rounded-lg bg-gray-800 shadow-inner mt-4';
+                const sensorLimitsTitle = document.createElement('h3');
+                sensorLimitsTitle.className = 'text-xl font-bold text-center text-gray-400';
+                sensorLimitsTitle.textContent = 'Gogbal Limits';
+                sensorLimitsSection.appendChild(sensorLimitsTitle);
+				
+				const descriptionLim2 = document.createElement('lim2');
+                descriptionLim2.className = 'text-gray-400 text-left leading-relaxed';
+                descriptionLim2.textContent = 'INFO: Set the global current limits here. Typically DC 10 A, PWM 6A and Global 25A.';
+                sensorLimitsSection.appendChild(descriptionLim2);
+
+                for (let i = 1; i <= 3; i++) { // Loop changed to run only 3 times
+                    const inputGroup = document.createElement('div');
+                    inputGroup.className = 'flex flex-col';
+
+                    const label = document.createElement('label');
+                    label.className = 'text-label text-gray-400';
+                    label.htmlFor = `sensorALimit${i}`;
+						if (i === 1) {
+							label.textContent = 'DC Total Limit (all switches added):';
+						} else if (i === 2) {
+							label.textContent = 'PWM Total Limit (all switches added):';
+						} else if (i === 3) {
+							label.textContent = 'Global Limit (Total current allowed at the input of the box):';
+						} 
+					
+                    inputGroup.appendChild(label);
+                    
+                    const input = document.createElement('input');
+                    input.type = 'number';
+                    input.id = `sensorALimit${i}`; // Updated ID
+                    input.placeholder = `Enter A limit ${i}`; // Updated placeholder
+                    input.className = 'text-input';
+                    input.step = '0.1';
+                    // Add event listener to filter out non-numeric characters
+                    input.addEventListener('input', (event) => {
+                        event.target.value = event.target.value.replace(/[^0-9.]/g, '');
+                    });
+                    
+                    inputGroup.appendChild(input);
+                    sensorLimitsSection.appendChild(inputGroup);
+                }
+                limitsContentSection.appendChild(sensorLimitsSection);
+
+                configContainer.appendChild(limitsContentSection);
+
+                // --- Polarities Tab Content ---
+                const polaritiesContentSection = document.createElement('div');
+                polaritiesContentSection.id = 'polarities-content';
+                polaritiesContentSection.className = 'flex flex-col gap-4 hidden';
+				
+
+                const polaritiesTitle = document.createElement('h3');
+                polaritiesTitle.className = 'text-xl font-bold text-center text-gray-400';
+                polaritiesTitle.textContent = 'Switch Logic/Behavior Toggles';
+                polaritiesContentSection.appendChild(polaritiesTitle);
+				
+				const description = document.createElement('pol');
+                description.className = 'text-gray-400 text-left leading-relaxed';
+                description.textContent = 'INFO: Those toggles  will reverse the logic of the concerned outputs. Use this if the state of an output is not consistant with the state of their toggles on the Dashboard and you need to reverse it. For exemple if a device on a DC switch is off when its toggle is On, reverse that with the DC Logic button here. Read the settings stored with Read EEPROM or save your settings with Save To EEPROM.';
+                polaritiesContentSection.appendChild(description);
+
+                // Add 4 toggles for polarities
+                for (let i = 1; i <= 4; i++) {
+                    const toggleContainer = document.createElement('div');
+                    toggleContainer.className = 'toggle-switch mt-2';
+
+                    const toggleText = document.createElement('span');
+                    toggleText.className = 'toggle-text';
+						if (i === 1) {
+							toggleText.textContent = 'DC Logic:';
+						} else if (i === 2) {
+							toggleText.textContent = 'Relay Logic:';
+						} else if (i === 3) {
+							toggleText.textContent = 'DC Rail Logic:';
+						} else if (i === 4) {
+							toggleText.textContent = 'PWM Logic:';
+						}
+                    toggleContainer.appendChild(toggleText);
+
+                    const toggleInput = document.createElement('input');
+                    toggleInput.type = 'checkbox';
+                    toggleInput.id = `polarityToggle${i}`;
+                    toggleInput.className = 'toggle-switch-input';
+                    toggleContainer.appendChild(toggleInput);
+
+                    const toggleLabel = document.createElement('label');
+                    toggleLabel.htmlFor = `polarityToggle${i}`;
+                    toggleLabel.className = 'toggle-switch-label';
+                    const toggleHandle = document.createElement('span');
+                    toggleHandle.className = 'toggle-switch-handle';
+                    toggleLabel.appendChild(toggleHandle);
+                    toggleContainer.appendChild(toggleLabel);
+
+                    polaritiesContentSection.appendChild(toggleContainer);
+                }
+                configContainer.appendChild(polaritiesContentSection);
+
+                mainConfigContent.appendChild(configContainer);
+
+                function switchTab(tabId) {
+                   
+                    const allTabs = document.querySelectorAll('.browser-tab');
+                    const allContent = document.querySelectorAll('#wifi-content, #names-content, #descriptions-content, #limits-content, #polarities-content');
+
+                    allTabs.forEach(tab => tab.classList.remove('active'));
+                    allContent.forEach(content => content.classList.add('hidden'));
+
+                    document.getElementById(tabId).classList.add('active');
+                    document.getElementById(tabId.replace('-tab', '-content')).classList.remove('hidden');
+                }
+
+                wifiTabButton.addEventListener('click', () => switchTab('wifi-tab'));
+                namesTabButton.addEventListener('click', () => switchTab('names-tab'));
+                limitsTabButton.addEventListener('click', () => switchTab('limits-tab'));
+                polaritiesTabButton.addEventListener('click', () => switchTab('polarities-tab'));
+                
+                const eepromButtonsContainer = document.createElement('div');
+                eepromButtonsContainer.className = 'p-6 bg-gray-800 shadow-lg flex flex-col gap-4 w-full md:w-1/3';
+                
+                const getEepromButton = document.createElement('button');
+                getEepromButton.id = 'getEepromBtn';
+                getEepromButton.className = 'grid-button bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 shadow-md transition duration-300 ease-in-out transform hover:scale-105';
+                getEepromButton.textContent = 'Read EEPROM';
+                eepromButtonsContainer.appendChild(getEepromButton);
+
+                getEepromButton.addEventListener('click', () => {
+						button_get()
+                    });
+
+
+                const loadEepromButton = document.createElement('button');
+                loadEepromButton.id = 'loadEepromBtn';
+                loadEepromButton.className = 'grid-button bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 shadow-md transition duration-300 ease-in-out transform hover:scale-105';
+                loadEepromButton.textContent = 'Save to EEPROM';
+                eepromButtonsContainer.appendChild(loadEepromButton);
+
+                loadEepromButton.addEventListener('click', () => {
+						button_send_back()
+                    });
+
+                mainConfigContent.appendChild(eepromButtonsContainer);
+                configPageWrapper.appendChild(mainConfigContent);
+
+                return configPageWrapper;
+            }
+
+            function createAboutPageContent() {
+                const aboutContainer = document.createElement('div');
+                aboutContainer.className = 'w-full';
+
+                const title = document.createElement('h1');
+                title.className = 'text-3xl font-extrabold text-center text-gray-800 mb-8 underline';
+                title.textContent = 'About This Application';
+                aboutContainer.appendChild(title);
+
+                const contentCard = document.createElement('div');
+                contentCard.className = 'main-dashboard-container p-6 flex flex-col gap-4';
+
+                const description = document.createElement('p');
+                description.className = 'text-gray-400 text-center leading-relaxed';
+                description.textContent = 'This web page serves as a dynamic interface for monitoring and configuring the Power Box. The dashboard provides real-time data and controls, while the configuration page allows you to manage settings like Wi-Fi credentials.';
+                contentCard.appendChild(description);
+
+                const contactSection = document.createElement('div');
+                contactSection.className = 'text-center text-gray-500 mt-4';
+                contactSection.innerHTML = 'For technical support or inquiries, please ... Deal with it';
+                contentCard.appendChild(contactSection);
+
+                aboutContainer.appendChild(contentCard);
+                return aboutContainer;
+            }
+
+            // --- Page Rendering Logic ---
+            function renderPage(pageName) {
+                appRoot.innerHTML = ''; // Clear previous content
+                // Remove active class from all tabs
+                dashboardTab.classList.remove('active');
+                configTab.classList.remove('active');
+                aboutTab.classList.remove('active');
+                
+                if (pageName === 'dashboard') {
+                    appRoot.appendChild(createDashboardPageContent());
+                    dashboardTab.classList.add('active');
+
+                    // Re-attach event listeners for dashboard elements
+                    for (let i = 1; i <= 7; i++) {
+                        const toggleInput = document.getElementById(`dcSwitchToggle${i}`);
+                        if (toggleInput) {
+                            toggleInput.addEventListener('click', (event) => {
+                                if (event.target.checked) {
+									send_dcstate( (i-1), 1);
+                                } else {
+									send_dcstate( (i-1), 0);
+                                }	
+                            });
+                        }
+                    }
+
+                    for (let i = 1; i <= 3; i++) {
+                        const toggleInput = document.getElementById(`AutoSwitchToggle${i}`);
+                        if (toggleInput) {
+                            toggleInput.addEventListener('click', (event) => {
+                                if (event.target.checked) {
+									send_autostate( (i-1), 1);
+                                } else {
+									send_autostate( (i-1), 0);
+                                }
+                            });
+                        }
+                    }
+
+					// Add USB switch listeners (i=1 to 7, corresponding to device indices 12 to 18)
+					for (let i = 1; i <= 7; i++) {
+						const usbToggleInput = document.getElementById(`usbSwitchToggle${i}`);
+						if (usbToggleInput) {
+							usbToggleInput.addEventListener('click', (event) => {
+								if (event.target.checked) {
+									send_usbstate( (i-1), 1);
+								} else {
+									send_usbstate( (i-1), 0);
+								}	
+							});
+						}
+					}
+
+
+                    const alwaysOnPowerToggle = document.getElementById('alwaysOnPowerToggle');
+                    if (alwaysOnPowerToggle) {
+                        alwaysOnPowerToggle.addEventListener('click', (event) => {
+                            if (event.target.checked) {
+								send_onstate(1);
+                            } else {
+								send_onstate(0);
+                            }
+                        });
+                    }
+                    
+
+
+                    const mainPowerToggle = document.getElementById('mainPowerToggle');
+                    if (mainPowerToggle) {
+                        mainPowerToggle.addEventListener('click', (event) => {
+                            if (event.target.checked) {
+                                console.log('Main Power is now ON');
+								send_relaystate(1);
+                            } else {
+                                console.log('Main Power is now OFF');
+                            send_relaystate(0);
+							}
+                        });
+                    }
+                    
+                } else if (pageName === 'config') {
+                    appRoot.appendChild(createConfigPageContent());
+                    configTab.classList.add('active');
+                } else if (pageName === 'about') {
+                    appRoot.appendChild(createAboutPageContent());
+                    aboutTab.classList.add('active');
+                }
+            }
+
+            // --- Event Listeners for new tabs ---
+            dashboardTab.addEventListener('click', () => renderPage('dashboard'));
+            configTab.addEventListener('click', () => renderPage('config'));
+            aboutTab.addEventListener('click', () => renderPage('about'));
+
+            // Initial page load
+            renderPage('dashboard');
+        });
+
+window.onload = function(event) {
+    init();	
+  }
+    </script>
+</body>
+</html>
