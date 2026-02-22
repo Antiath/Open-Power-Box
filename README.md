@@ -58,8 +58,48 @@ The complete project includes everything you need to build and run your own powe
 
 ### 🔌 Flashing the firmware
 
-Right now the project is configured via Visual Studio Code and PlatformIO. Onece ready, clone this repositery inside Visual Studio code, connect the box via USB, select the right COM Port and flash the firmware. Normally you shouldn't have anything more to do but if for some reason  the flash fails when attempting to upload,  press the BOOT button on the pcb, keep pressing and reflash again. Wait for it to finish. 
-A archive with the firmware configured for the Arduino IDE will be added soon.
+Tho ways of flashing the firmware are provided. Choose the one that is the most convenient for you.
+
+#### PlatformIO
+
+Right now the project is configured via Visual Studio Code and PlatformIO. Open Visual studio Code, clone this repositery inside and set your workplace in the Firmware-platformIO subfolder of the repo. It should configure and download everything automatically, including the required libraries. Once everything is finished,  connect the box via USB, select the right USB Port and flash the firmware. Normally you shouldn't have anything more to do but if for some reason  the flash fails when attempting to upload,  press the BOOT button on the pcb, keep pressing and reflash again. Wait for it to finish. 
+
+#### Arduino IDE
+
+For the ArduinoIDE route, there is a little bit more work to be done. Download this repository somewhere. In the Firmware-ArduinoIDE subfolder, open the OpenPowerBox.ino sketch in the Arduino IDE (v2 at least). If uou dont have already done so, go into the board manager et install the dependencies for the esp32 from Espressif Systems ( not by Arduino !!!). Version 3.3.7 is known to work. Then in the library manager, install the following libraries ( I specify the version each time because more recent version may, or may not work) : 
+* Adafruit BusIO (v1.17.4) by Adafruit
+* Adafruit MCP23017 Arduino Library (v2.3.2) by Adafruit
+* Adafruit SHT31 Library (v2.2.2) by Adafruit
+* Arduinojson (v7.4.2) by Benoit Blanchon
+* SerialCommand Advanced (v1.0.0) by shyd
+* WebSockets (v2.7.2) by Markus Sattler
+* INA219 (v0.4.2) by Rob Tillaart
+
+Once everything is installed properly, go into Tools and select the esp32 board named " ESP32 Dev Module", select the right USB port. Also, it is not mandatory but it is still a good idea to change the partitionning of the esp32 to free up some space for the programm ( by default it would occupy 85% of the available program memory) so in Tools > Partition Scheme, select Huge APP ( 3MB No OTA, 1MB SPIFF).
+Then you can try to compile. Ignore the yellow warnings, if there are no errors, flash the firmware.
+
+#### Firmware Configuration
+
+The default configuration of the firmware is for a power box with 7 DC outputs, 3 PWM Dew Heaters, 1 DC bank, 1 relay, 0 USB ports and Automatic Dew heating activated.
+If you need any other configuration, you can edit the following lines in config.h:
+
+```
+const short DCOutput_Num = 7;  // Number of stable 12V outputs. 
+const short PWMOutput_Num = 3; // Number of PWM controlled outputs.
+const short RelayOutput_Num = 1; // Number of relay outputs.
+const short OnOutput_Num = 1; // Number of always ON 12V switches (the whole bank of connectors is controlled by the same switch)
+const short USBOutput_Num = 0; // Number of USB controlled outputs. Maximum is 7.
+const bool Ren =true; // Falg to enable/disable the automatic power control of dew heaters. This only affects the firmware and display of the sensor, you will still have to activate automatic control in the driver.
+```
+For example, if you want the USB Hub version of the project, set USBOutput_Num to 7 instead of 0.
+If you don't need Automatic control of the dew heaters ( meaning of you don't have a SHT31 sensor hooked up), Set Ren to false instead of true.
+
+For the more advanced users that want to design their own pcb with an entirely different configuration, there are a few things to consider.
+The main switches are DCOutput_Num and PWMOutput_Num. The DC Bank with ganged connectors behind a single transistor is specified by OnOutput_Num, and the relay by RelayOutput_Num.
+If you need a different number of individual DC/PWM or USB ports, you can change DCOutput_Num, PWMOutput_Num or USBOutput_Num. Be aware that the pcb is configured for these and also that the esp32 has a limited amount of I/O. 
+If you need less outputs, it's pretty easy. Just read below  in config.h to know wich pins are used by the firmware for each type of output.
+If you need more outputs...(wich you really shouldn't it's already a big boy) it's possible but you would have to change the arrays that store the pin adresses of each output type and add the pins you need. 
+And lastly, there can only be a maximum number of 1 for the relay and the DC Bank. The firmware doesn't allow currently for more.
 
 To get your Open Power Box communicating with your host PC, you will need to install the appropriate drivers.
 
@@ -173,6 +213,7 @@ The choice of stackup affects the performance of the USB traces on the pcb or, m
 * The XT90 innput connector we use accepts a gauge of 10 AWG wich should be suitable for 20-30A over 1 or 2m. Flexible multistranded wire should be used here in order to avoid resistance when moving the telescope around as the powerbox would be typically put on top of the setup and its power cable would laying down to you power supply.
 * Always size the other cables appropriatly. If you expect to use the full 5A of an output, not only the gauge should be checked but also every intermediary connector, if possible, as they are very likely to not make good enough contact for this kind of stress.
 * Terminate your internal wires with ferrules when connecting to a terminal block.
+* If you need the SHT31 sensor for the automatic Dew heater deature, there is a row of of 4 holes in a corner of the pcb named SHT31. Solder a 4 slots 2.54mm terminal block or just solder your wires directly. The silkscreen indicates wich pad does what. 
   
 ### Extra component sourcing (if still available at the time of reading):
    * 5.5mm x 2.1mm female barrel jacks from manufacturer RUNCCI-YUN: https://www.amazon.fr/dp/B09TVDDWN2?ref=ppx_yo2ov_dt_b_fed_asin_title
