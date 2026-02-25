@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "i8d21s08cJbi9dQSWWYbmQbVCp5JCGbNqA3Bf0I2Thc3VIHOfTtfVmt8BZnZ8NsJ2ygL2Yb2K478/yTdrmulPQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\mispe\\source\\repos\\AstroPowerBoxXXL0.2\\OpenPowerBox.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\mispe\\.nuget\\packages\\metroframework\\1.2.0.3\\metroframework.1.2.0.3.nupkg.sha512",
+    "C:\\Users\\mispe\\.nuget\\packages\\metroframework.design\\1.2.0.3\\metroframework.design.1.2.0.3.nupkg.sha512",
+    "C:\\Users\\mispe\\.nuget\\packages\\metroframework.fonts\\1.2.0.3\\metroframework.fonts.1.2.0.3.nupkg.sha512",
+    "C:\\Users\\mispe\\.nuget\\packages\\metroframework.runtime\\1.2.0.3\\metroframework.runtime.1.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
