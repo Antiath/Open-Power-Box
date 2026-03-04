@@ -60,8 +60,12 @@ switches[7] = Sensor_1 state : current
 #include <Arduino.h>
 #include "config.h"
 #include "ErrorManager.h"
+
 #include <INA219.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BME280.h>
 #include <Adafruit_MCP23X17.h>
+#include <Adafruit_DS3502.h>
 #include "Adafruit_SHT31.h"
 
 class Switch

@@ -441,16 +441,16 @@ var tabclicked=0; //1=wifi,2=names,3=limits,4=polarities;
 	_n8: document.getElementById('nameField8').value ,
 	_n9: document.getElementById('nameField9').value ,
 	_n10: document.getElementById('nameField10').value ,
-	_n11: document.getElementById('nameField11').value ,
-	_n12: document.getElementById('nameField12').value,
+	_n14: document.getElementById('nameField11').value , //jumping 3 indexes reserved for Auto-Dew switches wich are not "renamable"
+	_n15: document.getElementById('nameField12').value,
     // NEW USB Names (Fields 13-19)
-    _n13: document.getElementById('nameField13').value ,
-    _n14: document.getElementById('nameField14').value ,
-    _n15: document.getElementById('nameField15').value ,
-    _n16: document.getElementById('nameField16').value ,
-    _n17: document.getElementById('nameField17').value ,
-    _n18: document.getElementById('nameField18').value ,
-    _n19: document.getElementById('nameField19').value
+    _n16: document.getElementById('nameField13').value ,
+    _n17: document.getElementById('nameField14').value ,
+    _n18: document.getElementById('nameField15').value ,
+    _n19: document.getElementById('nameField16').value ,
+    _n20: document.getElementById('nameField17').value ,
+    _n21: document.getElementById('nameField18').value ,
+    _n22: document.getElementById('nameField19').value
 	};
 	}
 	else if(document.getElementById(`limits-tab`).classList.value == 'browser-tab active'){
@@ -633,18 +633,18 @@ else if(obj.answer == 'SEND_NAME'){
 	document.getElementById('nameField8').value = obj.n7;
 	document.getElementById('nameField9').value = obj.n8;
 	document.getElementById('nameField10').value = obj.n9;
-	document.getElementById('nameField11').value = obj.n10;
-	document.getElementById('nameField12').value = obj.n11;
+	document.getElementById('nameField11').value = obj.n13;//jumping 3 indexes reserved for Auto-Dew switches wich are not "renamable"
+	document.getElementById('nameField12').value = obj.n14;
     
     // NEW USB Names (Fields 13-19)
     //if(numusb==7){
-        document.getElementById('nameField13').value = obj.n12;
-        document.getElementById('nameField14').value = obj.n13;
-        document.getElementById('nameField15').value = obj.n14;
-        document.getElementById('nameField16').value = obj.n15;
-        document.getElementById('nameField17').value = obj.n16;
-        document.getElementById('nameField18').value = obj.n17;
-        document.getElementById('nameField19').value = obj.n18;
+        document.getElementById('nameField13').value = obj.n15;
+        document.getElementById('nameField14').value = obj.n16;
+        document.getElementById('nameField15').value = obj.n17;
+        document.getElementById('nameField16').value = obj.n18;
+        document.getElementById('nameField17').value = obj.n19;
+        document.getElementById('nameField18').value = obj.n20;
+        document.getElementById('nameField19').value = obj.n21;
     //}
 
 	}

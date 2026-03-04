@@ -9,6 +9,7 @@
 // Constructor
 std::vector<INA219> sensors;
 Adafruit_MCP23X17 mcp;
+Adafruit_DS3502 ds3502 = Adafruit_DS3502();
 Adafruit_SHT31 sht31 = Adafruit_SHT31();
 
 Switch::Switch()
@@ -47,7 +48,7 @@ Switch::Switch(int a)
   // Initialize EEPROM iF first upload. Won't be executed after the first time.
   Serial.println(readStoredbyte(EEPROM_FLAG_ADD));
   if (readStoredbyte(EEPROM_FLAG_ADD) != 1)
-  {
+ {
     Serial.println("Initializing EEPROM");
     EEPROM.put(EEPROM_FLAG_ADD, byte(1));
     StoreString(EEPROM_SSID_ADD, "");
@@ -380,20 +381,19 @@ String Switch::getswitchname(int switchNum)
     return "Total PWM Current";
   else
   {
-    n = "S-";
-    Serial.println(sensortype[switchNum - totalswitches-4]);
+    int i=0;
+     if(nameswitches[((switchNum - totalswitches-4) / 2)].indexOf("Auto_Dew") == 0) i=3;
+    n = "S-"+ nameswitches[((switchNum - totalswitches-4) / 2)+i];
+   //Serial.println(sensortype[switchNum - totalswitches-4+i]);
     if (sensortype[switchNum - totalswitches-4] == 0)
     {
-      n = n + nameswitches[(switchNum - totalswitches-4-1) / 2];
       n = n + "-V";
-      return n;
     }
     else
     {
-      n = n + nameswitches[(switchNum - totalswitches-4) / 2];
       n = n + "-A";
-      return n;
     }
+    return n;
   }
 }
 
@@ -631,6 +631,7 @@ void Switch::setswitchname(int switchNum, String name)
       {
         nameswitches[switchNum] = name;
         StoreString(addrnames[switchNum], name);
+        
       }
     }
   }

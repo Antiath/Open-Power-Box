@@ -2,7 +2,7 @@
 #include "config.h"
 #include "SwitchClass.h"
 #include <SerialCommand.h>
-#include "ErrorManager.h"
+#include <ErrorManager.h>
 #include <Adafruit_MCP23X17.h>
 #include "Definitions.h"
 #include <WiFi.h>
@@ -230,13 +230,6 @@ void loop()
       }
   }
 
-  // else
-  // {
-  //   for (int i=0; i<PWMOutput_Num; i++){
-  //   _switch.setswitchvalue((DCOutput_Num+i), 0);
-  //   }
-  // }
-
   // Serial bus Transmitter handler
   sensetimer2 = millis() - sensetimer;
 
@@ -383,6 +376,8 @@ void processCommand()
     Serial.println("#h0:***;");
     break; 
     case 'p':
+    EEPROM.commit();  
+    delay(100);
     ESP.restart();
     break;
     case 'e':
@@ -618,7 +613,7 @@ void UpdateWebpageReadings()
     if(USBOutput_Num>0){
         for(int i = 0; i < USBOutput_Num; i++)
     {
-      object["USB"+String(i+1)] = String(_switch.getswitch(DCOutput_Num+PWMOutput_Num+OnOutput_Num+1+i));
+      object["USB"+String(i+1)] = String(_switch.getswitch(DCOutput_Num+PWMOutput_Num*2+OnOutput_Num+1+i));
     }
       }
         for(int i = 0; i < PWMOutput_Num; i++)
@@ -626,8 +621,8 @@ void UpdateWebpageReadings()
       object["PWM"+String(i+1)] = String(_switch.getswitch(DCOutput_Num+i));
       if(Ren)object["AUTO"+String(i+1)] = String(_switch.getswitchvalue(DCOutput_Num+PWMOutput_Num+i));
     }
-    object["ON"] = String(_switch.getswitch(DCOutput_Num+PWMOutput_Num));
-    object["RELAY"] = String(_switch.getswitch(DCOutput_Num+PWMOutput_Num+1));
+    object["ON"] = String(_switch.getswitch(DCOutput_Num+2*PWMOutput_Num));
+    object["RELAY"] = String(_switch.getswitch(DCOutput_Num+2*PWMOutput_Num+1));
     //UIChanged = false;
   //}
     object["INV"] = String(_switch.getswitchvalue(SensorPos)) + "V";
