@@ -34,10 +34,13 @@ Name: "{cf}\ASCOM\Uninstall\Switch\OpenPowerBox"
 ; TODO: Add subfolders below {app} as needed (e.g. Name: "{app}\MyFolder")
 
 [Files]
-Source: "C:\Users\mispe\source\repos\AstroPowerBoxXXL0.2\bin\Release\ASCOM.OpenPowerBox.exe"; DestDir: "{app}"
+Source: "C:\Users\mispe\source\repos\OpenPowerBox\bin\Release\ASCOM.OpenPowerBox.exe"; DestDir: "{app}"
+Source: "C:\Users\mispe\source\repos\OpenPowerBox\bin\Release\MetroFramework.dll"; DestDir: "{app}"
+Source: "C:\Users\mispe\source\repos\OpenPowerBox\bin\Release\MetroFramework.Design.dll"; DestDir: "{app}"
+Source: "C:\Users\mispe\source\repos\OpenPowerBox\bin\Release\MetroFramework.Fonts.dll"; DestDir: "{app}"
 ; TODO: Add driver assemblies into the ServedClasses folder
 ; Require a read-me HTML to appear after installation, maybe driver's Help doc
-Source: "C:\Users\mispe\source\repos\AstroPowerBoxXXL0.2\ReadMe.htm"; DestDir: "{app}"; Flags: isreadme
+Source: "C:\Users\mispe\source\repos\OpenPowerBox\ReadMe.htm"; DestDir: "{app}"; Flags: isreadme
 ; TODO: Add other files needed by your driver here (add subfolders above)
 
 
