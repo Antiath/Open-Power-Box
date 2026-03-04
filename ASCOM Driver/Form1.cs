@@ -124,7 +124,12 @@ namespace ASCOM.OpenPowerBox.Switch
             if (changedControl.Name.Contains("name"))
             {
                 doNameChange = true;
-                nameChanged[int.Parse(changedControl.Name.Replace("name", ""))] = changedControl.Text;
+                int i = int.Parse(changedControl.Name.Replace("name", ""));
+                if (i>=10)
+                {
+                    i = i + 3;
+                }
+                nameChanged[i] = changedControl.Text;
             }
 
             else if (changedControl.Name.Contains("limit")) doLimitChange = true;
@@ -151,15 +156,25 @@ namespace ASCOM.OpenPowerBox.Switch
             this.limit5.Text = SwitchHardware.LimitTotal.ToString();
 
             this.name0.Text = SwitchHardware.name[0];
+            this.dashdcname0.Text = SwitchHardware.name[0];
             this.name1.Text = SwitchHardware.name[1];
+            this.dashdcname1.Text = SwitchHardware.name[1];
             this.name2.Text = SwitchHardware.name[2];
+            this.dashdcname2.Text = SwitchHardware.name[2];
             this.name3.Text = SwitchHardware.name[3];
+            this.dashdcname3.Text = SwitchHardware.name[3];
             this.name4.Text = SwitchHardware.name[4];
+            this.dashdcname4.Text = SwitchHardware.name[4];
             this.name5.Text = SwitchHardware.name[5];
+            this.dashdcname5.Text = SwitchHardware.name[5];
             this.name6.Text = SwitchHardware.name[6];
+            this.dashdcname6.Text = SwitchHardware.name[6];
             this.name7.Text = SwitchHardware.name[7];
+            this.dashpwmname0.Text = SwitchHardware.name[7];
             this.name8.Text = SwitchHardware.name[8];
+            this.dashpwmname1.Text = SwitchHardware.name[8];
             this.name9.Text = SwitchHardware.name[9];
+            this.dashpwmname2.Text = SwitchHardware.name[9];
             this.name10.Text = SwitchHardware.name[13];
             this.name11.Text = SwitchHardware.name[14];
 
@@ -171,12 +186,19 @@ namespace ASCOM.OpenPowerBox.Switch
             if (SwitchHardware.numUSB > 0)
             {
                 this.name12.Text = SwitchHardware.name[15];
+                this.dashusbname0.Text= SwitchHardware.name[15];
                 this.name13.Text = SwitchHardware.name[16];
+                this.dashusbname1.Text = SwitchHardware.name[16];
                 this.name14.Text = SwitchHardware.name[17];
+                this.dashusbname2.Text = SwitchHardware.name[17];
                 this.name15.Text = SwitchHardware.name[18];
+                this.dashusbname3.Text = SwitchHardware.name[18];
                 this.name16.Text = SwitchHardware.name[19];
+                this.dashusbname4.Text = SwitchHardware.name[19];
                 this.name17.Text = SwitchHardware.name[20];
+                this.dashusbname5.Text = SwitchHardware.name[20];
                 this.name18.Text = SwitchHardware.name[21];
+                this.dashusbname6.Text = SwitchHardware.name[21];
             }
 
         }
@@ -267,7 +289,7 @@ namespace ASCOM.OpenPowerBox.Switch
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error retrieving DC voltage: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show($"Error retrieving DC voltage: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

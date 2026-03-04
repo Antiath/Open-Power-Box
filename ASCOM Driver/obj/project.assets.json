@@ -319,25 +319,21 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mispe\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\mispe\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mispe\\source\\repos\\AstroPowerBoxXXL0.2\\OpenPowerBox.csproj",
+      "projectUniqueName": "C:\\Users\\mispe\\Documents\\Open-Power-Box\\ASCOM Driver\\OpenPowerBox.csproj",
       "projectName": "ASCOM.OpenPowerBox",
-      "projectPath": "C:\\Users\\mispe\\source\\repos\\AstroPowerBoxXXL0.2\\OpenPowerBox.csproj",
+      "projectPath": "C:\\Users\\mispe\\Documents\\Open-Power-Box\\ASCOM Driver\\OpenPowerBox.csproj",
       "packagesPath": "C:\\Users\\mispe\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mispe\\source\\repos\\AstroPowerBoxXXL0.2\\obj\\",
+      "outputPath": "C:\\Users\\mispe\\Documents\\Open-Power-Box\\ASCOM Driver\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
+      "UsingMicrosoftNETSdk": false,
       "configFilePaths": [
         "C:\\Users\\mispe\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

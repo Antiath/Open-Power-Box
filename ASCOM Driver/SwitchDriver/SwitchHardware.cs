@@ -150,9 +150,9 @@ namespace ASCOM.OpenPowerBox.Switch
             }
             return -1;
         }
+        private static readonly object _serialLock = new object();
 
-
-        private static async Task GetValues()
+        public static async Task GetValues()
         {
             if (IsConnected)
             {
@@ -161,9 +161,11 @@ namespace ASCOM.OpenPowerBox.Switch
                     for(short i=0;i<numSwitch; i++) 
                     {
                         GetSwitchValueUSB(i);
+                        //GetSwitchName_USB(i);
+                        //GetIP_USB();
                     }
-                    GetLastError_USB();
-                    await Task.Delay(100);
+                    //GetLastError_USB();
+                    await Task.Delay(200);
                 }
                 catch (Exception ex)
                 {
@@ -172,7 +174,7 @@ namespace ASCOM.OpenPowerBox.Switch
             }
         }
 
-        private static Task RunPeriodicTask(CancellationToken token)
+        public static Task RunPeriodicTask(CancellationToken token)
         {
             return Task.Run(async () =>
             {
@@ -200,8 +202,8 @@ namespace ASCOM.OpenPowerBox.Switch
         {
             try
             {
-                var cts = new CancellationTokenSource();
-                Task periodicTask = RunPeriodicTask(cts.Token);
+                //var cts = new CancellationTokenSource();
+                //Task periodicTask = RunPeriodicTask(cts.Token);
                 // Create the hardware trace logger in the static initialiser.
                 // All other initialisation should go in the InitialiseHardware method.
                 tl = new TraceLogger("", "OpenPowerBox.Hardware");
@@ -479,6 +481,10 @@ namespace ASCOM.OpenPowerBox.Switch
                             numSwitch_visible = j;
                          for (short i = 0; i < numSwitch; i++) { state[i]="0"; }
                             connectedState = true;
+
+                            var cts = new CancellationTokenSource();
+                            Task periodicTask = RunPeriodicTask(cts.Token);
+
                             //Getting the parameters from the settings file
                             string fileName = "appsettings.txt";
                             string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
@@ -630,9 +636,8 @@ namespace ASCOM.OpenPowerBox.Switch
 
         internal static void GetNum_USB()
         {
-
-            SharedResources.SharedSerial.Transmit($"# Z{Environment.NewLine}");
-            string buf = SharedResources.SharedSerial.ReceiveTerminated(";");
+            string cmd = $"# Z{Environment.NewLine}";
+            string buf= SerialSendReceive(cmd);
             buf = buf.Substring(buf.IndexOf('#') + 1);
             buf = buf.Substring(buf.IndexOf(':') + 1);
             buf = buf.Remove(buf.Length - 1);
@@ -646,25 +651,22 @@ namespace ASCOM.OpenPowerBox.Switch
         }
         internal static void GetIP_USB()
         {
-            string answer;
-            SharedResources.SharedSerial.ClearBuffers();
-            SharedResources.SharedSerial.Transmit($"# I{Environment.NewLine}");
-            string buf = SharedResources.SharedSerial.ReceiveTerminated(";");
+            string cmd = $"# I{Environment.NewLine}";
+            string buf = SerialSendReceive(cmd);
             buf = buf.Substring(buf.IndexOf('#') + 1);
             buf = buf.Substring(buf.IndexOf(':') + 1);
-            answer = buf.Remove(buf.Length-1);
+            string answer = buf.Remove(buf.Length-1);
             WiFiIP  = answer; 
             return;
         }
 
         internal static void GetSSID_USB()
         {
-            string answer;
-            SharedResources.SharedSerial.Transmit($"# f{Environment.NewLine}");
-            string buf = SharedResources.SharedSerial.ReceiveTerminated(";");
+            string cmd = $"# f{Environment.NewLine}";
+            string buf = SerialSendReceive(cmd);
             buf = buf.Substring(buf.IndexOf('#') + 1);
             buf = buf.Substring(buf.IndexOf(':') + 1);
-            answer = buf.Remove(buf.Length - 1);
+            string answer = buf.Remove(buf.Length - 1);
             SSID = answer;
             return;
         }
@@ -680,8 +682,7 @@ namespace ASCOM.OpenPowerBox.Switch
             a = a + " ";
             a = a + ssid;
             a = a + Environment.NewLine;
-            SharedResources.SharedSerial.Transmit(a);
-            answer = SharedResources.SharedSerial.ReceiveTerminated(";");
+            answer = SerialSendReceive(a);
             answer = answer.Substring(answer.IndexOf('#') + 1);
             sep = answer.IndexOf(':');
             a = answer.Substring(1, sep - 1);
@@ -704,17 +705,6 @@ namespace ASCOM.OpenPowerBox.Switch
             return;
         }
 
-        //internal static void GetPWD_USB()
-        //{
-        //    string answer;
-        //    SharedResources.SharedSerial.Transmit($"# h{Environment.NewLine}");
-        //    string buf = SharedResources.SharedSerial.ReceiveTerminated(";");
-        //    buf = buf.Substring(buf.IndexOf('#') + 1);
-        //    buf = buf.Substring(buf.IndexOf(':') + 1);
-        //    answer = buf.Remove(buf.Length - 1);
-        //    PWD = answer;
-        //    return;
-        //}
         internal static void SetPWD_USB(String pwd)
         {
             int sep;
@@ -726,8 +716,7 @@ namespace ASCOM.OpenPowerBox.Switch
             a = a + " ";
             a = a + pwd;
             a = a + Environment.NewLine;
-            SharedResources.SharedSerial.Transmit(a);
-            answer = SharedResources.SharedSerial.ReceiveTerminated(";");
+            answer = SerialSendReceive(a);
             answer = answer.Substring(answer.IndexOf('#') + 1);
             sep = answer.IndexOf(':');
             a = answer.Substring(1, sep - 1);
@@ -757,8 +746,8 @@ namespace ASCOM.OpenPowerBox.Switch
         internal static void MaxSwitch_USB()
         {
             string answer;
-            SharedResources.SharedSerial.Transmit($"# X{Environment.NewLine}");
-            string buf = SharedResources.SharedSerial.ReceiveTerminated(";");
+            string cmd = $"# X{Environment.NewLine}";
+            string buf = SerialSendReceive(cmd);
             buf = buf.Substring(buf.IndexOf('#') + 1);
             buf = buf.Substring(buf.IndexOf(':') + 1);
             answer = buf.Remove(buf.Length-1);
@@ -766,17 +755,34 @@ namespace ASCOM.OpenPowerBox.Switch
             return;
         }
 
+        private static string SerialSendReceive(string cmd)
+        {
+            lock (_serialLock)
+            {
+                SharedResources.SharedSerial.Transmit(cmd);
+                return SharedResources.SharedSerial.ReceiveTerminated(";");
+            }
+        }
+
         internal static void GetSwitchName_USB(short id)
         {
-            int sep;
+
+                int sep;
             string answer = "";
             string cmd = "# n ";
             string a,b;
-
+            Thread.Sleep(100);
             cmd = string.Concat(cmd, id.ToString(), Environment.NewLine);
-            SharedResources.SharedSerial.Transmit(cmd);
-            answer = SharedResources.SharedSerial.ReceiveTerminated(";");
-            answer = answer.Substring(answer.IndexOf('#') + 1);
+                try
+                {
+                   answer = SerialSendReceive(cmd);
+            }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error communicating with the device: {ex.Message}", "Communication Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+                answer = answer.Substring(answer.IndexOf('#') + 1);
             sep = answer.IndexOf(':');
             a= answer.Substring(1, sep-1);
 
@@ -814,8 +820,7 @@ namespace ASCOM.OpenPowerBox.Switch
 
 
             cmd = string.Concat(cmd, id.ToString(), Environment.NewLine);
-            SharedResources.SharedSerial.Transmit(cmd);
-            answer = SharedResources.SharedSerial.ReceiveTerminated(";");
+            answer = SerialSendReceive(cmd);
             answer = answer.Substring(answer.IndexOf('#') + 1);
             sep = answer.IndexOf(':');
             a = answer.Substring(1, sep - 1);
@@ -870,8 +875,9 @@ namespace ASCOM.OpenPowerBox.Switch
             a = a + " ";
             a = a + Name;
             a = a + Environment.NewLine;
-            SharedResources.SharedSerial.Transmit(a);
-            answer = SharedResources.SharedSerial.ReceiveTerminated(";");
+            
+
+            answer = SerialSendReceive(a);
             answer = answer.Substring(answer.IndexOf('#') + 1);
             sep = answer.IndexOf(':');
             a = answer.Substring(1, sep - 1);
@@ -895,8 +901,7 @@ namespace ASCOM.OpenPowerBox.Switch
             string a, b;
 
             cmd = string.Concat(cmd, id.ToString(), Environment.NewLine);
-            SharedResources.SharedSerial.Transmit(cmd);
-            answer = SharedResources.SharedSerial.ReceiveTerminated(";");
+            answer = SerialSendReceive(cmd);
             answer = answer.Substring(answer.IndexOf('#') + 1);
             sep = answer.IndexOf(':');
             a = answer.Substring(1, sep - 1);
@@ -918,8 +923,7 @@ namespace ASCOM.OpenPowerBox.Switch
             string a, b;
 
             cmd = string.Concat(cmd, id.ToString(), Environment.NewLine);
-            SharedResources.SharedSerial.Transmit(cmd);
-            answer = SharedResources.SharedSerial.ReceiveTerminated(";");
+            answer = SerialSendReceive(cmd);
             answer = answer.Substring(answer.IndexOf('#') + 1);
             sep = answer.IndexOf(':');
             a = answer.Substring(1, sep - 1);
@@ -949,9 +953,8 @@ namespace ASCOM.OpenPowerBox.Switch
             a = a + " ";
             a = a + etat.ToString();
             a = a + Environment.NewLine;
-            SharedResources.SharedSerial.Transmit(a);
 
-            answer = SharedResources.SharedSerial.ReceiveTerminated(";");
+            answer = SerialSendReceive(a);
             answer = answer.Substring(answer.IndexOf('#') + 1);
             sep = answer.IndexOf(':');
             a = answer.Substring(1, sep - 1);
@@ -977,8 +980,7 @@ namespace ASCOM.OpenPowerBox.Switch
             string a, b;
 
             cmd = string.Concat(cmd, id.ToString(), Environment.NewLine);
-            SharedResources.SharedSerial.Transmit(cmd);
-            answer = SharedResources.SharedSerial.ReceiveTerminated(";");
+            answer = SerialSendReceive(cmd);
             answer = answer.Substring(answer.IndexOf('#') + 1);
             sep = answer.IndexOf(':');
             a = answer.Substring(1, sep - 1);
@@ -1009,9 +1011,8 @@ namespace ASCOM.OpenPowerBox.Switch
             a = a + " ";
             a = a + lim;
             a = a + Environment.NewLine;
-            SharedResources.SharedSerial.Transmit(a);
 
-            answer = SharedResources.SharedSerial.ReceiveTerminated(";");
+            answer = SerialSendReceive(a);
             answer = answer.Substring(answer.IndexOf('#') + 1);
             sep = answer.IndexOf(':');
             a = answer.Substring(1, sep - 1);
@@ -1037,8 +1038,7 @@ namespace ASCOM.OpenPowerBox.Switch
             string a, b;
 
             cmd = string.Concat(cmd, id.ToString(), Environment.NewLine);
-            SharedResources.SharedSerial.Transmit(cmd);
-            answer = SharedResources.SharedSerial.ReceiveTerminated(";");
+            answer = SerialSendReceive(cmd);
             answer = answer.Substring(answer.IndexOf('#') + 1);
             sep = answer.IndexOf(':');
             a = answer.Substring(1, sep - 1);
@@ -1113,8 +1113,7 @@ namespace ASCOM.OpenPowerBox.Switch
             string a, b;
 
             cmd = string.Concat(cmd, id.ToString(), Environment.NewLine);
-            SharedResources.SharedSerial.Transmit(cmd);
-            answer = SharedResources.SharedSerial.ReceiveTerminated(";");
+            answer = SerialSendReceive(cmd);
             answer = answer.Substring(answer.IndexOf('#') + 1);
             sep = answer.IndexOf(':');
             a = answer.Substring(1, sep - 1);
@@ -1288,9 +1287,18 @@ namespace ASCOM.OpenPowerBox.Switch
             //            {
 
             cmd = string.Concat(cmd, id.ToString(), Environment.NewLine);
-                SharedResources.SharedSerial.Transmit(cmd);
-                answer = SharedResources.SharedSerial.ReceiveTerminated(";");
-                answer = answer.Substring(answer.IndexOf('#') + 1);
+
+            try
+            {
+                answer = SerialSendReceive(cmd);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error communicating with the device: {ex.Message}", "Communication Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            answer = answer.Substring(answer.IndexOf('#') + 1);
                 sep = answer.IndexOf(':');
                 a = answer.Substring(1, sep - 1);
 
@@ -1306,6 +1314,7 @@ namespace ASCOM.OpenPowerBox.Switch
         internal static double GetSwitchValue(short ind)
         {
             short id = Index_Translator(ind);
+            //GetSwitchValueUSB(id);
             double value = double.Parse(state[id], CultureInfo.InvariantCulture);
             return value;
         }
@@ -1325,21 +1334,20 @@ namespace ASCOM.OpenPowerBox.Switch
             }
             else
             {
-                string a = "# S ";
-                a = a + id.ToString();
-                a = a + " ";
-                a = a + _value.ToString();
-                a = a + Environment.NewLine;
-                SharedResources.SharedSerial.Transmit(a);
-
                 int sep;
                 string answer = "";
                 string cmd = "# G ";
                 string b;
                 double value = 0.0;
 
+                string a = "# S ";
+                a = a + id.ToString();
+                a = a + " ";
+                a = a + _value.ToString();
+                a = a + Environment.NewLine;
+                
 
-                answer = SharedResources.SharedSerial.ReceiveTerminated(";");
+                answer = SerialSendReceive(a);
                 answer = answer.Substring(answer.IndexOf('#') + 1);
                 sep = answer.IndexOf(':');
                 a = answer.Substring(1, sep - 1);
@@ -1373,8 +1381,7 @@ namespace ASCOM.OpenPowerBox.Switch
 
 
             cmd = string.Concat(cmd, "0", Environment.NewLine);
-            SharedResources.SharedSerial.Transmit(cmd);
-            answer = SharedResources.SharedSerial.ReceiveTerminated(";");
+            answer= SerialSendReceive(cmd);
             answer = answer.Substring(answer.IndexOf('#') + 1);
             sep = answer.IndexOf(':');
             a = answer.Substring(1, sep - 1);

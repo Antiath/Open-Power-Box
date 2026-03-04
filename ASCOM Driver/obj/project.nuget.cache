@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "i8d21s08cJbi9dQSWWYbmQbVCp5JCGbNqA3Bf0I2Thc3VIHOfTtfVmt8BZnZ8NsJ2ygL2Yb2K478/yTdrmulPQ==",
+  "dgSpecHash": "2OrRKuk6xmw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\mispe\\source\\repos\\AstroPowerBoxXXL0.2\\OpenPowerBox.csproj",
+  "projectFilePath": "C:\\Users\\mispe\\Documents\\Open-Power-Box\\ASCOM Driver\\OpenPowerBox.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mispe\\.nuget\\packages\\metroframework\\1.2.0.3\\metroframework.1.2.0.3.nupkg.sha512",
     "C:\\Users\\mispe\\.nuget\\packages\\metroframework.design\\1.2.0.3\\metroframework.design.1.2.0.3.nupkg.sha512",

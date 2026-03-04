@@ -62,13 +62,13 @@
             this.USB3 = new MetroFramework.Controls.MetroToggle();
             this.USB1 = new MetroFramework.Controls.MetroToggle();
             this.USB2 = new MetroFramework.Controls.MetroToggle();
-            this.metroLabel60 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel61 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel63 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel96 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel74 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel95 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel75 = new MetroFramework.Controls.MetroLabel();
+            this.dashusbname6 = new MetroFramework.Controls.MetroLabel();
+            this.dashusbname5 = new MetroFramework.Controls.MetroLabel();
+            this.dashusbname4 = new MetroFramework.Controls.MetroLabel();
+            this.dashusbname0 = new MetroFramework.Controls.MetroLabel();
+            this.dashusbname3 = new MetroFramework.Controls.MetroLabel();
+            this.dashusbname1 = new MetroFramework.Controls.MetroLabel();
+            this.dashusbname2 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel54 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel49 = new MetroFramework.Controls.MetroLabel();
             this.metroPanel4 = new MetroFramework.Controls.MetroPanel();
@@ -114,9 +114,9 @@
             this.metroLabel11 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel10 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel9 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel40 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel39 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel38 = new MetroFramework.Controls.MetroLabel();
+            this.dashpwmname2 = new MetroFramework.Controls.MetroLabel();
+            this.dashpwmname1 = new MetroFramework.Controls.MetroLabel();
+            this.dashpwmname0 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel36 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel37 = new MetroFramework.Controls.MetroLabel();
             this.Set3 = new MetroFramework.Controls.MetroButton();
@@ -138,13 +138,13 @@
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
             this.metroLabel32 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel31 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel30 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel29 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel28 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel27 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel25 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel20 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel19 = new MetroFramework.Controls.MetroLabel();
+            this.dashdcname6 = new MetroFramework.Controls.MetroLabel();
+            this.dashdcname5 = new MetroFramework.Controls.MetroLabel();
+            this.dashdcname4 = new MetroFramework.Controls.MetroLabel();
+            this.dashdcname3 = new MetroFramework.Controls.MetroLabel();
+            this.dashdcname2 = new MetroFramework.Controls.MetroLabel();
+            this.dashdcname1 = new MetroFramework.Controls.MetroLabel();
+            this.dashdcname0 = new MetroFramework.Controls.MetroLabel();
             this.DCV3 = new MetroFramework.Controls.MetroTextBox();
             this.DC1 = new MetroFramework.Controls.MetroToggle();
             this.DCV1 = new MetroFramework.Controls.MetroTextBox();
@@ -299,7 +299,7 @@
             this.metroLabel5.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel5.Location = new System.Drawing.Point(15, 224);
             this.metroLabel5.Name = "metroLabel5";
-            this.metroLabel5.Size = new System.Drawing.Size(121, 20);
+            this.metroLabel5.Size = new System.Drawing.Size(111, 19);
             this.metroLabel5.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel5.TabIndex = 103;
             this.metroLabel5.Text = "GLOBAL LIMITS";
@@ -341,7 +341,7 @@
             this.metroLabel4.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel4.Location = new System.Drawing.Point(15, 56);
             this.metroLabel4.Name = "metroLabel4";
-            this.metroLabel4.Size = new System.Drawing.Size(149, 20);
+            this.metroLabel4.Size = new System.Drawing.Size(140, 19);
             this.metroLabel4.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel4.TabIndex = 102;
             this.metroLabel4.Text = "PER SWITCH LIMITS";
@@ -363,7 +363,7 @@
             this.metroLabel15.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel15.Location = new System.Drawing.Point(26, 267);
             this.metroLabel15.Name = "metroLabel15";
-            this.metroLabel15.Size = new System.Drawing.Size(243, 20);
+            this.metroLabel15.Size = new System.Drawing.Size(221, 19);
             this.metroLabel15.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel15.TabIndex = 59;
             this.metroLabel15.Text = "Total DC Limit ( all switches added)";
@@ -375,7 +375,7 @@
             this.metroLabel21.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel21.Location = new System.Drawing.Point(21, 172);
             this.metroLabel21.Name = "metroLabel21";
-            this.metroLabel21.Size = new System.Drawing.Size(58, 20);
+            this.metroLabel21.Size = new System.Drawing.Size(53, 19);
             this.metroLabel21.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel21.TabIndex = 65;
             this.metroLabel21.Text = "DC Rail";
@@ -387,7 +387,7 @@
             this.metroLabel16.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel16.Location = new System.Drawing.Point(26, 306);
             this.metroLabel16.Name = "metroLabel16";
-            this.metroLabel16.Size = new System.Drawing.Size(254, 20);
+            this.metroLabel16.Size = new System.Drawing.Size(232, 19);
             this.metroLabel16.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel16.TabIndex = 60;
             this.metroLabel16.Text = "Total PWM Limit (all switches added)";
@@ -399,7 +399,7 @@
             this.metroLabel22.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel22.Location = new System.Drawing.Point(20, 130);
             this.metroLabel22.Name = "metroLabel22";
-            this.metroLabel22.Size = new System.Drawing.Size(224, 20);
+            this.metroLabel22.Size = new System.Drawing.Size(208, 19);
             this.metroLabel22.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel22.TabIndex = 66;
             this.metroLabel22.Text = "Dew Heaters / PWM (per switch)";
@@ -411,7 +411,7 @@
             this.metroLabel17.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel17.Location = new System.Drawing.Point(26, 349);
             this.metroLabel17.Name = "metroLabel17";
-            this.metroLabel17.Size = new System.Drawing.Size(142, 20);
+            this.metroLabel17.Size = new System.Drawing.Size(133, 19);
             this.metroLabel17.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel17.TabIndex = 61;
             this.metroLabel17.Text = "Global Current Limit";
@@ -423,7 +423,7 @@
             this.metroLabel14.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel14.Location = new System.Drawing.Point(20, 92);
             this.metroLabel14.Name = "metroLabel14";
-            this.metroLabel14.Size = new System.Drawing.Size(171, 20);
+            this.metroLabel14.Size = new System.Drawing.Size(158, 19);
             this.metroLabel14.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel14.TabIndex = 58;
             this.metroLabel14.Text = "DC Switches (per switch)";
@@ -455,7 +455,7 @@
             this.DC2.DisplayStatus = false;
             this.DC2.Location = new System.Drawing.Point(140, 99);
             this.DC2.Name = "DC2";
-            this.DC2.Size = new System.Drawing.Size(50, 20);
+            this.DC2.Size = new System.Drawing.Size(50, 17);
             this.DC2.Style = MetroFramework.MetroColorStyle.Green;
             this.DC2.TabIndex = 6;
             this.DC2.Text = "Off";
@@ -469,7 +469,7 @@
             this.DC3.DisplayStatus = false;
             this.DC3.Location = new System.Drawing.Point(140, 148);
             this.DC3.Name = "DC3";
-            this.DC3.Size = new System.Drawing.Size(50, 20);
+            this.DC3.Size = new System.Drawing.Size(50, 17);
             this.DC3.Style = MetroFramework.MetroColorStyle.Green;
             this.DC3.TabIndex = 7;
             this.DC3.Text = "Off";
@@ -483,7 +483,7 @@
             this.DC4.DisplayStatus = false;
             this.DC4.Location = new System.Drawing.Point(140, 198);
             this.DC4.Name = "DC4";
-            this.DC4.Size = new System.Drawing.Size(50, 20);
+            this.DC4.Size = new System.Drawing.Size(50, 17);
             this.DC4.Style = MetroFramework.MetroColorStyle.Green;
             this.DC4.TabIndex = 8;
             this.DC4.Text = "Off";
@@ -497,7 +497,7 @@
             this.DC5.DisplayStatus = false;
             this.DC5.Location = new System.Drawing.Point(140, 245);
             this.DC5.Name = "DC5";
-            this.DC5.Size = new System.Drawing.Size(50, 20);
+            this.DC5.Size = new System.Drawing.Size(50, 17);
             this.DC5.Style = MetroFramework.MetroColorStyle.Green;
             this.DC5.TabIndex = 9;
             this.DC5.Text = "Off";
@@ -511,7 +511,7 @@
             this.DC6.DisplayStatus = false;
             this.DC6.Location = new System.Drawing.Point(140, 295);
             this.DC6.Name = "DC6";
-            this.DC6.Size = new System.Drawing.Size(50, 20);
+            this.DC6.Size = new System.Drawing.Size(50, 17);
             this.DC6.Style = MetroFramework.MetroColorStyle.Green;
             this.DC6.TabIndex = 10;
             this.DC6.Text = "Off";
@@ -525,7 +525,7 @@
             this.DC7.DisplayStatus = false;
             this.DC7.Location = new System.Drawing.Point(140, 348);
             this.DC7.Name = "DC7";
-            this.DC7.Size = new System.Drawing.Size(50, 20);
+            this.DC7.Size = new System.Drawing.Size(50, 17);
             this.DC7.Style = MetroFramework.MetroColorStyle.Green;
             this.DC7.TabIndex = 11;
             this.DC7.Text = "Off";
@@ -539,7 +539,7 @@
             this.Rail.DisplayStatus = false;
             this.Rail.Location = new System.Drawing.Point(86, 45);
             this.Rail.Name = "Rail";
-            this.Rail.Size = new System.Drawing.Size(50, 20);
+            this.Rail.Size = new System.Drawing.Size(50, 17);
             this.Rail.Style = MetroFramework.MetroColorStyle.Blue;
             this.Rail.TabIndex = 14;
             this.Rail.Text = "Off";
@@ -556,7 +556,7 @@
             this.metroTabControl1.ItemSize = new System.Drawing.Size(111, 35);
             this.metroTabControl1.Location = new System.Drawing.Point(33, 100);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 0;
+            this.metroTabControl1.SelectedIndex = 1;
             this.metroTabControl1.Size = new System.Drawing.Size(1227, 862);
             this.metroTabControl1.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.metroTabControl1.Style = MetroFramework.MetroColorStyle.Green;
@@ -597,7 +597,7 @@
             this.metroLabel53.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel53.Location = new System.Drawing.Point(970, 22);
             this.metroLabel53.Name = "metroLabel53";
-            this.metroLabel53.Size = new System.Drawing.Size(181, 20);
+            this.metroLabel53.Size = new System.Drawing.Size(170, 19);
             this.metroLabel53.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel53.TabIndex = 79;
             this.metroLabel53.Text = "USB SWITCHES (On/Off)";
@@ -614,13 +614,13 @@
             this.metroPanel6.Controls.Add(this.USB3);
             this.metroPanel6.Controls.Add(this.USB1);
             this.metroPanel6.Controls.Add(this.USB2);
-            this.metroPanel6.Controls.Add(this.metroLabel60);
-            this.metroPanel6.Controls.Add(this.metroLabel61);
-            this.metroPanel6.Controls.Add(this.metroLabel63);
-            this.metroPanel6.Controls.Add(this.metroLabel96);
-            this.metroPanel6.Controls.Add(this.metroLabel74);
-            this.metroPanel6.Controls.Add(this.metroLabel95);
-            this.metroPanel6.Controls.Add(this.metroLabel75);
+            this.metroPanel6.Controls.Add(this.dashusbname6);
+            this.metroPanel6.Controls.Add(this.dashusbname5);
+            this.metroPanel6.Controls.Add(this.dashusbname4);
+            this.metroPanel6.Controls.Add(this.dashusbname0);
+            this.metroPanel6.Controls.Add(this.dashusbname3);
+            this.metroPanel6.Controls.Add(this.dashusbname1);
+            this.metroPanel6.Controls.Add(this.dashusbname2);
             this.metroPanel6.HorizontalScrollbarBarColor = true;
             this.metroPanel6.HorizontalScrollbarHighlightOnWheel = false;
             this.metroPanel6.HorizontalScrollbarSize = 10;
@@ -640,7 +640,7 @@
             this.USB7.DisplayStatus = false;
             this.USB7.Location = new System.Drawing.Point(150, 347);
             this.USB7.Name = "USB7";
-            this.USB7.Size = new System.Drawing.Size(50, 20);
+            this.USB7.Size = new System.Drawing.Size(50, 17);
             this.USB7.Style = MetroFramework.MetroColorStyle.Green;
             this.USB7.TabIndex = 72;
             this.USB7.Text = "Off";
@@ -653,7 +653,7 @@
             this.USB6.DisplayStatus = false;
             this.USB6.Location = new System.Drawing.Point(150, 294);
             this.USB6.Name = "USB6";
-            this.USB6.Size = new System.Drawing.Size(50, 20);
+            this.USB6.Size = new System.Drawing.Size(50, 17);
             this.USB6.Style = MetroFramework.MetroColorStyle.Green;
             this.USB6.TabIndex = 71;
             this.USB6.Text = "Off";
@@ -666,7 +666,7 @@
             this.USB5.DisplayStatus = false;
             this.USB5.Location = new System.Drawing.Point(150, 244);
             this.USB5.Name = "USB5";
-            this.USB5.Size = new System.Drawing.Size(50, 20);
+            this.USB5.Size = new System.Drawing.Size(50, 17);
             this.USB5.Style = MetroFramework.MetroColorStyle.Green;
             this.USB5.TabIndex = 70;
             this.USB5.Text = "Off";
@@ -679,7 +679,7 @@
             this.USB4.DisplayStatus = false;
             this.USB4.Location = new System.Drawing.Point(150, 197);
             this.USB4.Name = "USB4";
-            this.USB4.Size = new System.Drawing.Size(50, 20);
+            this.USB4.Size = new System.Drawing.Size(50, 17);
             this.USB4.Style = MetroFramework.MetroColorStyle.Green;
             this.USB4.TabIndex = 69;
             this.USB4.Text = "Off";
@@ -692,7 +692,7 @@
             this.USB3.DisplayStatus = false;
             this.USB3.Location = new System.Drawing.Point(150, 147);
             this.USB3.Name = "USB3";
-            this.USB3.Size = new System.Drawing.Size(50, 20);
+            this.USB3.Size = new System.Drawing.Size(50, 17);
             this.USB3.Style = MetroFramework.MetroColorStyle.Green;
             this.USB3.TabIndex = 68;
             this.USB3.Text = "Off";
@@ -705,7 +705,7 @@
             this.USB1.DisplayStatus = false;
             this.USB1.Location = new System.Drawing.Point(150, 50);
             this.USB1.Name = "USB1";
-            this.USB1.Size = new System.Drawing.Size(50, 20);
+            this.USB1.Size = new System.Drawing.Size(50, 17);
             this.USB1.Style = MetroFramework.MetroColorStyle.Green;
             this.USB1.TabIndex = 67;
             this.USB1.Text = "Off";
@@ -718,96 +718,96 @@
             this.USB2.DisplayStatus = false;
             this.USB2.Location = new System.Drawing.Point(150, 98);
             this.USB2.Name = "USB2";
-            this.USB2.Size = new System.Drawing.Size(50, 20);
+            this.USB2.Size = new System.Drawing.Size(50, 17);
             this.USB2.Style = MetroFramework.MetroColorStyle.Green;
             this.USB2.TabIndex = 60;
             this.USB2.Text = "Off";
             this.USB2.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.USB2.CheckedChanged += new System.EventHandler(this.USB2_CheckedChanged);
             // 
-            // metroLabel60
+            // dashusbname6
             // 
-            this.metroLabel60.AutoSize = true;
-            this.metroLabel60.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel60.Location = new System.Drawing.Point(26, 347);
-            this.metroLabel60.Name = "metroLabel60";
-            this.metroLabel60.Size = new System.Drawing.Size(95, 20);
-            this.metroLabel60.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel60.TabIndex = 66;
-            this.metroLabel60.Text = "USB Switch 7";
-            this.metroLabel60.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.dashusbname6.AutoSize = true;
+            this.dashusbname6.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.dashusbname6.Location = new System.Drawing.Point(26, 347);
+            this.dashusbname6.Name = "dashusbname6";
+            this.dashusbname6.Size = new System.Drawing.Size(89, 19);
+            this.dashusbname6.Style = MetroFramework.MetroColorStyle.Blue;
+            this.dashusbname6.TabIndex = 66;
+            this.dashusbname6.Text = "USB Switch 7";
+            this.dashusbname6.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // metroLabel61
+            // dashusbname5
             // 
-            this.metroLabel61.AutoSize = true;
-            this.metroLabel61.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel61.Location = new System.Drawing.Point(26, 294);
-            this.metroLabel61.Name = "metroLabel61";
-            this.metroLabel61.Size = new System.Drawing.Size(95, 20);
-            this.metroLabel61.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel61.TabIndex = 65;
-            this.metroLabel61.Text = "USB Switch 6";
-            this.metroLabel61.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.dashusbname5.AutoSize = true;
+            this.dashusbname5.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.dashusbname5.Location = new System.Drawing.Point(26, 294);
+            this.dashusbname5.Name = "dashusbname5";
+            this.dashusbname5.Size = new System.Drawing.Size(89, 19);
+            this.dashusbname5.Style = MetroFramework.MetroColorStyle.Blue;
+            this.dashusbname5.TabIndex = 65;
+            this.dashusbname5.Text = "USB Switch 6";
+            this.dashusbname5.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // metroLabel63
+            // dashusbname4
             // 
-            this.metroLabel63.AutoSize = true;
-            this.metroLabel63.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel63.Location = new System.Drawing.Point(26, 244);
-            this.metroLabel63.Name = "metroLabel63";
-            this.metroLabel63.Size = new System.Drawing.Size(95, 20);
-            this.metroLabel63.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel63.TabIndex = 64;
-            this.metroLabel63.Text = "USB Switch 5";
-            this.metroLabel63.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.dashusbname4.AutoSize = true;
+            this.dashusbname4.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.dashusbname4.Location = new System.Drawing.Point(26, 244);
+            this.dashusbname4.Name = "dashusbname4";
+            this.dashusbname4.Size = new System.Drawing.Size(89, 19);
+            this.dashusbname4.Style = MetroFramework.MetroColorStyle.Blue;
+            this.dashusbname4.TabIndex = 64;
+            this.dashusbname4.Text = "USB Switch 5";
+            this.dashusbname4.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // metroLabel96
+            // dashusbname0
             // 
-            this.metroLabel96.AutoSize = true;
-            this.metroLabel96.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel96.Location = new System.Drawing.Point(26, 50);
-            this.metroLabel96.Name = "metroLabel96";
-            this.metroLabel96.Size = new System.Drawing.Size(95, 20);
-            this.metroLabel96.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel96.TabIndex = 60;
-            this.metroLabel96.Text = "USB Switch 1";
-            this.metroLabel96.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.dashusbname0.AutoSize = true;
+            this.dashusbname0.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.dashusbname0.Location = new System.Drawing.Point(26, 50);
+            this.dashusbname0.Name = "dashusbname0";
+            this.dashusbname0.Size = new System.Drawing.Size(89, 19);
+            this.dashusbname0.Style = MetroFramework.MetroColorStyle.Blue;
+            this.dashusbname0.TabIndex = 60;
+            this.dashusbname0.Text = "USB Switch 1";
+            this.dashusbname0.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // metroLabel74
+            // dashusbname3
             // 
-            this.metroLabel74.AutoSize = true;
-            this.metroLabel74.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel74.Location = new System.Drawing.Point(26, 197);
-            this.metroLabel74.Name = "metroLabel74";
-            this.metroLabel74.Size = new System.Drawing.Size(95, 20);
-            this.metroLabel74.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel74.TabIndex = 63;
-            this.metroLabel74.Text = "USB Switch 4";
-            this.metroLabel74.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.dashusbname3.AutoSize = true;
+            this.dashusbname3.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.dashusbname3.Location = new System.Drawing.Point(26, 197);
+            this.dashusbname3.Name = "dashusbname3";
+            this.dashusbname3.Size = new System.Drawing.Size(89, 19);
+            this.dashusbname3.Style = MetroFramework.MetroColorStyle.Blue;
+            this.dashusbname3.TabIndex = 63;
+            this.dashusbname3.Text = "USB Switch 4";
+            this.dashusbname3.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // metroLabel95
+            // dashusbname1
             // 
-            this.metroLabel95.AutoSize = true;
-            this.metroLabel95.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel95.Location = new System.Drawing.Point(26, 98);
-            this.metroLabel95.Name = "metroLabel95";
-            this.metroLabel95.Size = new System.Drawing.Size(95, 20);
-            this.metroLabel95.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel95.TabIndex = 61;
-            this.metroLabel95.Text = "USB Switch 2";
-            this.metroLabel95.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.dashusbname1.AutoSize = true;
+            this.dashusbname1.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.dashusbname1.Location = new System.Drawing.Point(26, 98);
+            this.dashusbname1.Name = "dashusbname1";
+            this.dashusbname1.Size = new System.Drawing.Size(89, 19);
+            this.dashusbname1.Style = MetroFramework.MetroColorStyle.Blue;
+            this.dashusbname1.TabIndex = 61;
+            this.dashusbname1.Text = "USB Switch 2";
+            this.dashusbname1.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // metroLabel75
+            // dashusbname2
             // 
-            this.metroLabel75.AutoSize = true;
-            this.metroLabel75.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel75.Location = new System.Drawing.Point(26, 147);
-            this.metroLabel75.Name = "metroLabel75";
-            this.metroLabel75.Size = new System.Drawing.Size(95, 20);
-            this.metroLabel75.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel75.TabIndex = 62;
-            this.metroLabel75.Text = "USB Switch 3";
-            this.metroLabel75.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.dashusbname2.AutoSize = true;
+            this.dashusbname2.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.dashusbname2.Location = new System.Drawing.Point(26, 147);
+            this.dashusbname2.Name = "dashusbname2";
+            this.dashusbname2.Size = new System.Drawing.Size(89, 19);
+            this.dashusbname2.Style = MetroFramework.MetroColorStyle.Blue;
+            this.dashusbname2.TabIndex = 62;
+            this.dashusbname2.Text = "USB Switch 3";
+            this.dashusbname2.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
             // metroLabel54
             // 
@@ -815,7 +815,7 @@
             this.metroLabel54.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel54.Location = new System.Drawing.Point(549, 480);
             this.metroLabel54.Name = "metroLabel54";
-            this.metroLabel54.Size = new System.Drawing.Size(165, 20);
+            this.metroLabel54.Size = new System.Drawing.Size(154, 19);
             this.metroLabel54.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel54.TabIndex = 76;
             this.metroLabel54.Text = "AUXILIARY SWITCHES";
@@ -827,7 +827,7 @@
             this.metroLabel49.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel49.Location = new System.Drawing.Point(12, 480);
             this.metroLabel49.Name = "metroLabel49";
-            this.metroLabel49.Size = new System.Drawing.Size(74, 20);
+            this.metroLabel49.Size = new System.Drawing.Size(71, 19);
             this.metroLabel49.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel49.TabIndex = 75;
             this.metroLabel49.Text = "SENSORS";
@@ -877,7 +877,7 @@
             this.metroLabel110.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel110.Location = new System.Drawing.Point(304, 65);
             this.metroLabel110.Name = "metroLabel110";
-            this.metroLabel110.Size = new System.Drawing.Size(105, 20);
+            this.metroLabel110.Size = new System.Drawing.Size(97, 19);
             this.metroLabel110.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel110.TabIndex = 75;
             this.metroLabel110.Text = "Dew Point (°C)";
@@ -889,7 +889,7 @@
             this.metroLabel107.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel107.Location = new System.Drawing.Point(176, 65);
             this.metroLabel107.Name = "metroLabel107";
-            this.metroLabel107.Size = new System.Drawing.Size(96, 20);
+            this.metroLabel107.Size = new System.Drawing.Size(88, 19);
             this.metroLabel107.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel107.TabIndex = 74;
             this.metroLabel107.Text = "Humidity (%)";
@@ -921,7 +921,7 @@
             this.metroLabel105.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel105.Location = new System.Drawing.Point(23, 65);
             this.metroLabel105.Name = "metroLabel105";
-            this.metroLabel105.Size = new System.Drawing.Size(122, 20);
+            this.metroLabel105.Size = new System.Drawing.Size(112, 19);
             this.metroLabel105.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel105.TabIndex = 71;
             this.metroLabel105.Text = "Temperature (°C)";
@@ -933,7 +933,7 @@
             this.metroLabel43.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel43.Location = new System.Drawing.Point(24, 9);
             this.metroLabel43.Name = "metroLabel43";
-            this.metroLabel43.Size = new System.Drawing.Size(121, 20);
+            this.metroLabel43.Size = new System.Drawing.Size(113, 19);
             this.metroLabel43.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel43.TabIndex = 60;
             this.metroLabel43.Text = "Input Voltage (V)";
@@ -975,7 +975,7 @@
             this.metroLabel46.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel46.Location = new System.Drawing.Point(163, 9);
             this.metroLabel46.Name = "metroLabel46";
-            this.metroLabel46.Size = new System.Drawing.Size(118, 20);
+            this.metroLabel46.Size = new System.Drawing.Size(110, 19);
             this.metroLabel46.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel46.TabIndex = 69;
             this.metroLabel46.Text = "Total Current (A)";
@@ -987,7 +987,7 @@
             this.metroLabel47.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel47.Location = new System.Drawing.Point(303, 9);
             this.metroLabel47.Name = "metroLabel47";
-            this.metroLabel47.Size = new System.Drawing.Size(114, 20);
+            this.metroLabel47.Size = new System.Drawing.Size(104, 19);
             this.metroLabel47.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel47.TabIndex = 70;
             this.metroLabel47.Text = "Total Power (W)";
@@ -999,7 +999,7 @@
             this.metroLabel42.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel42.Location = new System.Drawing.Point(547, 25);
             this.metroLabel42.Name = "metroLabel42";
-            this.metroLabel42.Size = new System.Drawing.Size(111, 20);
+            this.metroLabel42.Size = new System.Drawing.Size(103, 19);
             this.metroLabel42.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel42.TabIndex = 68;
             this.metroLabel42.Text = "DEW HEATERS";
@@ -1035,7 +1035,7 @@
             this.metroLabel44.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel44.Location = new System.Drawing.Point(278, 11);
             this.metroLabel44.Name = "metroLabel44";
-            this.metroLabel44.Size = new System.Drawing.Size(81, 20);
+            this.metroLabel44.Size = new System.Drawing.Size(77, 19);
             this.metroLabel44.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel44.TabIndex = 61;
             this.metroLabel44.Text = "Current (A)";
@@ -1047,7 +1047,7 @@
             this.metroLabel45.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel45.Location = new System.Drawing.Point(166, 11);
             this.metroLabel45.Name = "metroLabel45";
-            this.metroLabel45.Size = new System.Drawing.Size(83, 20);
+            this.metroLabel45.Size = new System.Drawing.Size(76, 19);
             this.metroLabel45.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel45.TabIndex = 60;
             this.metroLabel45.Text = "Voltage (V)";
@@ -1069,7 +1069,7 @@
             this.metroLabel35.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel35.Location = new System.Drawing.Point(24, 84);
             this.metroLabel35.Name = "metroLabel35";
-            this.metroLabel35.Size = new System.Drawing.Size(45, 20);
+            this.metroLabel35.Size = new System.Drawing.Size(41, 19);
             this.metroLabel35.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel35.TabIndex = 61;
             this.metroLabel35.Text = "Relay";
@@ -1091,7 +1091,7 @@
             this.Relay.DisplayStatus = false;
             this.Relay.Location = new System.Drawing.Point(86, 84);
             this.Relay.Name = "Relay";
-            this.Relay.Size = new System.Drawing.Size(50, 20);
+            this.Relay.Size = new System.Drawing.Size(50, 17);
             this.Relay.Style = MetroFramework.MetroColorStyle.Blue;
             this.Relay.TabIndex = 16;
             this.Relay.Text = "Off";
@@ -1105,7 +1105,7 @@
             this.metroLabel34.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel34.Location = new System.Drawing.Point(8, 45);
             this.metroLabel34.Name = "metroLabel34";
-            this.metroLabel34.Size = new System.Drawing.Size(58, 20);
+            this.metroLabel34.Size = new System.Drawing.Size(53, 19);
             this.metroLabel34.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel34.TabIndex = 60;
             this.metroLabel34.Text = "DC Rail";
@@ -1117,7 +1117,7 @@
             this.metroLabel41.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel41.Location = new System.Drawing.Point(699, 22);
             this.metroLabel41.Name = "metroLabel41";
-            this.metroLabel41.Size = new System.Drawing.Size(117, 20);
+            this.metroLabel41.Size = new System.Drawing.Size(111, 19);
             this.metroLabel41.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel41.TabIndex = 66;
             this.metroLabel41.Text = "Bank Current (A)";
@@ -1145,9 +1145,9 @@
             this.metroPanel2.Controls.Add(this.metroLabel11);
             this.metroPanel2.Controls.Add(this.metroLabel10);
             this.metroPanel2.Controls.Add(this.metroLabel9);
-            this.metroPanel2.Controls.Add(this.metroLabel40);
-            this.metroPanel2.Controls.Add(this.metroLabel39);
-            this.metroPanel2.Controls.Add(this.metroLabel38);
+            this.metroPanel2.Controls.Add(this.dashpwmname2);
+            this.metroPanel2.Controls.Add(this.dashpwmname1);
+            this.metroPanel2.Controls.Add(this.dashpwmname0);
             this.metroPanel2.Controls.Add(this.metroLabel36);
             this.metroPanel2.Controls.Add(this.metroLabel37);
             this.metroPanel2.Controls.Add(this.Set3);
@@ -1183,7 +1183,7 @@
             this.metroLabel103.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel103.Location = new System.Drawing.Point(347, 294);
             this.metroLabel103.Name = "metroLabel103";
-            this.metroLabel103.Size = new System.Drawing.Size(77, 20);
+            this.metroLabel103.Size = new System.Drawing.Size(72, 19);
             this.metroLabel103.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel103.TabIndex = 86;
             this.metroLabel103.Text = "Auto-Dew";
@@ -1195,7 +1195,7 @@
             this.metroLabel99.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel99.Location = new System.Drawing.Point(347, 170);
             this.metroLabel99.Name = "metroLabel99";
-            this.metroLabel99.Size = new System.Drawing.Size(77, 20);
+            this.metroLabel99.Size = new System.Drawing.Size(72, 19);
             this.metroLabel99.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel99.TabIndex = 85;
             this.metroLabel99.Text = "Auto-Dew";
@@ -1207,7 +1207,7 @@
             this.metroLabel48.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel48.Location = new System.Drawing.Point(347, 53);
             this.metroLabel48.Name = "metroLabel48";
-            this.metroLabel48.Size = new System.Drawing.Size(77, 20);
+            this.metroLabel48.Size = new System.Drawing.Size(72, 19);
             this.metroLabel48.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel48.TabIndex = 84;
             this.metroLabel48.Text = "Auto-Dew";
@@ -1219,7 +1219,7 @@
             this.Auto3.DisplayStatus = false;
             this.Auto3.Location = new System.Drawing.Point(356, 328);
             this.Auto3.Name = "Auto3";
-            this.Auto3.Size = new System.Drawing.Size(50, 20);
+            this.Auto3.Size = new System.Drawing.Size(50, 17);
             this.Auto3.Style = MetroFramework.MetroColorStyle.Green;
             this.Auto3.TabIndex = 83;
             this.Auto3.Text = "Off";
@@ -1232,7 +1232,7 @@
             this.Auto2.DisplayStatus = false;
             this.Auto2.Location = new System.Drawing.Point(356, 206);
             this.Auto2.Name = "Auto2";
-            this.Auto2.Size = new System.Drawing.Size(50, 20);
+            this.Auto2.Size = new System.Drawing.Size(50, 17);
             this.Auto2.Style = MetroFramework.MetroColorStyle.Green;
             this.Auto2.TabIndex = 82;
             this.Auto2.Text = "Off";
@@ -1245,7 +1245,7 @@
             this.Auto1.DisplayStatus = false;
             this.Auto1.Location = new System.Drawing.Point(356, 85);
             this.Auto1.Name = "Auto1";
-            this.Auto1.Size = new System.Drawing.Size(50, 20);
+            this.Auto1.Size = new System.Drawing.Size(50, 17);
             this.Auto1.Style = MetroFramework.MetroColorStyle.Green;
             this.Auto1.TabIndex = 60;
             this.Auto1.Text = "Off";
@@ -1297,7 +1297,7 @@
             this.metroLabel56.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel56.Location = new System.Drawing.Point(20, 328);
             this.metroLabel56.Name = "metroLabel56";
-            this.metroLabel56.Size = new System.Drawing.Size(79, 20);
+            this.metroLabel56.Size = new System.Drawing.Size(75, 19);
             this.metroLabel56.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel56.TabIndex = 79;
             this.metroLabel56.Text = "Duty Cycle";
@@ -1308,7 +1308,7 @@
             this.metroLabel26.AutoSize = true;
             this.metroLabel26.Location = new System.Drawing.Point(246, 357);
             this.metroLabel26.Name = "metroLabel26";
-            this.metroLabel26.Size = new System.Drawing.Size(30, 20);
+            this.metroLabel26.Size = new System.Drawing.Size(28, 19);
             this.metroLabel26.TabIndex = 78;
             this.metroLabel26.Text = "100";
             this.metroLabel26.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -1318,7 +1318,7 @@
             this.metroLabel52.AutoSize = true;
             this.metroLabel52.Location = new System.Drawing.Point(131, 357);
             this.metroLabel52.Name = "metroLabel52";
-            this.metroLabel52.Size = new System.Drawing.Size(17, 20);
+            this.metroLabel52.Size = new System.Drawing.Size(16, 19);
             this.metroLabel52.TabIndex = 77;
             this.metroLabel52.Text = "0";
             this.metroLabel52.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -1329,7 +1329,7 @@
             this.metroLabel24.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel24.Location = new System.Drawing.Point(20, 206);
             this.metroLabel24.Name = "metroLabel24";
-            this.metroLabel24.Size = new System.Drawing.Size(79, 20);
+            this.metroLabel24.Size = new System.Drawing.Size(75, 19);
             this.metroLabel24.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel24.TabIndex = 75;
             this.metroLabel24.Text = "Duty Cycle";
@@ -1340,7 +1340,7 @@
             this.metroLabel12.AutoSize = true;
             this.metroLabel12.Location = new System.Drawing.Point(246, 235);
             this.metroLabel12.Name = "metroLabel12";
-            this.metroLabel12.Size = new System.Drawing.Size(30, 20);
+            this.metroLabel12.Size = new System.Drawing.Size(28, 19);
             this.metroLabel12.TabIndex = 74;
             this.metroLabel12.Text = "100";
             this.metroLabel12.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -1350,7 +1350,7 @@
             this.metroLabel13.AutoSize = true;
             this.metroLabel13.Location = new System.Drawing.Point(131, 235);
             this.metroLabel13.Name = "metroLabel13";
-            this.metroLabel13.Size = new System.Drawing.Size(17, 20);
+            this.metroLabel13.Size = new System.Drawing.Size(16, 19);
             this.metroLabel13.TabIndex = 73;
             this.metroLabel13.Text = "0";
             this.metroLabel13.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -1361,7 +1361,7 @@
             this.PWM1Getlabel.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.PWM1Getlabel.Location = new System.Drawing.Point(49, 109);
             this.PWM1Getlabel.Name = "PWM1Getlabel";
-            this.PWM1Getlabel.Size = new System.Drawing.Size(29, 20);
+            this.PWM1Getlabel.Size = new System.Drawing.Size(28, 19);
             this.PWM1Getlabel.Style = MetroFramework.MetroColorStyle.Blue;
             this.PWM1Getlabel.TabIndex = 71;
             this.PWM1Getlabel.Text = "0%";
@@ -1373,7 +1373,7 @@
             this.metroLabel11.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel11.Location = new System.Drawing.Point(20, 82);
             this.metroLabel11.Name = "metroLabel11";
-            this.metroLabel11.Size = new System.Drawing.Size(79, 20);
+            this.metroLabel11.Size = new System.Drawing.Size(75, 19);
             this.metroLabel11.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel11.TabIndex = 70;
             this.metroLabel11.Text = "Duty Cycle";
@@ -1384,7 +1384,7 @@
             this.metroLabel10.AutoSize = true;
             this.metroLabel10.Location = new System.Drawing.Point(246, 111);
             this.metroLabel10.Name = "metroLabel10";
-            this.metroLabel10.Size = new System.Drawing.Size(30, 20);
+            this.metroLabel10.Size = new System.Drawing.Size(28, 19);
             this.metroLabel10.TabIndex = 68;
             this.metroLabel10.Text = "100";
             this.metroLabel10.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -1394,47 +1394,47 @@
             this.metroLabel9.AutoSize = true;
             this.metroLabel9.Location = new System.Drawing.Point(131, 111);
             this.metroLabel9.Name = "metroLabel9";
-            this.metroLabel9.Size = new System.Drawing.Size(17, 20);
+            this.metroLabel9.Size = new System.Drawing.Size(16, 19);
             this.metroLabel9.TabIndex = 67;
             this.metroLabel9.Text = "0";
             this.metroLabel9.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // metroLabel40
+            // dashpwmname2
             // 
-            this.metroLabel40.AutoSize = true;
-            this.metroLabel40.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel40.Location = new System.Drawing.Point(10, 291);
-            this.metroLabel40.Name = "metroLabel40";
-            this.metroLabel40.Size = new System.Drawing.Size(103, 20);
-            this.metroLabel40.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel40.TabIndex = 66;
-            this.metroLabel40.Text = "PWM Switch 3";
-            this.metroLabel40.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.dashpwmname2.AutoSize = true;
+            this.dashpwmname2.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.dashpwmname2.Location = new System.Drawing.Point(10, 291);
+            this.dashpwmname2.Name = "dashpwmname2";
+            this.dashpwmname2.Size = new System.Drawing.Size(98, 19);
+            this.dashpwmname2.Style = MetroFramework.MetroColorStyle.Blue;
+            this.dashpwmname2.TabIndex = 66;
+            this.dashpwmname2.Text = "PWM Switch 3";
+            this.dashpwmname2.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // metroLabel39
+            // dashpwmname1
             // 
-            this.metroLabel39.AutoSize = true;
-            this.metroLabel39.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel39.Location = new System.Drawing.Point(11, 170);
-            this.metroLabel39.Name = "metroLabel39";
-            this.metroLabel39.Size = new System.Drawing.Size(103, 20);
-            this.metroLabel39.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel39.TabIndex = 65;
-            this.metroLabel39.Text = "PWM Switch 2";
-            this.metroLabel39.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.dashpwmname1.AutoSize = true;
+            this.dashpwmname1.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.dashpwmname1.Location = new System.Drawing.Point(11, 170);
+            this.dashpwmname1.Name = "dashpwmname1";
+            this.dashpwmname1.Size = new System.Drawing.Size(98, 19);
+            this.dashpwmname1.Style = MetroFramework.MetroColorStyle.Blue;
+            this.dashpwmname1.TabIndex = 65;
+            this.dashpwmname1.Text = "PWM Switch 2";
+            this.dashpwmname1.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // metroLabel38
+            // dashpwmname0
             // 
-            this.metroLabel38.AutoSize = true;
-            this.metroLabel38.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel38.Location = new System.Drawing.Point(11, 53);
-            this.metroLabel38.Name = "metroLabel38";
-            this.metroLabel38.Size = new System.Drawing.Size(103, 20);
-            this.metroLabel38.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel38.TabIndex = 60;
-            this.metroLabel38.Text = "PWM Switch 1";
-            this.metroLabel38.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.metroLabel38.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.dashpwmname0.AutoSize = true;
+            this.dashpwmname0.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.dashpwmname0.Location = new System.Drawing.Point(11, 53);
+            this.dashpwmname0.Name = "dashpwmname0";
+            this.dashpwmname0.Size = new System.Drawing.Size(98, 19);
+            this.dashpwmname0.Style = MetroFramework.MetroColorStyle.Blue;
+            this.dashpwmname0.TabIndex = 60;
+            this.dashpwmname0.Text = "PWM Switch 1";
+            this.dashpwmname0.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.dashpwmname0.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
             // metroLabel36
             // 
@@ -1442,7 +1442,7 @@
             this.metroLabel36.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel36.Location = new System.Drawing.Point(248, 20);
             this.metroLabel36.Name = "metroLabel36";
-            this.metroLabel36.Size = new System.Drawing.Size(81, 20);
+            this.metroLabel36.Size = new System.Drawing.Size(77, 19);
             this.metroLabel36.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel36.TabIndex = 61;
             this.metroLabel36.Text = "Current (A)";
@@ -1454,7 +1454,7 @@
             this.metroLabel37.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel37.Location = new System.Drawing.Point(123, 20);
             this.metroLabel37.Name = "metroLabel37";
-            this.metroLabel37.Size = new System.Drawing.Size(83, 20);
+            this.metroLabel37.Size = new System.Drawing.Size(76, 19);
             this.metroLabel37.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel37.TabIndex = 60;
             this.metroLabel37.Text = "Voltage (V)";
@@ -1508,7 +1508,7 @@
             this.PWM3Getlabel.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.PWM3Getlabel.Location = new System.Drawing.Point(49, 357);
             this.PWM3Getlabel.Name = "PWM3Getlabel";
-            this.PWM3Getlabel.Size = new System.Drawing.Size(29, 20);
+            this.PWM3Getlabel.Size = new System.Drawing.Size(28, 19);
             this.PWM3Getlabel.Style = MetroFramework.MetroColorStyle.Blue;
             this.PWM3Getlabel.TabIndex = 62;
             this.PWM3Getlabel.Text = "0%";
@@ -1541,7 +1541,7 @@
             this.PWM2Getlabel.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.PWM2Getlabel.Location = new System.Drawing.Point(49, 235);
             this.PWM2Getlabel.Name = "PWM2Getlabel";
-            this.PWM2Getlabel.Size = new System.Drawing.Size(29, 20);
+            this.PWM2Getlabel.Size = new System.Drawing.Size(28, 19);
             this.PWM2Getlabel.Style = MetroFramework.MetroColorStyle.Blue;
             this.PWM2Getlabel.TabIndex = 61;
             this.PWM2Getlabel.Text = "0%";
@@ -1624,7 +1624,7 @@
             this.metroLabel33.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel33.Location = new System.Drawing.Point(254, 22);
             this.metroLabel33.Name = "metroLabel33";
-            this.metroLabel33.Size = new System.Drawing.Size(117, 20);
+            this.metroLabel33.Size = new System.Drawing.Size(111, 19);
             this.metroLabel33.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel33.TabIndex = 51;
             this.metroLabel33.Text = "Bank Current (A)";
@@ -1636,7 +1636,7 @@
             this.metroLabel18.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel18.Location = new System.Drawing.Point(12, 25);
             this.metroLabel18.Name = "metroLabel18";
-            this.metroLabel18.Size = new System.Drawing.Size(172, 20);
+            this.metroLabel18.Size = new System.Drawing.Size(162, 19);
             this.metroLabel18.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel18.TabIndex = 50;
             this.metroLabel18.Text = "DC SWITCHES (On/Off)";
@@ -1647,13 +1647,13 @@
             this.metroPanel1.BorderStyle = MetroFramework.Drawing.MetroBorderStyle.FixedSingle;
             this.metroPanel1.Controls.Add(this.metroLabel32);
             this.metroPanel1.Controls.Add(this.metroLabel31);
-            this.metroPanel1.Controls.Add(this.metroLabel30);
-            this.metroPanel1.Controls.Add(this.metroLabel29);
-            this.metroPanel1.Controls.Add(this.metroLabel28);
-            this.metroPanel1.Controls.Add(this.metroLabel27);
-            this.metroPanel1.Controls.Add(this.metroLabel25);
-            this.metroPanel1.Controls.Add(this.metroLabel20);
-            this.metroPanel1.Controls.Add(this.metroLabel19);
+            this.metroPanel1.Controls.Add(this.dashdcname6);
+            this.metroPanel1.Controls.Add(this.dashdcname5);
+            this.metroPanel1.Controls.Add(this.dashdcname4);
+            this.metroPanel1.Controls.Add(this.dashdcname3);
+            this.metroPanel1.Controls.Add(this.dashdcname2);
+            this.metroPanel1.Controls.Add(this.dashdcname1);
+            this.metroPanel1.Controls.Add(this.dashdcname0);
             this.metroPanel1.Controls.Add(this.DCV3);
             this.metroPanel1.Controls.Add(this.DC5);
             this.metroPanel1.Controls.Add(this.DC6);
@@ -1694,7 +1694,7 @@
             this.metroLabel32.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel32.Location = new System.Drawing.Point(366, 18);
             this.metroLabel32.Name = "metroLabel32";
-            this.metroLabel32.Size = new System.Drawing.Size(81, 20);
+            this.metroLabel32.Size = new System.Drawing.Size(77, 19);
             this.metroLabel32.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel32.TabIndex = 59;
             this.metroLabel32.Text = "Current (A)";
@@ -1706,95 +1706,95 @@
             this.metroLabel31.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel31.Location = new System.Drawing.Point(241, 18);
             this.metroLabel31.Name = "metroLabel31";
-            this.metroLabel31.Size = new System.Drawing.Size(83, 20);
+            this.metroLabel31.Size = new System.Drawing.Size(76, 19);
             this.metroLabel31.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel31.TabIndex = 58;
             this.metroLabel31.Text = "Voltage (V)";
             this.metroLabel31.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // metroLabel30
+            // dashdcname6
             // 
-            this.metroLabel30.AutoSize = true;
-            this.metroLabel30.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel30.Location = new System.Drawing.Point(35, 348);
-            this.metroLabel30.Name = "metroLabel30";
-            this.metroLabel30.Size = new System.Drawing.Size(88, 20);
-            this.metroLabel30.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel30.TabIndex = 57;
-            this.metroLabel30.Text = "DC Switch 7";
-            this.metroLabel30.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.dashdcname6.AutoSize = true;
+            this.dashdcname6.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.dashdcname6.Location = new System.Drawing.Point(35, 348);
+            this.dashdcname6.Name = "dashdcname6";
+            this.dashdcname6.Size = new System.Drawing.Size(83, 19);
+            this.dashdcname6.Style = MetroFramework.MetroColorStyle.Blue;
+            this.dashdcname6.TabIndex = 57;
+            this.dashdcname6.Text = "DC Switch 7";
+            this.dashdcname6.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // metroLabel29
+            // dashdcname5
             // 
-            this.metroLabel29.AutoSize = true;
-            this.metroLabel29.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel29.Location = new System.Drawing.Point(35, 295);
-            this.metroLabel29.Name = "metroLabel29";
-            this.metroLabel29.Size = new System.Drawing.Size(88, 20);
-            this.metroLabel29.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel29.TabIndex = 56;
-            this.metroLabel29.Text = "DC Switch 6";
-            this.metroLabel29.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.dashdcname5.AutoSize = true;
+            this.dashdcname5.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.dashdcname5.Location = new System.Drawing.Point(35, 295);
+            this.dashdcname5.Name = "dashdcname5";
+            this.dashdcname5.Size = new System.Drawing.Size(83, 19);
+            this.dashdcname5.Style = MetroFramework.MetroColorStyle.Blue;
+            this.dashdcname5.TabIndex = 56;
+            this.dashdcname5.Text = "DC Switch 6";
+            this.dashdcname5.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // metroLabel28
+            // dashdcname4
             // 
-            this.metroLabel28.AutoSize = true;
-            this.metroLabel28.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel28.Location = new System.Drawing.Point(35, 245);
-            this.metroLabel28.Name = "metroLabel28";
-            this.metroLabel28.Size = new System.Drawing.Size(88, 20);
-            this.metroLabel28.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel28.TabIndex = 55;
-            this.metroLabel28.Text = "DC Switch 5";
-            this.metroLabel28.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.dashdcname4.AutoSize = true;
+            this.dashdcname4.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.dashdcname4.Location = new System.Drawing.Point(35, 245);
+            this.dashdcname4.Name = "dashdcname4";
+            this.dashdcname4.Size = new System.Drawing.Size(83, 19);
+            this.dashdcname4.Style = MetroFramework.MetroColorStyle.Blue;
+            this.dashdcname4.TabIndex = 55;
+            this.dashdcname4.Text = "DC Switch 5";
+            this.dashdcname4.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // metroLabel27
+            // dashdcname3
             // 
-            this.metroLabel27.AutoSize = true;
-            this.metroLabel27.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel27.Location = new System.Drawing.Point(35, 198);
-            this.metroLabel27.Name = "metroLabel27";
-            this.metroLabel27.Size = new System.Drawing.Size(88, 20);
-            this.metroLabel27.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel27.TabIndex = 54;
-            this.metroLabel27.Text = "DC Switch 4";
-            this.metroLabel27.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.dashdcname3.AutoSize = true;
+            this.dashdcname3.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.dashdcname3.Location = new System.Drawing.Point(35, 198);
+            this.dashdcname3.Name = "dashdcname3";
+            this.dashdcname3.Size = new System.Drawing.Size(83, 19);
+            this.dashdcname3.Style = MetroFramework.MetroColorStyle.Blue;
+            this.dashdcname3.TabIndex = 54;
+            this.dashdcname3.Text = "DC Switch 4";
+            this.dashdcname3.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // metroLabel25
+            // dashdcname2
             // 
-            this.metroLabel25.AutoSize = true;
-            this.metroLabel25.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel25.Location = new System.Drawing.Point(35, 148);
-            this.metroLabel25.Name = "metroLabel25";
-            this.metroLabel25.Size = new System.Drawing.Size(88, 20);
-            this.metroLabel25.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel25.TabIndex = 53;
-            this.metroLabel25.Text = "DC Switch 3";
-            this.metroLabel25.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.dashdcname2.AutoSize = true;
+            this.dashdcname2.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.dashdcname2.Location = new System.Drawing.Point(35, 148);
+            this.dashdcname2.Name = "dashdcname2";
+            this.dashdcname2.Size = new System.Drawing.Size(83, 19);
+            this.dashdcname2.Style = MetroFramework.MetroColorStyle.Blue;
+            this.dashdcname2.TabIndex = 53;
+            this.dashdcname2.Text = "DC Switch 3";
+            this.dashdcname2.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // metroLabel20
+            // dashdcname1
             // 
-            this.metroLabel20.AutoSize = true;
-            this.metroLabel20.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel20.Location = new System.Drawing.Point(35, 99);
-            this.metroLabel20.Name = "metroLabel20";
-            this.metroLabel20.Size = new System.Drawing.Size(88, 20);
-            this.metroLabel20.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel20.TabIndex = 52;
-            this.metroLabel20.Text = "DC Switch 2";
-            this.metroLabel20.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.dashdcname1.AutoSize = true;
+            this.dashdcname1.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.dashdcname1.Location = new System.Drawing.Point(35, 99);
+            this.dashdcname1.Name = "dashdcname1";
+            this.dashdcname1.Size = new System.Drawing.Size(83, 19);
+            this.dashdcname1.Style = MetroFramework.MetroColorStyle.Blue;
+            this.dashdcname1.TabIndex = 52;
+            this.dashdcname1.Text = "DC Switch 2";
+            this.dashdcname1.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // metroLabel19
+            // dashdcname0
             // 
-            this.metroLabel19.AutoSize = true;
-            this.metroLabel19.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel19.Location = new System.Drawing.Point(35, 51);
-            this.metroLabel19.Name = "metroLabel19";
-            this.metroLabel19.Size = new System.Drawing.Size(88, 20);
-            this.metroLabel19.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroLabel19.TabIndex = 51;
-            this.metroLabel19.Text = "DC Switch 1";
-            this.metroLabel19.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.dashdcname0.AutoSize = true;
+            this.dashdcname0.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.dashdcname0.Location = new System.Drawing.Point(35, 51);
+            this.dashdcname0.Name = "dashdcname0";
+            this.dashdcname0.Size = new System.Drawing.Size(83, 19);
+            this.dashdcname0.Style = MetroFramework.MetroColorStyle.Blue;
+            this.dashdcname0.TabIndex = 51;
+            this.dashdcname0.Text = "DC Switch 1";
+            this.dashdcname0.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
             // DCV3
             // 
@@ -1812,7 +1812,7 @@
             this.DC1.DisplayStatus = false;
             this.DC1.Location = new System.Drawing.Point(140, 51);
             this.DC1.Name = "DC1";
-            this.DC1.Size = new System.Drawing.Size(50, 20);
+            this.DC1.Size = new System.Drawing.Size(50, 17);
             this.DC1.Style = MetroFramework.MetroColorStyle.Green;
             this.DC1.TabIndex = 5;
             this.DC1.Text = "Off";
@@ -2186,7 +2186,7 @@
             this.metroLabel100.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel100.Location = new System.Drawing.Point(796, 113);
             this.metroLabel100.Name = "metroLabel100";
-            this.metroLabel100.Size = new System.Drawing.Size(44, 20);
+            this.metroLabel100.Size = new System.Drawing.Size(42, 19);
             this.metroLabel100.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel100.TabIndex = 127;
             this.metroLabel100.Text = "USB1";
@@ -2198,7 +2198,7 @@
             this.metroLabel101.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel101.Location = new System.Drawing.Point(796, 156);
             this.metroLabel101.Name = "metroLabel101";
-            this.metroLabel101.Size = new System.Drawing.Size(44, 20);
+            this.metroLabel101.Size = new System.Drawing.Size(42, 19);
             this.metroLabel101.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel101.TabIndex = 129;
             this.metroLabel101.Text = "USB2";
@@ -2210,7 +2210,7 @@
             this.metroLabel102.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel102.Location = new System.Drawing.Point(796, 200);
             this.metroLabel102.Name = "metroLabel102";
-            this.metroLabel102.Size = new System.Drawing.Size(44, 20);
+            this.metroLabel102.Size = new System.Drawing.Size(42, 19);
             this.metroLabel102.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel102.TabIndex = 130;
             this.metroLabel102.Text = "USB3";
@@ -2222,7 +2222,7 @@
             this.metroLabel104.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel104.Location = new System.Drawing.Point(796, 241);
             this.metroLabel104.Name = "metroLabel104";
-            this.metroLabel104.Size = new System.Drawing.Size(44, 20);
+            this.metroLabel104.Size = new System.Drawing.Size(42, 19);
             this.metroLabel104.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel104.TabIndex = 131;
             this.metroLabel104.Text = "USB4";
@@ -2234,7 +2234,7 @@
             this.metroLabel106.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel106.Location = new System.Drawing.Point(796, 282);
             this.metroLabel106.Name = "metroLabel106";
-            this.metroLabel106.Size = new System.Drawing.Size(44, 20);
+            this.metroLabel106.Size = new System.Drawing.Size(42, 19);
             this.metroLabel106.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel106.TabIndex = 132;
             this.metroLabel106.Text = "USB5";
@@ -2246,7 +2246,7 @@
             this.metroLabel108.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel108.Location = new System.Drawing.Point(796, 325);
             this.metroLabel108.Name = "metroLabel108";
-            this.metroLabel108.Size = new System.Drawing.Size(44, 20);
+            this.metroLabel108.Size = new System.Drawing.Size(42, 19);
             this.metroLabel108.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel108.TabIndex = 133;
             this.metroLabel108.Text = "USB6";
@@ -2258,7 +2258,7 @@
             this.metroLabel109.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel109.Location = new System.Drawing.Point(796, 370);
             this.metroLabel109.Name = "metroLabel109";
-            this.metroLabel109.Size = new System.Drawing.Size(44, 20);
+            this.metroLabel109.Size = new System.Drawing.Size(42, 19);
             this.metroLabel109.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel109.TabIndex = 134;
             this.metroLabel109.Text = "USB7";
@@ -2292,7 +2292,7 @@
             this.metroLabel23.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel23.Location = new System.Drawing.Point(492, 584);
             this.metroLabel23.Name = "metroLabel23";
-            this.metroLabel23.Size = new System.Drawing.Size(45, 20);
+            this.metroLabel23.Size = new System.Drawing.Size(41, 19);
             this.metroLabel23.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel23.TabIndex = 124;
             this.metroLabel23.Text = "Relay";
@@ -2304,7 +2304,7 @@
             this.metroLabel55.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel55.Location = new System.Drawing.Point(15, 431);
             this.metroLabel55.Name = "metroLabel55";
-            this.metroLabel55.Size = new System.Drawing.Size(69, 20);
+            this.metroLabel55.Size = new System.Drawing.Size(64, 19);
             this.metroLabel55.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel55.TabIndex = 3;
             this.metroLabel55.Text = "DC Logic";
@@ -2316,7 +2316,7 @@
             this.metroLabel51.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel51.Location = new System.Drawing.Point(211, 552);
             this.metroLabel51.Name = "metroLabel51";
-            this.metroLabel51.Size = new System.Drawing.Size(69, 20);
+            this.metroLabel51.Size = new System.Drawing.Size(66, 19);
             this.metroLabel51.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel51.TabIndex = 75;
             this.metroLabel51.Text = "IP Adress";
@@ -2351,7 +2351,7 @@
             this.metroLabel58.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel58.Location = new System.Drawing.Point(222, 474);
             this.metroLabel58.Name = "metroLabel58";
-            this.metroLabel58.Size = new System.Drawing.Size(85, 20);
+            this.metroLabel58.Size = new System.Drawing.Size(77, 19);
             this.metroLabel58.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel58.TabIndex = 9;
             this.metroLabel58.Text = "Relay Logic";
@@ -2385,7 +2385,7 @@
             this.metroLabel57.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel57.Location = new System.Drawing.Point(15, 473);
             this.metroLabel57.Name = "metroLabel57";
-            this.metroLabel57.Size = new System.Drawing.Size(84, 20);
+            this.metroLabel57.Size = new System.Drawing.Size(79, 19);
             this.metroLabel57.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel57.TabIndex = 5;
             this.metroLabel57.Text = "PWM Logic";
@@ -2397,7 +2397,7 @@
             this.reverse2.DisplayStatus = false;
             this.reverse2.Location = new System.Drawing.Point(344, 433);
             this.reverse2.Name = "reverse2";
-            this.reverse2.Size = new System.Drawing.Size(50, 20);
+            this.reverse2.Size = new System.Drawing.Size(50, 17);
             this.reverse2.Style = MetroFramework.MetroColorStyle.Blue;
             this.reverse2.TabIndex = 6;
             this.reverse2.Text = "Off";
@@ -2412,7 +2412,7 @@
             this.metroLabel3.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel3.Location = new System.Drawing.Point(15, 581);
             this.metroLabel3.Name = "metroLabel3";
-            this.metroLabel3.Size = new System.Drawing.Size(42, 20);
+            this.metroLabel3.Size = new System.Drawing.Size(40, 19);
             this.metroLabel3.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel3.TabIndex = 121;
             this.metroLabel3.Text = "PWD";
@@ -2424,7 +2424,7 @@
             this.reverse3.DisplayStatus = false;
             this.reverse3.Location = new System.Drawing.Point(344, 475);
             this.reverse3.Name = "reverse3";
-            this.reverse3.Size = new System.Drawing.Size(50, 20);
+            this.reverse3.Size = new System.Drawing.Size(50, 17);
             this.reverse3.Style = MetroFramework.MetroColorStyle.Blue;
             this.reverse3.TabIndex = 8;
             this.reverse3.Text = "Off";
@@ -2449,7 +2449,7 @@
             this.reverse1.DisplayStatus = false;
             this.reverse1.Location = new System.Drawing.Point(137, 474);
             this.reverse1.Name = "reverse1";
-            this.reverse1.Size = new System.Drawing.Size(50, 20);
+            this.reverse1.Size = new System.Drawing.Size(50, 17);
             this.reverse1.Style = MetroFramework.MetroColorStyle.Blue;
             this.reverse1.TabIndex = 4;
             this.reverse1.Text = "Off";
@@ -2464,7 +2464,7 @@
             this.reverse0.DisplayStatus = false;
             this.reverse0.Location = new System.Drawing.Point(137, 432);
             this.reverse0.Name = "reverse0";
-            this.reverse0.Size = new System.Drawing.Size(50, 20);
+            this.reverse0.Size = new System.Drawing.Size(50, 17);
             this.reverse0.Style = MetroFramework.MetroColorStyle.Blue;
             this.reverse0.TabIndex = 2;
             this.reverse0.Text = "Off";
@@ -2479,7 +2479,7 @@
             this.metroLabel2.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel2.Location = new System.Drawing.Point(15, 552);
             this.metroLabel2.Name = "metroLabel2";
-            this.metroLabel2.Size = new System.Drawing.Size(40, 20);
+            this.metroLabel2.Size = new System.Drawing.Size(37, 19);
             this.metroLabel2.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel2.TabIndex = 90;
             this.metroLabel2.Text = "SSID";
@@ -2491,7 +2491,7 @@
             this.metroLabel59.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel59.Location = new System.Drawing.Point(222, 432);
             this.metroLabel59.Name = "metroLabel59";
-            this.metroLabel59.Size = new System.Drawing.Size(98, 20);
+            this.metroLabel59.Size = new System.Drawing.Size(89, 19);
             this.metroLabel59.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel59.TabIndex = 7;
             this.metroLabel59.Text = "DC Rail Logic";
@@ -2547,7 +2547,7 @@
             this.metroLabel6.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel6.Location = new System.Drawing.Point(3, 18);
             this.metroLabel6.Name = "metroLabel6";
-            this.metroLabel6.Size = new System.Drawing.Size(188, 20);
+            this.metroLabel6.Size = new System.Drawing.Size(172, 19);
             this.metroLabel6.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel6.TabIndex = 104;
             this.metroLabel6.Text = "CURRENT LIMITS (Amps)";
@@ -2649,7 +2649,7 @@
             this.metroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel1.Location = new System.Drawing.Point(3, 518);
             this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(42, 20);
+            this.metroLabel1.Size = new System.Drawing.Size(38, 19);
             this.metroLabel1.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel1.TabIndex = 99;
             this.metroLabel1.Text = "WIFI";
@@ -2674,7 +2674,7 @@
             this.metroLabel82.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel82.Location = new System.Drawing.Point(492, 496);
             this.metroLabel82.Name = "metroLabel82";
-            this.metroLabel82.Size = new System.Drawing.Size(52, 20);
+            this.metroLabel82.Size = new System.Drawing.Size(51, 19);
             this.metroLabel82.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel82.TabIndex = 111;
             this.metroLabel82.Text = "PWM3";
@@ -2686,7 +2686,7 @@
             this.metroLabel83.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel83.Location = new System.Drawing.Point(492, 113);
             this.metroLabel83.Name = "metroLabel83";
-            this.metroLabel83.Size = new System.Drawing.Size(37, 20);
+            this.metroLabel83.Size = new System.Drawing.Size(36, 19);
             this.metroLabel83.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel83.TabIndex = 101;
             this.metroLabel83.Text = "DC1";
@@ -2698,7 +2698,7 @@
             this.metroLabel84.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel84.Location = new System.Drawing.Point(492, 156);
             this.metroLabel84.Name = "metroLabel84";
-            this.metroLabel84.Size = new System.Drawing.Size(37, 20);
+            this.metroLabel84.Size = new System.Drawing.Size(36, 19);
             this.metroLabel84.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel84.TabIndex = 102;
             this.metroLabel84.Text = "DC2";
@@ -2710,7 +2710,7 @@
             this.metroLabel85.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel85.Location = new System.Drawing.Point(492, 200);
             this.metroLabel85.Name = "metroLabel85";
-            this.metroLabel85.Size = new System.Drawing.Size(37, 20);
+            this.metroLabel85.Size = new System.Drawing.Size(36, 19);
             this.metroLabel85.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel85.TabIndex = 103;
             this.metroLabel85.Text = "DC3";
@@ -2722,7 +2722,7 @@
             this.metroLabel81.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel81.Location = new System.Drawing.Point(471, 18);
             this.metroLabel81.Name = "metroLabel81";
-            this.metroLabel81.Size = new System.Drawing.Size(122, 20);
+            this.metroLabel81.Size = new System.Drawing.Size(116, 19);
             this.metroLabel81.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel81.TabIndex = 97;
             this.metroLabel81.Text = "SWITCH NAMES";
@@ -2734,7 +2734,7 @@
             this.metroLabel92.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel92.Location = new System.Drawing.Point(491, 452);
             this.metroLabel92.Name = "metroLabel92";
-            this.metroLabel92.Size = new System.Drawing.Size(52, 20);
+            this.metroLabel92.Size = new System.Drawing.Size(51, 19);
             this.metroLabel92.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel92.TabIndex = 110;
             this.metroLabel92.Text = "PWM2";
@@ -2746,7 +2746,7 @@
             this.metroLabel86.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel86.Location = new System.Drawing.Point(492, 241);
             this.metroLabel86.Name = "metroLabel86";
-            this.metroLabel86.Size = new System.Drawing.Size(37, 20);
+            this.metroLabel86.Size = new System.Drawing.Size(36, 19);
             this.metroLabel86.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel86.TabIndex = 104;
             this.metroLabel86.Text = "DC4";
@@ -2758,7 +2758,7 @@
             this.metroLabel91.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel91.Location = new System.Drawing.Point(491, 412);
             this.metroLabel91.Name = "metroLabel91";
-            this.metroLabel91.Size = new System.Drawing.Size(52, 20);
+            this.metroLabel91.Size = new System.Drawing.Size(51, 19);
             this.metroLabel91.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel91.TabIndex = 109;
             this.metroLabel91.Text = "PWM1";
@@ -2770,7 +2770,7 @@
             this.metroLabel87.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel87.Location = new System.Drawing.Point(492, 282);
             this.metroLabel87.Name = "metroLabel87";
-            this.metroLabel87.Size = new System.Drawing.Size(37, 20);
+            this.metroLabel87.Size = new System.Drawing.Size(36, 19);
             this.metroLabel87.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel87.TabIndex = 105;
             this.metroLabel87.Text = "DC5";
@@ -2782,7 +2782,7 @@
             this.metroLabel80.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel80.Location = new System.Drawing.Point(3, 393);
             this.metroLabel80.Name = "metroLabel80";
-            this.metroLabel80.Size = new System.Drawing.Size(113, 20);
+            this.metroLabel80.Size = new System.Drawing.Size(108, 19);
             this.metroLabel80.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel80.TabIndex = 95;
             this.metroLabel80.Text = "SWITCH LOGIC";
@@ -2794,7 +2794,7 @@
             this.metroLabel90.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel90.Location = new System.Drawing.Point(492, 541);
             this.metroLabel90.Name = "metroLabel90";
-            this.metroLabel90.Size = new System.Drawing.Size(58, 20);
+            this.metroLabel90.Size = new System.Drawing.Size(53, 19);
             this.metroLabel90.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel90.TabIndex = 108;
             this.metroLabel90.Text = "DC Rail";
@@ -2806,7 +2806,7 @@
             this.metroLabel88.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel88.Location = new System.Drawing.Point(492, 325);
             this.metroLabel88.Name = "metroLabel88";
-            this.metroLabel88.Size = new System.Drawing.Size(37, 20);
+            this.metroLabel88.Size = new System.Drawing.Size(36, 19);
             this.metroLabel88.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel88.TabIndex = 106;
             this.metroLabel88.Text = "DC6";
@@ -2818,7 +2818,7 @@
             this.metroLabel89.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel89.Location = new System.Drawing.Point(492, 370);
             this.metroLabel89.Name = "metroLabel89";
-            this.metroLabel89.Size = new System.Drawing.Size(37, 20);
+            this.metroLabel89.Size = new System.Drawing.Size(36, 19);
             this.metroLabel89.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel89.TabIndex = 107;
             this.metroLabel89.Text = "DC7";
@@ -2870,7 +2870,7 @@
             this.metroLabel7.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel7.Location = new System.Drawing.Point(715, 37);
             this.metroLabel7.Name = "metroLabel7";
-            this.metroLabel7.Size = new System.Drawing.Size(69, 20);
+            this.metroLabel7.Size = new System.Drawing.Size(66, 19);
             this.metroLabel7.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel7.TabIndex = 77;
             this.metroLabel7.Text = "IP Adress";
@@ -2882,7 +2882,7 @@
             this.metroLabel50.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel50.Location = new System.Drawing.Point(476, 38);
             this.metroLabel50.Name = "metroLabel50";
-            this.metroLabel50.Size = new System.Drawing.Size(113, 20);
+            this.metroLabel50.Size = new System.Drawing.Size(107, 19);
             this.metroLabel50.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel50.TabIndex = 60;
             this.metroLabel50.Text = "Serial COM Port";
@@ -2945,7 +2945,7 @@
             this.vis19.Enabled = false;
             this.vis19.Location = new System.Drawing.Point(1500, 638);
             this.vis19.Name = "vis19";
-            this.vis19.Size = new System.Drawing.Size(28, 17);
+            this.vis19.Size = new System.Drawing.Size(26, 15);
             this.vis19.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis19.TabIndex = 97;
             this.vis19.Text = " ";
@@ -2959,7 +2959,7 @@
             this.vis9.Enabled = false;
             this.vis9.Location = new System.Drawing.Point(1500, 421);
             this.vis9.Name = "vis9";
-            this.vis9.Size = new System.Drawing.Size(28, 17);
+            this.vis9.Size = new System.Drawing.Size(26, 15);
             this.vis9.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis9.TabIndex = 84;
             this.vis9.Text = " ";
@@ -2988,7 +2988,7 @@
             this.vis18.Enabled = false;
             this.vis18.Location = new System.Drawing.Point(1422, 638);
             this.vis18.Name = "vis18";
-            this.vis18.Size = new System.Drawing.Size(28, 17);
+            this.vis18.Size = new System.Drawing.Size(26, 15);
             this.vis18.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis18.TabIndex = 96;
             this.vis18.Text = " ";
@@ -3002,7 +3002,7 @@
             this.vis8.Enabled = false;
             this.vis8.Location = new System.Drawing.Point(1422, 421);
             this.vis8.Name = "vis8";
-            this.vis8.Size = new System.Drawing.Size(28, 17);
+            this.vis8.Size = new System.Drawing.Size(26, 15);
             this.vis8.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis8.TabIndex = 83;
             this.vis8.Text = " ";
@@ -3016,7 +3016,7 @@
             this.vis7.Enabled = false;
             this.vis7.Location = new System.Drawing.Point(1500, 380);
             this.vis7.Name = "vis7";
-            this.vis7.Size = new System.Drawing.Size(28, 17);
+            this.vis7.Size = new System.Drawing.Size(26, 15);
             this.vis7.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis7.TabIndex = 82;
             this.vis7.Text = " ";
@@ -3031,7 +3031,7 @@
             this.metroLabel62.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel62.Location = new System.Drawing.Point(1317, 635);
             this.metroLabel62.Name = "metroLabel62";
-            this.metroLabel62.Size = new System.Drawing.Size(52, 20);
+            this.metroLabel62.Size = new System.Drawing.Size(51, 19);
             this.metroLabel62.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel62.TabIndex = 95;
             this.metroLabel62.Text = "PWM3";
@@ -3044,7 +3044,7 @@
             this.vis0.Enabled = false;
             this.vis0.Location = new System.Drawing.Point(1422, 255);
             this.vis0.Name = "vis0";
-            this.vis0.Size = new System.Drawing.Size(28, 17);
+            this.vis0.Size = new System.Drawing.Size(26, 15);
             this.vis0.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis0.TabIndex = 75;
             this.vis0.Text = " ";
@@ -3058,7 +3058,7 @@
             this.vis6.Enabled = false;
             this.vis6.Location = new System.Drawing.Point(1422, 380);
             this.vis6.Name = "vis6";
-            this.vis6.Size = new System.Drawing.Size(28, 17);
+            this.vis6.Size = new System.Drawing.Size(26, 15);
             this.vis6.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis6.TabIndex = 81;
             this.vis6.Text = " ";
@@ -3072,7 +3072,7 @@
             this.vis1.Enabled = false;
             this.vis1.Location = new System.Drawing.Point(1500, 255);
             this.vis1.Name = "vis1";
-            this.vis1.Size = new System.Drawing.Size(28, 17);
+            this.vis1.Size = new System.Drawing.Size(26, 15);
             this.vis1.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis1.TabIndex = 76;
             this.vis1.Text = " ";
@@ -3086,7 +3086,7 @@
             this.vis17.Enabled = false;
             this.vis17.Location = new System.Drawing.Point(1500, 594);
             this.vis17.Name = "vis17";
-            this.vis17.Size = new System.Drawing.Size(28, 17);
+            this.vis17.Size = new System.Drawing.Size(26, 15);
             this.vis17.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis17.TabIndex = 94;
             this.vis17.Text = " ";
@@ -3100,7 +3100,7 @@
             this.vis5.Enabled = false;
             this.vis5.Location = new System.Drawing.Point(1500, 337);
             this.vis5.Name = "vis5";
-            this.vis5.Size = new System.Drawing.Size(28, 17);
+            this.vis5.Size = new System.Drawing.Size(26, 15);
             this.vis5.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis5.TabIndex = 80;
             this.vis5.Text = " ";
@@ -3115,7 +3115,7 @@
             this.metroLabel68.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel68.Location = new System.Drawing.Point(1320, 418);
             this.metroLabel68.Name = "metroLabel68";
-            this.metroLabel68.Size = new System.Drawing.Size(37, 20);
+            this.metroLabel68.Size = new System.Drawing.Size(36, 19);
             this.metroLabel68.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel68.TabIndex = 66;
             this.metroLabel68.Text = "DC5";
@@ -3128,7 +3128,7 @@
             this.vis2.Enabled = false;
             this.vis2.Location = new System.Drawing.Point(1422, 298);
             this.vis2.Name = "vis2";
-            this.vis2.Size = new System.Drawing.Size(28, 17);
+            this.vis2.Size = new System.Drawing.Size(26, 15);
             this.vis2.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis2.TabIndex = 77;
             this.vis2.Text = " ";
@@ -3142,7 +3142,7 @@
             this.vis16.Enabled = false;
             this.vis16.Location = new System.Drawing.Point(1422, 594);
             this.vis16.Name = "vis16";
-            this.vis16.Size = new System.Drawing.Size(28, 17);
+            this.vis16.Size = new System.Drawing.Size(26, 15);
             this.vis16.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis16.TabIndex = 93;
             this.vis16.Text = " ";
@@ -3156,7 +3156,7 @@
             this.vis4.Enabled = false;
             this.vis4.Location = new System.Drawing.Point(1422, 337);
             this.vis4.Name = "vis4";
-            this.vis4.Size = new System.Drawing.Size(28, 17);
+            this.vis4.Size = new System.Drawing.Size(26, 15);
             this.vis4.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis4.TabIndex = 79;
             this.vis4.Text = " ";
@@ -3171,7 +3171,7 @@
             this.metroLabel67.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel67.Location = new System.Drawing.Point(1320, 377);
             this.metroLabel67.Name = "metroLabel67";
-            this.metroLabel67.Size = new System.Drawing.Size(37, 20);
+            this.metroLabel67.Size = new System.Drawing.Size(36, 19);
             this.metroLabel67.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel67.TabIndex = 65;
             this.metroLabel67.Text = "DC4";
@@ -3184,7 +3184,7 @@
             this.vis3.Enabled = false;
             this.vis3.Location = new System.Drawing.Point(1500, 298);
             this.vis3.Name = "vis3";
-            this.vis3.Size = new System.Drawing.Size(28, 17);
+            this.vis3.Size = new System.Drawing.Size(26, 15);
             this.vis3.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis3.TabIndex = 78;
             this.vis3.Text = " ";
@@ -3198,7 +3198,7 @@
             this.vis15.Enabled = false;
             this.vis15.Location = new System.Drawing.Point(1500, 554);
             this.vis15.Name = "vis15";
-            this.vis15.Size = new System.Drawing.Size(28, 17);
+            this.vis15.Size = new System.Drawing.Size(26, 15);
             this.vis15.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis15.TabIndex = 92;
             this.vis15.Text = " ";
@@ -3213,7 +3213,7 @@
             this.metroLabel66.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel66.Location = new System.Drawing.Point(1320, 334);
             this.metroLabel66.Name = "metroLabel66";
-            this.metroLabel66.Size = new System.Drawing.Size(37, 20);
+            this.metroLabel66.Size = new System.Drawing.Size(36, 19);
             this.metroLabel66.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel66.TabIndex = 64;
             this.metroLabel66.Text = "DC3";
@@ -3227,7 +3227,7 @@
             this.metroLabel64.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel64.Location = new System.Drawing.Point(1320, 252);
             this.metroLabel64.Name = "metroLabel64";
-            this.metroLabel64.Size = new System.Drawing.Size(37, 20);
+            this.metroLabel64.Size = new System.Drawing.Size(36, 19);
             this.metroLabel64.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel64.TabIndex = 62;
             this.metroLabel64.Text = "DC1";
@@ -3241,7 +3241,7 @@
             this.metroLabel65.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel65.Location = new System.Drawing.Point(1320, 295);
             this.metroLabel65.Name = "metroLabel65";
-            this.metroLabel65.Size = new System.Drawing.Size(37, 20);
+            this.metroLabel65.Size = new System.Drawing.Size(36, 19);
             this.metroLabel65.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel65.TabIndex = 63;
             this.metroLabel65.Text = "DC2";
@@ -3254,7 +3254,7 @@
             this.vis14.Enabled = false;
             this.vis14.Location = new System.Drawing.Point(1422, 554);
             this.vis14.Name = "vis14";
-            this.vis14.Size = new System.Drawing.Size(28, 17);
+            this.vis14.Size = new System.Drawing.Size(26, 15);
             this.vis14.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis14.TabIndex = 91;
             this.vis14.Text = " ";
@@ -3269,7 +3269,7 @@
             this.metroLabel69.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel69.Location = new System.Drawing.Point(1320, 467);
             this.metroLabel69.Name = "metroLabel69";
-            this.metroLabel69.Size = new System.Drawing.Size(37, 20);
+            this.metroLabel69.Size = new System.Drawing.Size(36, 19);
             this.metroLabel69.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel69.TabIndex = 67;
             this.metroLabel69.Text = "DC6";
@@ -3282,7 +3282,7 @@
             this.vis21.Enabled = false;
             this.vis21.Location = new System.Drawing.Point(1500, 680);
             this.vis21.Name = "vis21";
-            this.vis21.Size = new System.Drawing.Size(28, 17);
+            this.vis21.Size = new System.Drawing.Size(26, 15);
             this.vis21.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis21.TabIndex = 90;
             this.vis21.Text = " ";
@@ -3296,7 +3296,7 @@
             this.vis10.Enabled = false;
             this.vis10.Location = new System.Drawing.Point(1422, 467);
             this.vis10.Name = "vis10";
-            this.vis10.Size = new System.Drawing.Size(28, 17);
+            this.vis10.Size = new System.Drawing.Size(26, 15);
             this.vis10.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis10.TabIndex = 85;
             this.vis10.Text = " ";
@@ -3310,7 +3310,7 @@
             this.vis20.Enabled = false;
             this.vis20.Location = new System.Drawing.Point(1422, 680);
             this.vis20.Name = "vis20";
-            this.vis20.Size = new System.Drawing.Size(28, 17);
+            this.vis20.Size = new System.Drawing.Size(26, 15);
             this.vis20.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis20.TabIndex = 89;
             this.vis20.Text = " ";
@@ -3325,7 +3325,7 @@
             this.metroLabel72.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel72.Location = new System.Drawing.Point(1320, 551);
             this.metroLabel72.Name = "metroLabel72";
-            this.metroLabel72.Size = new System.Drawing.Size(52, 20);
+            this.metroLabel72.Size = new System.Drawing.Size(51, 19);
             this.metroLabel72.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel72.TabIndex = 70;
             this.metroLabel72.Text = "PWM1";
@@ -3339,7 +3339,7 @@
             this.metroLabel73.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel73.Location = new System.Drawing.Point(1320, 591);
             this.metroLabel73.Name = "metroLabel73";
-            this.metroLabel73.Size = new System.Drawing.Size(52, 20);
+            this.metroLabel73.Size = new System.Drawing.Size(51, 19);
             this.metroLabel73.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel73.TabIndex = 71;
             this.metroLabel73.Text = "PWM2";
@@ -3352,7 +3352,7 @@
             this.vis13.Enabled = false;
             this.vis13.Location = new System.Drawing.Point(1500, 508);
             this.vis13.Name = "vis13";
-            this.vis13.Size = new System.Drawing.Size(28, 17);
+            this.vis13.Size = new System.Drawing.Size(26, 15);
             this.vis13.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis13.TabIndex = 88;
             this.vis13.Text = " ";
@@ -3366,7 +3366,7 @@
             this.vis11.Enabled = false;
             this.vis11.Location = new System.Drawing.Point(1500, 467);
             this.vis11.Name = "vis11";
-            this.vis11.Size = new System.Drawing.Size(28, 17);
+            this.vis11.Size = new System.Drawing.Size(26, 15);
             this.vis11.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis11.TabIndex = 86;
             this.vis11.Text = " ";
@@ -3381,7 +3381,7 @@
             this.metroLabel70.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel70.Location = new System.Drawing.Point(1321, 508);
             this.metroLabel70.Name = "metroLabel70";
-            this.metroLabel70.Size = new System.Drawing.Size(37, 20);
+            this.metroLabel70.Size = new System.Drawing.Size(36, 19);
             this.metroLabel70.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel70.TabIndex = 68;
             this.metroLabel70.Text = "DC7";
@@ -3395,7 +3395,7 @@
             this.metroLabel71.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel71.Location = new System.Drawing.Point(1317, 677);
             this.metroLabel71.Name = "metroLabel71";
-            this.metroLabel71.Size = new System.Drawing.Size(58, 20);
+            this.metroLabel71.Size = new System.Drawing.Size(53, 19);
             this.metroLabel71.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel71.TabIndex = 69;
             this.metroLabel71.Text = "DC Rail";
@@ -3408,7 +3408,7 @@
             this.vis12.Enabled = false;
             this.vis12.Location = new System.Drawing.Point(1422, 508);
             this.vis12.Name = "vis12";
-            this.vis12.Size = new System.Drawing.Size(28, 17);
+            this.vis12.Size = new System.Drawing.Size(26, 15);
             this.vis12.Style = MetroFramework.MetroColorStyle.Blue;
             this.vis12.TabIndex = 87;
             this.vis12.Text = " ";
@@ -3423,7 +3423,7 @@
             this.metroLabel76.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel76.Location = new System.Drawing.Point(1292, 157);
             this.metroLabel76.Name = "metroLabel76";
-            this.metroLabel76.Size = new System.Drawing.Size(180, 20);
+            this.metroLabel76.Size = new System.Drawing.Size(165, 19);
             this.metroLabel76.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel76.TabIndex = 93;
             this.metroLabel76.Text = "ASCOM/INDI VISIBILITY";
@@ -3448,7 +3448,7 @@
             this.metroLabel8.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel8.Location = new System.Drawing.Point(476, 74);
             this.metroLabel8.Name = "metroLabel8";
-            this.metroLabel8.Size = new System.Drawing.Size(41, 20);
+            this.metroLabel8.Size = new System.Drawing.Size(39, 19);
             this.metroLabel8.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroLabel8.TabIndex = 77;
             this.metroLabel8.Text = "Log :";
@@ -3489,7 +3489,7 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1268, 783);
             this.ControlBox = false;
@@ -3625,15 +3625,15 @@
         private MetroFramework.Controls.MetroToggle reverse0;
         private MetroFramework.Controls.MetroPanel metroPanel1;
         private MetroFramework.Controls.MetroLabel metroLabel18;
-        private MetroFramework.Controls.MetroLabel metroLabel28;
-        private MetroFramework.Controls.MetroLabel metroLabel27;
-        private MetroFramework.Controls.MetroLabel metroLabel25;
-        private MetroFramework.Controls.MetroLabel metroLabel20;
-        private MetroFramework.Controls.MetroLabel metroLabel19;
+        private MetroFramework.Controls.MetroLabel dashdcname4;
+        private MetroFramework.Controls.MetroLabel dashdcname3;
+        private MetroFramework.Controls.MetroLabel dashdcname2;
+        private MetroFramework.Controls.MetroLabel dashdcname1;
+        private MetroFramework.Controls.MetroLabel dashdcname0;
         private MetroFramework.Controls.MetroLabel metroLabel32;
         private MetroFramework.Controls.MetroLabel metroLabel31;
-        private MetroFramework.Controls.MetroLabel metroLabel30;
-        private MetroFramework.Controls.MetroLabel metroLabel29;
+        private MetroFramework.Controls.MetroLabel dashdcname6;
+        private MetroFramework.Controls.MetroLabel dashdcname5;
         private MetroFramework.Controls.MetroLabel metroLabel33;
         private MetroFramework.Controls.MetroLabel PWM3Getlabel;
         private MetroFramework.Controls.MetroLabel PWM2Getlabel;
@@ -3646,9 +3646,9 @@
         private MetroFramework.Controls.MetroLabel metroLabel36;
         private MetroFramework.Controls.MetroLabel metroLabel37;
         private MetroFramework.Controls.MetroLabel metroLabel41;
-        private MetroFramework.Controls.MetroLabel metroLabel40;
-        private MetroFramework.Controls.MetroLabel metroLabel39;
-        private MetroFramework.Controls.MetroLabel metroLabel38;
+        private MetroFramework.Controls.MetroLabel dashpwmname2;
+        private MetroFramework.Controls.MetroLabel dashpwmname1;
+        private MetroFramework.Controls.MetroLabel dashpwmname0;
         private MetroFramework.Controls.MetroPanel metroPanel3;
         private MetroFramework.Controls.MetroLabel metroLabel42;
         private MetroFramework.Controls.MetroLabel metroLabel43;
@@ -3788,13 +3788,13 @@
         private MetroFramework.Controls.MetroToggle USB3;
         private MetroFramework.Controls.MetroToggle USB1;
         private MetroFramework.Controls.MetroToggle USB2;
-        private MetroFramework.Controls.MetroLabel metroLabel60;
-        private MetroFramework.Controls.MetroLabel metroLabel61;
-        private MetroFramework.Controls.MetroLabel metroLabel63;
-        private MetroFramework.Controls.MetroLabel metroLabel96;
-        private MetroFramework.Controls.MetroLabel metroLabel74;
-        private MetroFramework.Controls.MetroLabel metroLabel95;
-        private MetroFramework.Controls.MetroLabel metroLabel75;
+        private MetroFramework.Controls.MetroLabel dashusbname6;
+        private MetroFramework.Controls.MetroLabel dashusbname5;
+        private MetroFramework.Controls.MetroLabel dashusbname4;
+        private MetroFramework.Controls.MetroLabel dashusbname0;
+        private MetroFramework.Controls.MetroLabel dashusbname3;
+        private MetroFramework.Controls.MetroLabel dashusbname1;
+        private MetroFramework.Controls.MetroLabel dashusbname2;
         private MetroFramework.Controls.MetroTextBox name18;
         private MetroFramework.Controls.MetroTextBox name17;
         private MetroFramework.Controls.MetroTextBox name16;
