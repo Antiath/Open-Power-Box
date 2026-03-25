@@ -213,7 +213,19 @@ The choice of stackup affects the performance of the USB traces on the pcb or, m
 * The XT90 innput connector we use accepts a gauge of 10 AWG wich should be suitable for 20-30A over 1 or 2m. Flexible multistranded wire should be used here in order to avoid resistance when moving the telescope around as the powerbox would be typically put on top of the setup and its power cable would laying down to you power supply.
 * Always size the other cables appropriatly. If you expect to use the full 5A of an output, not only the gauge should be checked but also every intermediary connector, if possible, as they are very likely to not make good enough contact for this kind of stress.
 * Terminate your internal wires with ferrules when connecting to a terminal block.
-* If you need the SHT31 sensor for the automatic Dew heater deature, there is a row of of 4 holes in a corner of the pcb named SHT31. Solder a 4 slots 2.54mm terminal block or just solder your wires directly. The silkscreen indicates wich pad does what. 
+* If you need the SHT31 sensor for the automatic Dew heater deature, there is a row of of 4 holes in a corner of the pcb named SHT31. Solder a 4 slots 2.54mm terminal block or just solder your wires directly. The silkscreen indicates wich pad does what.
+* The switching of the usb ports of the hub are handled by the I/O port extender (MCP23017) of the main board. Wiring between the two boards:
+  
+| Main board | USB Hub board |
+| :---: | :---: |
+| Connector J10 | Connector J8 | 
+| GPA0 | USB-S1 |
+| GPA1 | USB-S2 |
+| GPA2 | USB-S3 |
+| GPA3 | USB-S4 |
+| GPA4 | USB-S5 |
+| GPA5 | USB-S6 |
+| GPA6 | USB-S7 |
   
 ### Extra component sourcing (if still available at the time of reading):
    * 5.5mm x 2.1mm female barrel jacks from manufacturer RUNCCI-YUN: https://www.amazon.fr/dp/B09TVDDWN2?ref=ppx_yo2ov_dt_b_fed_asin_title
