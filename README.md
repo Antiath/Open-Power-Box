@@ -81,7 +81,7 @@ Then you can try to compile. Ignore the yellow warnings, if there are no errors,
 #### Firmware Configuration
 
 The default configuration of the firmware is for a power box with 7 DC outputs, 3 PWM Dew Heaters, 1 DC bank, 1 relay, 0 USB ports and Automatic Dew heating activated.
-If you need any other configuration, you can edit the following lines in config.h:
+If you need any other configuration, you can edit the following lines in config.h. But be aware than any configuration other than default will make the webpage unusable.
 
 ```
 const short DCOutput_Num = 7;  // Number of stable 12V outputs. 
